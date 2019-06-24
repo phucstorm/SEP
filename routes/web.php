@@ -12,7 +12,7 @@ use App\Events\FormSubmitted;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Auth::routes();
