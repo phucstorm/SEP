@@ -20,15 +20,52 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
+
 </head>
 
 <body>
-    <div id="app">
-    @guest
+    <header>
+        @auth
+            <div class='navbar_info'>
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-4">
+                            <div class="user_info" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user"></i>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Edit</a>
+                                    <a class="dropdown-item" href="#">Logout</a>
+                                </div>
+                                {{Auth::user()->email}}
+                            </div>
+                            <div class="user_role">
+                                Administrator
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="search_event_form">
+                                <form action="/search" method="get">
+                                    <div>
+                                        <i class="fa fa-search"></i>
+                                        <input type="text" name="search" placeholder="search event">
+                                    </div>       
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar_select">
+                <div class="container">
+                    <ul class="links_list">
+                        <li><a href="/admin/event">Event</a></li>
+                        <li><a href="#">Analytics</a></li>
+                    </ul>
+                </div>
+            </div>
+        @else
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-    @else
-    <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
-    @endguest
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -40,15 +77,9 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                        @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
@@ -57,49 +88,18 @@
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                         @endif
-                        @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->email }} <span class="caret"></span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                    style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                        @endguest
                     </ul>
                 </div>
             </div>
         </nav>
-        @auth
-        <main class="py">
-            <ul class="nav justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('admin/event')}}">Event</a>
-                </li>               
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Analytics</a>
-                </li>
-            </ul>
-            @yield('content')
-        </main>
-        @else
-        <main class="py-4">
-            @yield('content')
-        </main>
         @endauth
-        
-    </div>
+    </header>
+
+    @yield('content')
+
+    <footer>
+        Design footer
+    </footer>
 </body>
 
 </html>
