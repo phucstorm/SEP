@@ -8,7 +8,7 @@
     <title>Laravel</title>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/index.css')}}">
     <link rel="stylesheet" href="{{ asset('css/app.css')}}">
@@ -33,10 +33,10 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Login</a>
+                            <a class="nav-link" href="#">LOG IN</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Sign Up</a>
+                            <a class="nav-link" href="#">SIGN UP</a>
                         </li>
                     </ul>
                 </div>
@@ -63,12 +63,12 @@
         <div class="row_pd row_2">
             <div class="row_col_1">
                 <div class="wrap-btn col-btn-1">
-                    <a href="#">LOG IN</a>
+                    <a href="#login-section">LOG IN</a>
                 </div>
             </div>
             <div class="row_col_2">
                 <div class="wrap-btn col-btn-2">
-                    <a href="#">SIGN UP</a>
+                    <a href="#login-section">SIGN UP</a>
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@
                         <div class="form_flex">
                             <div class="join_shape">#</div>
                             <input type="text" name="room" class="join_input" placeholder="Enter Event Code">
-                            <button type="submit" class="join_button">Join</button>
+                            <button type="submit" class="join_button">JOIN</button>
                         </div>
                     </form>
                 </div>
@@ -104,7 +104,7 @@
                         </div>
                     </div>
                     <div class="row_col_btn">
-                        <a href="">Get Start</a>
+                        <button class="btn-form" data-target="#login-section">GET START</button>
                     </div>
                 </div>
                 <div class="w-100"></div>
@@ -120,7 +120,7 @@
                         </div>
                     </div>
                     <div class="row_col_btn">
-                        <a href="">Get Start</a>
+                        <button class="btn-form">GET START</button>
                     </div>
                 </div>
                 <div class="col">
@@ -182,12 +182,12 @@
             </div>
         </div>
     </div>
-    <div class="section_3">
+    <div class="section_3" id="login-section">
         <div class="form_section row_pd">
             <div class="row" style="text-align:center;">
                 <div class="col-md-6">
                     <div class="form_container">
-                        <h1>Login</h1>
+                        <h1>Log in</h1>
                         <div class="input_placed">
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
@@ -207,13 +207,15 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                                <button type="submit" class="btn btn-primary" id="btn-decoration">
-                                    Login
-                                </button>
-                                @if (Route::has('password.request'))
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
+                                <div class="form-footer">
+                                     @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+                                    <button type="submit" class="btn-form" >
+                                        LOG IN
+                                    </button>
+                                </div>
                                 @endif
                             </form>
                         </div>
@@ -244,9 +246,11 @@
                                 <input id="password-confirm" placeholder="Confirm Password" type="password"
                                     class="form-control" name="password_confirmation" required
                                     autocomplete="new-password">
-                                <button type="submit" class="btn btn-primary" id="btn-decoration">
-                                    Register
-                                </button>
+                                <div class="form-footer">
+                                    <button type="submit" class="btn-form">
+                                        SIGN UP
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -282,39 +286,23 @@
                 </div>    
             </div>
             <div class="pages_info_social">
-                <ul class="social_list">
-                    <li>
+                <div class="social_list">
                         <a href="https://www.facebook.com/truongdaihocvanlang/" class="icons_social_fb" title="Follow on Facebook" target="_blank">
                             <span class="fa fa-facebook"></span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="https://www.youtube.com/user/truongdhvanlang" class="icons_social_yt" title="Follow on Youtube" target="_blank">
                             <span class="fa fa-youtube-play"></span>
                         </a>
-                    </li>
-                </ul>
+                </div>
             </div>
         </div>
     </div>
     <footer>
         <div class="footer_pd row_pd">
             <div class="row justify-content-between" style="text-align:center">
-                <div class="col-4">
-                    <ul class="ul-flex-decoration" style="padding: 15px 0px;">
-                        <li>Design by <strong>5Bs</strong></li>
-                        <li class="line_vertical">|</li>
-                        <li>Powered by <strong>Storm</strong> </li>
-                    </ul>
+                <div class="ul-flex-decoration">
+                    Desiged by 5Bs | Powered by Storm
                 </div>
                 <div class="col-4">
-                    <ul class="ul-flex-decoration">
-                        <li><a href="#" class="fa fa-facebook"></a></li>
-                        <li><a href="#" class="fa fa-twitter"></a></li>
-                        <li><a href="#" class="fa fa-google"></a></li>
-                        <li><a href="#" class="fa fa-youtube-play"></a></li>
-                        <li><a href="#" class="fa fa-instagram"></a></li>
-                    </ul>
                 </div>
             </div>
         </div>
