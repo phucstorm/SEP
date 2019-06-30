@@ -58,6 +58,7 @@ a:hover{
     border: 0;
     border-radius: 100px;
     padding-left: 38px;
+    outline-style:none;
 }
 .search_event_form i.fa.fa-search {
     position: absolute;
@@ -82,8 +83,71 @@ a:hover{
     display: flex;
     justify-content: space-between;
     padding-top: 5px;
+    padding-left: 10px;
 }
 
 .user_header_info {
     margin-right: 20px;
+}
+
+#create-event-btn {
+    background: #20b875;
+    color: #ffffff;
+}
+#create-event-btn:hover {
+    background: #20b875;
+    opacity: 0.8;
+}
+
+.event-container {
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    background: #ffffff;
+    padding: 20px;
+    margin-top: 10px;
+    border-radius: 3px;
+    border-bottom: 2px solid rgba(0,0,0,.1);
+    box-shadow: 0 1px 6px rgba(0,0,0,.1);
+}
+
+.event-container:hover {
+    background: #fcfcfc;
+}
+
+.event-namecode {
+    display: flex;
+}
+
+.event-container button {
+    border: none;
+}
+.event-container button:hover {
+    background: #d0d0d0;
+}
+.event-container .btn-outline-danger {
+    color: #999999;
+}
+
+
+.event-container .btn-outline-warning {
+    color: #20b875;
+}
+
+.event-container .event-name {
+    margin-right: 15px;
+    font-weight: 700;
+}
+.event-container .event-name i {
+    margin-right: 10px;
+}
+.event-container .event-code {
+    color: #999999;
+}
+
+.event-container .event-startend-date {
+    color: #aaaaaa;
+    font-size: 0.9em;
+    padding-top: 5px;
 }

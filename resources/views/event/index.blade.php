@@ -1,72 +1,44 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="table-responsive" style="padding: 0px 50px;">
-    <div style="float:right; padding: 10px 0px;">
-        <form action="/search" method="get">
-            <input type="text" name="search">
-            <button type="submit">Search</button>
-        </form>
-        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#createEvent">
-            Create Event
-        </button>
-    </div>
-
-    <table class="table table-sm table-hover table-striped table-dark" id="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">No</th>
-                <th scope="col">Event Name</th>
-                <th scope="col">Event Code</th>
-                <th scope="col">Join</th>
-                <th scope="col">Question</th>
-                <th scope="col">Reply</th>
-                <th scope="col">Start Date</th>
-                <th scope="col">End Date</th>
-                <th scope="col" width="20%">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{ csrf_field() }}
-            @foreach($event as $value)
-            <tr class="event_{{$value->id}}">
-                <th scope="row" class="demo" data-id="{{$value->id}}">{{$value->id}}</th>
-                <td>{{$value->event_name}}</td>
-                <td>{{$value->event_code}}</td>
-                @if($value->setting_join == 1)
-                    <td>Yes</td>
-                @else
-                    <td>No</td>
-                @endif
-                @if($value->setting_question == 1)
-                    <td>Yes</td>
-                @else
-                    <td>No</td>
-                @endif
-                @if($value->setting_reply == 1)
-                    <td>Yes</td>
-                @else
-                    <td>No</td>
-                @endif
-                <td>{{$value->start_date}}</td>
-                <td>{{$value->end_date}}</td>
-                <td>
-                <button type="button" class="btn btn-outline-info"><a
-                            href="/qr/{{$value->event_code}}">QR</a></button>
-                    <button type="button" class="btn btn-outline-info"><a
-                            href="event/{{$value->event_code}}">Info</a></button>
+<div class="container">
+    
+        <div style="float:right; padding: 10px 0px;">
+            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#createEvent" id="create-event-btn">
+                Create Event
+            </button>
+        </div>
+        {{ csrf_field() }}
+        @foreach($event as $value)
+        <!-- dẫn link event-container vô room -->
+        <div class="event-container">       
+                <div class="event-short-info">
+                    <div class="event-icon"></div>
+                    <div class="event-namecode">
+                        <div class="event-name"><i class="fa fa-calendar" aria-hidden="true"></i> {{$value->event_name}}</div>
+                        <div class="event-code">#{{$value->event_code}}</div>
+                    </div>
+                    <div class="event-startend-date">
+                        {{$value->start_date}} - {{$value->end_date}}
+                    </div>
+                </div>
+                <div class="event-action">
                     <button type="button" class="btn btn-outline-warning" data-id="{{$value->id}}"
                         data-name="{{$value->event_name}}" data-start="{{$value->start_date}}"
                         data-end="{{$value->end_date}}" data-join="{{$value->setting_join}}"
                         data-question="{{$value->setting_question}}" data-reply="{{$value->setting_reply}}"
-                        data-toggle="modal" data-target="#edit">Edit</button>
+                        data-toggle="modal" data-target="#edit"><i class="fa fa-edit"></i>
+                    </button>
+                    <!-- hiển thị qr code dạng modal hoặc popup -->
+                    <button type="button" class="btn btn-outline-info">
+                        <a href="/qr/{{$value->event_code}}"><i class="fa fa-qrcode"></i></a>
+                    </button>
                     <button type="button" class="btn btn-outline-danger" data-id="{{$value->id}}" data-toggle="modal"
-                        data-target="#delete">Delete</button>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+                        data-target="#delete"><i class="fa fa-trash"></i></button>
+                </div>
+        </div>
+        @endforeach
+ 
 </div>
 
 <!-- Modal For Creat Event -->
