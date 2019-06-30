@@ -28,7 +28,9 @@
     <header>
         @auth
             <div class='navbar_info'>
+                
                 <div class="container">
+                <img src="{{ asset('img/VLask-logo.png')}}" id="vlask-logo" alt="">
                     <div class="row justify-content-between">
                         <div class="user_info_container">
                             <div class=user_header_info>
