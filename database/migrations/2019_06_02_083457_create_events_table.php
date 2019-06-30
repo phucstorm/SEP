@@ -17,12 +17,16 @@ class CreateEventsTable extends Migration
             $table->bigIncrements('id');
             $table->string('event_name');
             $table->string('event_code');
-            $table->string('owner');
+            $table->string('event_link');
+            $table->string('event_description');
+            $table->string('user_id');
             $table->date('start_date');
             $table->date('end_date');
             $table->boolean('setting_join');
             $table->boolean('setting_question');
             $table->boolean('setting_reply');
+            $table->boolean('setting_moderation');
+            $table->boolean('setting_anonymous');
             $table->timestamps();
         });
     }
