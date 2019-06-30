@@ -11,11 +11,11 @@ a{
 }
 a:hover{
     text-decoration: none;
-    color: #6cb2eb;
+    color: #20b875;
 }
 
 .navbar_info{
-    background-color: #1d73ad;
+    background-color: #20b875;
     color: #fff;
 }
 
@@ -37,6 +37,53 @@ a:hover{
     padding: 10px;
 }
 
-.row .justify-content-between{
-    padding: 5px 0px;
+.user_role {
+    font-size: 0.9em;
+    color: #fafafa;
+}
+
+.links_list a:active {
+        border-bottom: 1px solid #20b875;
+        color: #20b875;
+}
+.search_event_form {
+    position: relative;
+}
+.search_event_form input {
+    color: #fff;
+    background-color: #fff;
+    background-color: hsla(0,0%,100%,.16);
+    width: 200px;
+    height: 36px;
+    border: 0;
+    border-radius: 100px;
+    padding-left: 38px;
+}
+.search_event_form i.fa.fa-search {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+.search_event_form input::placeholder {
+    color: #fafafa;
+}
+.row.justify-content-between {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.fa-cog:hover {
+    color: #aaaaaa;
+    cursor: pointer;
+}
+
+.user_info_container{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 5px;
+}
+
+.user_header_info {
+    margin-right: 20px;
 }
