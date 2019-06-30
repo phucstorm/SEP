@@ -30,29 +30,35 @@
             <div class='navbar_info'>
                 <div class="container">
                     <div class="row justify-content-between">
-                        <div class="col-4">
-                            <div class="user_info" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-user"></i>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Edit</a>
-                                    <a class="dropdown-item" href="#">Logout</a>
-                                </div>
-                                {{Auth::user()->email}}
+                        <div class="user_info_container">
+                            <div class=user_header_info>
+                                    <div class="user_info">
+                                        <i class="fa fa-user"></i>
+                                        {{Auth::user()->email}}
+                                    </div>
+                                    <div class="user_role">
+                                        Host
+                                    </div>
+
                             </div>
-                            <div class="user_role">
-                                Administrator
+                            <div class="user_setting id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-cog"></i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">Edit</a>
+                                        <a class="dropdown-item" href="#">Logout</a>
+                                    </div>
                             </div>
                         </div>
-                        <div class="col-4">
                             <div class="search_event_form">
                                 <form action="/search" method="get">
                                     <div>
                                         <i class="fa fa-search"></i>
-                                        <input type="text" name="search" placeholder="search event">
-                                    </div>       
+                                        <input type="text" name="search" placeholder="Search event...">
+                                    </div>
+     
                                 </form>
                             </div>
-                        </div>
+                    
                     </div>
                 </div>
             </div>
