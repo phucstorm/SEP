@@ -1,0 +1,225 @@
+#vlask-logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 10%;
+}
+.event-name {
+    font-size: 1.4em;
+    color: #ffffff;
+    font-weight: 700;
+}
+.event-code {
+    font-size: 0.9em;
+    color: #fafafa;
+}
+
+.switch-event {
+    color: #ffffff;
+    font-size: 1.3em;
+}
+
+.switch-event:hover {
+    cursor: pointer;
+    font-weight: 700;
+}
+.nav-item {
+    font-size: 1.2em;
+    -webkit-transition: color .3s ease;
+    -o-transition: color .3s ease;
+    transition: color .3s ease;
+    border: 0;
+    background-color: transparent;
+    color: #000;
+    color: rgba(0,0,0,.75);
+    height: 48px;
+    line-height: 48px;
+    padding: 0 20px;
+    position: relative;
+}
+
+.nav-item:hover {
+    color: #20b875;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.nav-item .is-active {
+    font-weight: 700;
+    font-size: 1.3em;
+}
+form {
+    width: 100%;
+}
+form label {
+    display: block;
+}
+#input-question {
+    transition: padding .3s,min-height .3s;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 64px;
+    min-height: 80px;
+    width: 100%;
+    border:none;
+    border-bottom: 1px solid #f0f0f0;
+    
+}
+.question-form__footer {
+    width: 100%;
+    background: #ffffff;
+    transition: max-height .3s,overflow 0s .3s,opacity .3s;
+    max-height: 65px;
+    overflow: visible;
+    opacity: 1;
+    visibility: visible;
+    padding: 20px 0px;
+    padding-right: 20px;
+    padding-left: 64px;
+    display: flex;
+    justify-content: space-between;
+}
+#input-name {
+    border: 0;
+    padding: 5px;
+    padding-left: 0;
+    margin: -5px;
+    width: 50%;
+}
+#submit-btn {
+    height: 32px;
+    line-height: 32px;
+    margin-left: 5px;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    background: #20b875;
+    box-sizing: border-box;
+    font-weight: 500;
+    color: #fff;
+    border: none!important;
+    padding: 0 15px;
+    min-width: 80px;
+    height: 34px;
+    line-height: 34px;
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 50px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 400;
+    font-size: 1.1em;
+}
+input::placeholder {
+    font-size: 1.1em;
+}
+textarea::placeholder {
+    font-size: 1.1em;
+}
+.h1-content {
+    font-size: 1.1em;
+    color: #999999;
+    padding-top: 10px;
+    display: block;
+}
+.input-group, .content-header {
+    padding: 0px 220px;
+    margin-top: 20px;
+}
+.input-group form {
+    background: #ffffff;
+    box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    border-radius: 6px;
+}
+.content-header ul {
+    list-style: none;
+}
+.content-header {
+    padding-top: 30px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    /* align-items: center; */
+    line-height: 1;
+    height: 53px;
+    width: 100%;
+    position: relative;
+}
+ul.content-nav-tabs {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    cursor: pointer;
+    
+}
+ul.content-nav-tabs:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+ul.content-nav-tabs li>button {
+    background-color: transparent;
+    padding: 13px;
+    font-size: 14px;
+    margin: 3px;
+    color: #555;
+    border: none;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+ul.content-nav-tabs li>button.is-selected {
+    font-weight: 700;
+    border-bottom: 3px solid transparent;
+    border-bottom-color: #20b875;
+    color: #20b875;
+}
+.total-question {
+    position: absolute;
+    right: 230px;
+}
+.question-list {
+    margin: 10px 220px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    border-radius: 6px;
+}
+.question-container {
+    display: flex;
+    justify-content: space-between;
+    background: #ffffff;
+    padding: 20px 40px;
+    border-bottom: 1px solid #dddddd;
+}
+.question-container:last-of-type {
+    border: none;
+}
+.question-info .question-username {
+    font-weight: 700;
+    font-size: 1.1em;
+    color: #555555;
+}
+.question-info .question-date {
+    font-size: 0.9em;
+    color: #999999;
+}
+.question-info .question-content {
+    padding-top: 20px;
+}
+.like-btn {
+    border-radius: 50px;
+    width: 50px;
+    background: #ffffff;
+    color: #888888;
+    border: 1px solid #aaaaaa;
+}
+.like-btn:hover {
+    background: #ffffff;
+    color: #20b875;
+    border: 1px solid #20b875;
+    cursor: pointer;
+}
