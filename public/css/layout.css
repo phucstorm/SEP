@@ -93,6 +93,8 @@ a:hover{
 #create-event-btn {
     background: #20b875;
     color: #ffffff;
+    border-radius: 20px;
+    padding: 5px 20px;
 }
 #create-event-btn:hover {
     background: #20b875;
@@ -150,4 +152,39 @@ a:hover{
     color: #aaaaaa;
     font-size: 0.9em;
     padding-top: 5px;
+}
+
+.navbar_select .container button {
+    -webkit-transition: color .3s ease;
+    -o-transition: color .3s ease;
+    transition: color .3s ease;
+    border: 0;
+    background-color: transparent;
+    color: #000;
+    color: rgba(0,0,0,.75);
+    height: 48px;
+    line-height: 48px;
+    padding: 0 20px;
+    position: relative;
+}
+.navbar_select .container button:hover {
+    color: #20b875;
+    cursor: pointer;
+}
+.navbar_select .container button:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.navbar_select .container button.is-active {
+    font-weight: 700;
+    color: #20b875;
+}
+.navbar_select .container button.is-active:before {
+    background: #20b875;
 }

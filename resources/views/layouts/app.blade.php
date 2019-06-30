@@ -64,10 +64,8 @@
             </div>
             <div class="navbar_select">
                 <div class="container">
-                    <ul class="links_list">
-                        <li><a href="/admin/event">Event</a></li>
-                        <li><a href="#">Analytics</a></li>
-                    </ul>
+                    <button class="is-active">Event</button>
+                    <button>Analytics</button>
                 </div>
             </div>
         @else
