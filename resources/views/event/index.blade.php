@@ -180,18 +180,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="title">Delete Event</h5>
+                <h5 class="modal-title" id="title">Event name goes here...</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Are you sure want to delete ?
+                Are you sure that you want to delete this event?
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-success" id="del">Delete</button>
+                <button type="submit" class="btn btn-danger" id="del">Delete</button>
             </div>
         </div>
     </div>
