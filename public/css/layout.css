@@ -220,6 +220,6 @@ a:hover{
 #qr-code-image {
     width: 100%;
 }
-form {
+.modal-body form {
     padding: 5%;
 }
