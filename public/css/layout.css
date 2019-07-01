@@ -139,6 +139,10 @@ a:hover{
     color: #20b875;
 }
 
+.event-container .btn-outline-info {
+    color: #000000;
+}
+
 .event-container .event-name {
     margin-right: 15px;
     font-weight: 700;
@@ -212,4 +216,10 @@ a:hover{
 }
 .form-event-optional {
     padding-right: 10%;
+}
+#qr-code-image {
+    width: 100%;
+}
+form {
+    padding: 5%;
 }

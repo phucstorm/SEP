@@ -30,8 +30,10 @@
                         data-toggle="modal" data-target="#edit"><i class="fa fa-edit"></i>
                     </button>
                     <!-- hiển thị qr code dạng modal hoặc popup -->
-                    <button type="button" class="btn btn-outline-info">
-                        <a href="/qr/{{$value->event_code}}"><i class="fa fa-qrcode"></i></a>
+                    <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#qrcode">
+                        <!-- <a href="/qr/{{$value->event_code}}"> -->
+                        <i class="fa fa-qrcode"></i>
+                    <!-- </a> -->
                     </button>
                     <button type="button" class="btn btn-outline-danger" data-id="{{$value->id}}" data-toggle="modal"
                         data-target="#delete"><i class="fa fa-trash"></i></button>
@@ -180,7 +182,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="title">Event name goes here...</h5>
+                <h4 class="modal-title" id="title">Event name goes here...</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -196,6 +198,22 @@
         </div>
     </div>
 </div>
+<!-- Modal For QR CODE Event -->
+<div class="modal fade" id="qrcode" tabindex="-1" role="dialog" aria-labelledby="qrcode" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="title">Event name goes here...</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="{{ asset('img/qr-code-image-example.png')}}" id="qr-code-image" alt="">
 
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
