@@ -135,7 +135,7 @@ a:hover{
 }
 
 
-.event-container .btn-outline-warning {
+.event-container .btn-outline-success {
     color: #20b875;
 }
 
@@ -196,4 +196,20 @@ a:hover{
     top: 10px;
     left: 10px;
     width: 10%;
+}
+
+.form-event-optional {
+    display: flex;
+    justify-content: space-between;
+}
+.form-event-optional .checkbox-label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.form-event-optional input {
+    width: 20px;
+}
+.form-event-optional {
+    padding-right: 10%;
 }

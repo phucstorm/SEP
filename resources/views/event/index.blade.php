@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="event-action">
-                    <button type="button" class="btn btn-outline-warning" data-id="{{$value->id}}"
+                    <button type="button" class="btn btn-outline-success" data-id="{{$value->id}}"
                         data-name="{{$value->event_name}}" data-start="{{$value->start_date}}"
                         data-end="{{$value->end_date}}" data-join="{{$value->setting_join}}"
                         data-question="{{$value->setting_question}}" data-reply="{{$value->setting_reply}}"
@@ -115,6 +115,18 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Event Code</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="ec" name="ec" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="event-description" name="event-description" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Start Date</label>
                         <div class="col-sm-8">
                             <input type="date" class="form-control" id="sd" name="sd" required>
@@ -126,22 +138,31 @@
                             <input type="date" class="form-control" id="ed" name="ed" required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Join</label>
-                        <div class="col-sm-2">
+                    <div class="form-event-optional">
+                        <label class="col-form-label">Options: </label>
+                        <div class="form-group row">
+                            <label for="ji" class="checkbox-label">
                             <input type="checkbox" class="form-control" id="ji" name="ji">
+                            <span>Join</span>
+                            </label>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Questions</label>
-                        <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label for="qt" class="checkbox-label">
                             <input type="checkbox" class="form-control" id="qt" name="qt">
+                            <span>Ask question</span>
+                            </label>
+                        </div>
+                        <div class="form-group row">
+                            <label for="rl" class="checkbox-label">
+                            <input type="checkbox" class="form-control" id="rl" name="rl">
+                            <span>Reply</span>
+                            </label>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Reply</label>
-                        <div class="col-sm-2">
-                            <input type="checkbox" class="form-control" id="rl" name="rl">
+                        <label class="col-sm-3 col-form-label">Link</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="event-description" name="event-description" readonly>
                         </div>
                     </div>
                 </form>
