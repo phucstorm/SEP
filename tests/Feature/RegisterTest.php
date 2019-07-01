@@ -34,7 +34,8 @@ class RegisterTest extends TestCase
         $this->assertAuthenticated();
     }
     
-    public function testUserRegisterFalse(){
+    public function testUserRegisterFalse()
+    {
         $this->assertGuest();
         $user = factory(User::class)->make();
         $response = $this->post('/register', [
