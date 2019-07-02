@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     
-        <div style="float:right; padding: 10px 0px;">
+        <div class="create-event-btn">
             <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#createEvent" id="create-event-btn">
                 Create Event
             </button>

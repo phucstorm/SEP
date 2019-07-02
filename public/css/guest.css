@@ -1,4 +1,4 @@
-#vlask-logo {
+.vlask-logo {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -246,22 +246,90 @@ ul.content-nav-tabs li>button.is-selected {
     color: #20b875;
     font-weight: 700;
 }
+
+.popular-btn .is-selected:parent:parent:parent:parent + div .question-list.popular-question {
+    display: none;
+}
+.display-none {
+    display: none;
+}
+.sidebar-navigation {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    color: #555;
+    width: 260px;
+    position: fixed;
+    z-index: 2;
+    transition: 0.5s;
+    height: 100%;
+    background: #f8fafc;
+}
+.app {
+    position: relative;
+}
+.sidebar-navigation .sidebar-nav{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    list-style: none;
+    width: 100%;
+    padding: 0 16px;
+    margin: 0;
+}
+.sidebar-navigation .sidebar-nav .nav-item {
+    width: 100%;
+    left: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+.sidebar-navigation .sidebar-nav .nav-item a {
+    color: #999999!important;
+}
+.sidebar-navigation .sidebar-nav .nav-item a:hover {
+    background: rgba(0,0,0,.1);
+}
+.sidebar-navigation div {
+    color: #999999!important;
+    margin: 0 auto;
+}
+.toggle-show {
+    display: flex;
+}
+.fa-bars {
+    display: none;
+}
+input, textarea, .like-btn, #submit-btn {
+    outline-style: none!important;
+}
+button:hover{
+    cursor: pointer;
+}
+.container {
+    position: relative;
+    z-index: 0;
+}
+@media only screen and (max-width:991px){
+    .navbar .container{
+        max-width: 600px;
+    }
+}
 @media only screen and (max-width:768px){
-    #vlask-logo {
-        width: 20%;
+    .vlask-logo {
+        display: initial;
+        position: static;
+        top: 10px;
+        right: 10px;
+        width: 30%;
+    }
+    .fa-bars {
+        display: initial;
+        color: white;
+        font-size: 30px;
     }
     .navbar .container{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        display: none;
     }
-    .navbar .container .event-name {
-        display: inline-block;
-    }
-    .navbar .container .event-code {
-        display: inline-block;
-    }
-
-    .navbar .container .justify-content-center { order: 3; }
-    .navbar .container .switch-event { order: 2; margin-top: 20px; }
 }
+
+

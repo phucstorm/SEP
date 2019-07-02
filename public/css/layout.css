@@ -34,7 +34,7 @@ a:hover{
 }
 
 .search_event_form{
-    padding: 10px;
+    padding: 10px 0;
 }
 
 .user_role {
@@ -63,7 +63,7 @@ a:hover{
 .search_event_form i.fa.fa-search {
     position: absolute;
     top: 20px;
-    left: 20px;
+    left: 10px;
 }
 .search_event_form input::placeholder {
     color: #fafafa;
@@ -71,7 +71,6 @@ a:hover{
 .row.justify-content-between {
     display: flex;
     justify-content: space-between;
-    width: 100%;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -97,6 +96,14 @@ a:hover{
     color: #ffffff;
     border-radius: 20px;
     padding: 5px 20px;
+    display: block;
+    
+}
+.create-event-btn {
+    display: flex;
+    justify-content: flex-end;
+    max-width: 900px;
+    margin: 20px auto;
 }
 #create-event-btn:hover {
     background: #20b875;
@@ -222,4 +229,14 @@ a:hover{
 }
 .modal-body form {
     padding: 5%;
+}
+.navbar_info .container{
+    max-width: 900px;
+}
+.navbar_select .container{
+    max-width: 900px;
+}
+.event-container {
+    max-width: 900px;
+    margin: 0 auto;
 }

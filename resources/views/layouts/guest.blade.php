@@ -28,7 +28,10 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm" id="attendee-navbar">
-        <img src="{{ asset('img/VLask-logo.png')}}" id="vlask-logo" alt="">
+        <div class="sidebar-toggle">
+            <i class="fa fa-bars" ></i>
+        </div>
+        <img src="{{ asset('img/VLask-logo.png')}}" class="vlask-logo" alt="">
             <div class="container">
                 <div class="event-info">
                     <div class="event-name">{{$event->event_name}}</div>
@@ -48,6 +51,22 @@
                     </button>
                 </div>
             </div>
+        </nav>
+        <nav class="sidebar-navigation">
+            <div class="event-name">{{$event->event_name}}</div>
+            <div class="event-code">#{{$event->event_code}}</div>
+            <div class="event-code">#{{$event->start_date}}</div>
+            <ul class="sidebar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" class="nav-item-link" href="" style="color: white;">Question</a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" class="nav-item-link" href="" style="color: white;">Polls</a>
+                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" class="nav-item-link" href="" style="color: white;"><i class="fa fa-exchange"></i> Switch event</a>
+                </li>
+            </ul>
         </nav>
         <main class="py">
             @yield('content')
