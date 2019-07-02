@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/guest.js') }}" defer></script>
     <!-- <script src="{{ asset('js/event.js') }}" defer></script> -->
 
     <!-- Fonts -->
@@ -26,29 +27,29 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm" id="attendee-navbar">
         <img src="{{ asset('img/VLask-logo.png')}}" id="vlask-logo" alt="">
             <div class="container">
                 <div class="event-info">
                     <div class="event-name">{{$event->event_name}}</div>
                     <div class="event-code">#{{$event->event_code}}</div>
-                </div>
-
-                
+                </div>      
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link is-active" href="" style="color: white;">QUESTIONS</a>
+                        <a class="nav-link" class="nav-item-link" href="" style="color: white;">QUESTIONS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="" style="color: white;">POLLS</a>
+                        <a class="nav-link" class="nav-item-link" href="" style="color: white;">POLLS</a>
                     </li>
                 </ul>
                 <div class="switch-event">
-                    <i class="fa fa-exchange"></i> Switch event
+                    <button>
+                        <i class="fa fa-exchange"></i> Switch event
+                    </button>
                 </div>
             </div>
         </nav>
-        <main class="py" style="padding: 0px 200px;">
+        <main class="py">
             @yield('content')
         </main>         
     </div>

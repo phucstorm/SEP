@@ -16,19 +16,29 @@
             </form>
         </div>
         <div class="content-header">
-            <ul class="content-nav-tabs">
-                <li role="presentation">
-                    <button class="is-selected">Popular</button>
-                </li> 
-            </ul>
-            <ul class="content-nav-tabs">
-                <li role="presentation">
-                    <button>Recent</button> 
-                </li> 
-            </ul>
+            <div>
+                <ul class="content-nav-tabs">
+                    <li role="presentation">
+                        <button class="content-nav-tabs-item is-selected">Popular</button>
+                    </li> 
+                </ul>
+                <ul class="content-nav-tabs">
+                    <li role="presentation">
+                        <button class="content-nav-tabs-item">Recent</button> 
+                    </li> 
+                </ul>
+            </div>
             <h1 class="h1-content total-question">3 questions</h1>
         </div>
         <div class="question-list">
+            <div class="question-container">
+                <div class="question-info">
+                    <div class="question-username"><i class="fa fa-user"></i> Name goes here...</div>
+                    <div class="question-date">Date goes here...</div>
+                    <div class="question-content">Content goes here...</div>
+                </div>
+                <div class="question-like"><button class="like-btn"><i class="fa fa-thumbs-up"></i></button></div>
+            </div>
             <div class="question-container">
                 <div class="question-info">
                     <div class="question-username"><i class="fa fa-user"></i> Name goes here...</div>

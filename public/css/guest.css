@@ -34,7 +34,7 @@
     color: rgba(0,0,0,.75);
     height: 48px;
     line-height: 48px;
-    padding: 0 20px;
+    
     position: relative;
 }
 
@@ -56,9 +56,7 @@ form label {
 }
 #input-question {
     transition: padding .3s,min-height .3s;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    padding-left: 64px;
+    padding: 5%;
     min-height: 80px;
     width: 100%;
     border:none;
@@ -69,22 +67,17 @@ form label {
     width: 100%;
     background: #ffffff;
     transition: max-height .3s,overflow 0s .3s,opacity .3s;
-    max-height: 65px;
+    max-height: 70px;
     overflow: visible;
     opacity: 1;
     visibility: visible;
-    padding: 20px 0px;
-    padding-right: 20px;
-    padding-left: 64px;
+    padding: 2% 5%;
     display: flex;
     justify-content: space-between;
 }
 #input-name {
     border: 0;
-    padding: 5px;
-    padding-left: 0;
-    margin: -5px;
-    width: 50%;
+    width: 100%;
 }
 #submit-btn {
     height: 32px;
@@ -122,8 +115,8 @@ textarea::placeholder {
     display: block;
 }
 .input-group, .content-header {
-    padding: 0px 220px;
-    margin-top: 20px;
+    margin: 20px auto;
+    max-width: 700px;
 }
 .input-group form {
     background: #ffffff;
@@ -138,6 +131,7 @@ textarea::placeholder {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    justify-content: space-between;
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
@@ -179,12 +173,9 @@ ul.content-nav-tabs li>button.is-selected {
     border-bottom-color: #20b875;
     color: #20b875;
 }
-.total-question {
-    position: absolute;
-    right: 230px;
-}
 .question-list {
-    margin: 10px 220px;
+    margin: 1% auto;
+    max-width: 700px;
     box-shadow: 0 1px 4px rgba(0,0,0,.2);
     border-radius: 6px;
 }
@@ -222,4 +213,55 @@ ul.content-nav-tabs li>button.is-selected {
     color: #20b875;
     border: 1px solid #20b875;
     cursor: pointer;
+}
+.fixtop {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+.fixtop + main {
+    padding-top: 200px;
+}
+.switch-event button {
+    background-color: hsla(0,0%,100%,.16);
+    outline-style: none;
+    border-radius: 30px;
+    padding: 5px 20px;
+    color: #ffffff;
+    border: none;
+}
+.switch-event button:hover {
+    cursor: pointer;
+}
+
+.navbar .container{
+    max-width: 700px;
+}
+.content-nav-tabs button {
+    outline-style: none;
+}
+.content-nav-tabs button:hover {
+    cursor: pointer;
+    color: #20b875;
+    font-weight: 700;
+}
+@media only screen and (max-width:768px){
+    #vlask-logo {
+        width: 20%;
+    }
+    .navbar .container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .navbar .container .event-name {
+        display: inline-block;
+    }
+    .navbar .container .event-code {
+        display: inline-block;
+    }
+
+    .navbar .container .justify-content-center { order: 3; }
+    .navbar .container .switch-event { order: 2; margin-top: 20px; }
 }
