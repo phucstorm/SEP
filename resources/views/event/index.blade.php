@@ -23,20 +23,26 @@
                     </div>
                 </div>
                 <div class="event-action">
-                    <button type="button" class="btn btn-outline-success" data-id="{{$value->id}}"
+                    <button type="button" class="btn btn-outline-success desktop-btn" data-id="{{$value->id}}"
                         data-name="{{$value->event_name}}" data-start="{{$value->start_date}}"
                         data-end="{{$value->end_date}}" data-join="{{$value->setting_join}}"
                         data-question="{{$value->setting_question}}" data-reply="{{$value->setting_reply}}"
                         data-toggle="modal" data-target="#edit"><i class="fa fa-edit"></i>
                     </button>
                     <!-- hiển thị qr code dạng modal hoặc popup -->
-                    <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#qrcode">
+                    <button type="button" class="btn btn-outline-info desktop-btn" data-toggle="modal" data-target="#qrcode">
                         <!-- <a href="/qr/{{$value->event_code}}"> -->
                         <i class="fa fa-qrcode"></i>
                     <!-- </a> -->
                     </button>
-                    <button type="button" class="btn btn-outline-danger" data-id="{{$value->id}}" data-toggle="modal"
+                    <button type="button" class="btn btn-outline-danger desktop-btn" data-id="{{$value->id}}" data-toggle="modal"
                         data-target="#delete"><i class="fa fa-trash"></i></button>
+                    <i class="fa fa-ellipsis-v toggle-action"></i>
+                    <ul class="event-action-mobile">
+                        <li>QR Code</li>
+                        <li>Edit</li>
+                        <li>Delete</li>
+                    </ul>
                 </div>
         </div>
         @endforeach

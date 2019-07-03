@@ -6761,7 +6761,7 @@ button.bg-dark:hover {
 }
 
 .justify-content-between {
-    justify-content: space-between !important
+    justify-content: space-between;
 }
 
 .justify-content-around {

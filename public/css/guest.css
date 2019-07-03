@@ -286,7 +286,7 @@ ul.content-nav-tabs li>button.is-selected {
 .sidebar-navigation .sidebar-nav .nav-item a {
     color: #999999!important;
 }
-.sidebar-navigation .sidebar-nav .nav-item a:hover {
+.sidebar-navigation .sidebar-nav .nav-item:hover {
     background: rgba(0,0,0,.1);
 }
 .sidebar-navigation div {
@@ -326,6 +326,9 @@ button:hover{
         display: initial;
         color: white;
         font-size: 30px;
+    }
+    .fa-bars:hover {
+        cursor: pointer;
     }
     .navbar .container{
         display: none;

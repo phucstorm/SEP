@@ -202,7 +202,7 @@ a:hover{
     background: #20b875;
 }
 
-#vlask-logo {
+.vlask-logo {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -239,4 +239,141 @@ a:hover{
 .event-container {
     max-width: 900px;
     margin: 0 auto;
+}
+.sidebar-navigation {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    color: #555;
+    width: 260px;
+    position: fixed;
+    z-index: 2;
+    transition: 0.5s;
+    height: 100%;
+    background: #f8fafc;
+}
+.app {
+    position: relative;
+}
+.sidebar-navigation .sidebar-nav{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    list-style: none;
+    width: 100%;
+    padding: 0 16px;
+    margin: 0;
+}
+.sidebar-navigation .sidebar-nav .nav-item {
+    width: 100%;
+    left: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+.sidebar-navigation .sidebar-nav .nav-item a {
+    color: #999999!important;
+}
+.sidebar-navigation .sidebar-nav .nav-item a:hover {
+    background: rgba(0,0,0,.1);
+}
+.sidebar-navigation div {
+    color: #999999!important;
+    margin: 0 auto;
+}
+.toggle-show {
+    display: flex!important;
+}
+.fa-bars {
+    display: none;
+}
+.event-action-mobile {
+    display: none;
+    flex-direction: column;
+    background: #fafafa;
+    box-shadow: 0 0 4px 2px rgb(0,0,0,0.1);
+    padding: 0;
+    position: absolute;
+    z-index: 2;
+    top: 40px;
+    right: 40px;
+}
+.event-action-mobile li {
+    border-top: 1px solid rgba(0,0,0,.1);
+    padding: 10px 40px;
+}
+.toggle-action {
+    display: none;
+    position: absolute;
+    background: #ffffff;
+    margin: auto;
+    right: 20px;
+}
+.event-container {
+    position: relative;
+}
+footer {
+    position: absolute;
+    bottom: 10px;
+    left: 100px;
+    font-weight: 700;
+    color: #555;
+}
+@media only screen and (max-width:1200px){
+    .navbar_info .container{
+        max-width: 600px;
+    }
+   .container{
+        max-width: 600px;
+    }
+    .desktop-btn {
+        display: none;
+    }
+    .toggle-action {
+        display: initial;
+    }
+
+}
+@media only screen and (max-width:768px){
+    .vlask-logo {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 130px;
+        margin: 0 auto;
+    }
+    .fa-bars {
+        display: initial;
+        color: white;
+        font-size: 30px;
+    }
+    .sidebar-toggle {
+        display: inline;
+        padding-top: 10px;
+    }
+    .user_info_container{
+        display: none;
+    }
+    .navbar_info {
+        display: flex;
+        padding: 0 20px;
+    }
+    .row.justify-content-between {
+        justify-content: flex-end;
+    }
+    .search_event_form {
+        padding: 0;
+    }
+    .search_event_form i.fa.fa-search {
+        top:10px;
+    }
+
+}
+@media only screen and (max-width:575px) {
+    .search_event_form input{
+        display: none;
+    }
+    .search_event_form i.fa.fa-search {
+        position: static;
+    }
+
 }

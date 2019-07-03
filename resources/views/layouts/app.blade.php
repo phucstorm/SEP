@@ -13,6 +13,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/event.js') }}" defer></script>
+    <script src="{{ asset('js/layout.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -28,7 +29,10 @@
     <header>
         @auth
             <div class='navbar_info'>
-                <img src="{{ asset('img/VLask-logo.png')}}" id="vlask-logo" alt="">
+                <div class="sidebar-toggle">
+                    <i class="fa fa-bars" ></i>
+                </div>
+                <img src="{{ asset('img/VLask-logo.png')}}" class="vlask-logo" alt="">
                 <div class="container">
                     <div class="row justify-content-between">
                         <div class="user_info_container">
@@ -50,19 +54,35 @@
                                     </div>
                             </div>
                         </div>
-                            <div class="search_event_form">
-                                <form action="/search" method="get">
-                                    <div>
-                                        <i class="fa fa-search"></i>
-                                        <input type="text" name="search" placeholder="Search event...">
-                                    </div>
-     
-                                </form>
-                            </div>
-                    
+                        <div class="search_event_form">
+                            <form action="/search" method="get">
+                                <div>
+                                    <i class="fa fa-search"></i>
+                                    <input type="text" name="search" placeholder="Search event...">
+                                </div>
+    
+                            </form>
+                        </div>                   
                     </div>
                 </div>
             </div>
+            <nav class="sidebar-navigation">
+                <div class="user_info">
+                    <i class="fa fa-user"></i>
+                    {{Auth::user()->email}}
+                </div>
+                <div class="user_role">
+                    Host
+                </div>
+                <ul class="sidebar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" class="nav-item-link" href="" style="color: white;">Edit</a>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link" class="nav-item-link" href="" style="color: white;">Log out</a>
+                        </li>
+                </ul>
+            </nav>
             <div class="navbar_select">
                 <div class="container">
                     <button class="is-active">Event</button>
@@ -103,7 +123,7 @@
     @yield('content')
 
     <footer>
-        Design footer
+        Design by 5Bs
     </footer>
 </body>
 
