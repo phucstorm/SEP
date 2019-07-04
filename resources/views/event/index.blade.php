@@ -37,7 +37,7 @@
                     </button>
                     <button type="button" class="btn btn-outline-danger desktop-btn" data-id="{{$value->id}}" data-toggle="modal"
                         data-target="#delete"><i class="fa fa-trash"></i></button>
-                    <i class="fa fa-ellipsis-v toggle-action"></i>
+                    <button class="toggle-action"><i class="fa fa-ellipsis-v"></i></button>
                     <ul class="event-action-mobile">
                         <li>QR Code</li>
                         <li>Edit</li>
