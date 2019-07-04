@@ -1,9 +1,9 @@
 function classToggle() {
-   const navs = document.querySelectorAll('.sidebar-navigation');
-    
+    const navs = document.querySelectorAll('.sidebar-navigation');
+
     navs.forEach(nav => nav.classList.toggle('toggle-show'));
-  }
-  
+}
+
 document.querySelector('.sidebar-toggle').addEventListener('click', classToggle);
 
 // function toggleAction() {
@@ -12,6 +12,13 @@ document.querySelector('.sidebar-toggle').addEventListener('click', classToggle)
 // }
 
 // document.querySelector('.toggle-action').addEventListener('click',toggleAction);
-$(".toggle-action").click(function(){
-  $(this).next().toggleClass('toggle-show');
+$(".toggle-action").click(function() {
+    $(".event-action-mobile").removeClass('toggle-show');
+    $(this).next().addClass('toggle-show');
 })
+$(document).mouseup(function(e) {
+    var container = $(".event-action-mobile");
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+        container.removeClass('toggle-show');
+    }
+});

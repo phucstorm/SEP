@@ -85,7 +85,7 @@
             </nav>
             <div class="navbar_select">
                 <div class="container">
-                    <button class="is-active">Event</button>
+                    <button class="is-active"><a href="/admin/event">Event</a></button>
                     <button>Analytics</button>
                 </div>
             </div>

@@ -1,39 +1,43 @@
-body{
+body {
     font-size: 16px;
-    font-family: 'Muli','Helvetical', sans-serif;
+    font-family: 'Muli', 'Helvetical', sans-serif;
     line-height: 1.7;
 }
-ul{
+
+ul {
     list-style: none;
 }
-a{
+
+a {
     color: #000;
 }
-a:hover{
+
+a:hover {
     text-decoration: none;
     color: #20b875;
 }
 
-.navbar_info{
+.navbar_info {
     background-color: #20b875;
     color: #fff;
 }
 
-.navbar_select{
+.navbar_select {
     color: #6cb2eb;
     background: #fff;
     box-shadow: 0px 2px #6c757d6b;
 }
-.navbar_select ul{
+
+.navbar_select ul {
     display: flex;
     padding: 10px 0px;
 }
 
-.navbar_select ul li{
+.navbar_select ul li {
     padding-right: 5em;
 }
 
-.search_event_form{
+.search_event_form {
     padding: 10px 0;
 }
 
@@ -43,31 +47,36 @@ a:hover{
 }
 
 .links_list a:active {
-        border-bottom: 1px solid #20b875;
-        color: #20b875;
+    border-bottom: 1px solid #20b875;
+    color: #20b875;
 }
+
 .search_event_form {
     position: relative;
 }
+
 .search_event_form input {
     color: #fff;
     background-color: #fff;
-    background-color: hsla(0,0%,100%,.16);
+    background-color: hsla(0, 0%, 100%, .16);
     width: 200px;
     height: 36px;
     border: 0;
     border-radius: 100px;
     padding-left: 38px;
-    outline-style:none;
+    outline-style: none;
 }
+
 .search_event_form i.fa.fa-search {
     position: absolute;
     top: 20px;
     left: 10px;
 }
+
 .search_event_form input::placeholder {
     color: #fafafa;
 }
+
 .row.justify-content-between {
     display: flex;
     justify-content: space-between;
@@ -80,7 +89,7 @@ a:hover{
     cursor: pointer;
 }
 
-.user_info_container{
+.user_info_container {
     display: flex;
     justify-content: space-between;
     padding-top: 5px;
@@ -97,14 +106,15 @@ a:hover{
     border-radius: 20px;
     padding: 5px 20px;
     display: block;
-    
 }
+
 .create-event-btn {
     display: flex;
     justify-content: flex-end;
     max-width: 900px;
     margin: 20px auto;
 }
+
 #create-event-btn:hover {
     background: #20b875;
     opacity: 0.8;
@@ -119,8 +129,8 @@ a:hover{
     padding: 20px;
     margin-top: 10px;
     border-radius: 3px;
-    border-bottom: 2px solid rgba(0,0,0,.1);
-    box-shadow: 0 1px 6px rgba(0,0,0,.1);
+    border-bottom: 2px solid rgba(0, 0, 0, .1);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .1);
 }
 
 .event-container:hover {
@@ -134,13 +144,14 @@ a:hover{
 .event-container button {
     border: none;
 }
+
 .event-container button:hover {
     background: #d0d0d0;
 }
+
 .event-container .btn-outline-danger {
     color: #999999;
 }
-
 
 .event-container .btn-outline-success {
     color: #20b875;
@@ -154,9 +165,11 @@ a:hover{
     margin-right: 15px;
     font-weight: 700;
 }
+
 .event-container .event-name i {
     margin-right: 10px;
 }
+
 .event-container .event-code {
     color: #999999;
 }
@@ -174,16 +187,18 @@ a:hover{
     border: 0;
     background-color: transparent;
     color: #000;
-    color: rgba(0,0,0,.75);
+    color: rgba(0, 0, 0, .75);
     height: 48px;
     line-height: 48px;
     padding: 0 20px;
     position: relative;
 }
+
 .navbar_select .container button:hover {
     color: #20b875;
     cursor: pointer;
 }
+
 .navbar_select .container button:before {
     content: "";
     position: absolute;
@@ -194,10 +209,12 @@ a:hover{
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
+
 .navbar_select .container button.is-active {
     font-weight: 700;
     color: #20b875;
 }
+
 .navbar_select .container button.is-active:before {
     background: #20b875;
 }
@@ -213,33 +230,42 @@ a:hover{
     display: flex;
     justify-content: space-between;
 }
+
 .form-event-optional .checkbox-label {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
+
 .form-event-optional input {
     width: 20px;
 }
+
 .form-event-optional {
     padding-right: 10%;
 }
+
 #qr-code-image {
     width: 100%;
 }
+
 .modal-body form {
     padding: 5%;
 }
-.navbar_info .container{
+
+.navbar_info .container {
     max-width: 900px;
 }
-.navbar_select .container{
+
+.navbar_select .container {
     max-width: 900px;
 }
+
 .event-container {
     max-width: 900px;
     margin: 0 auto;
 }
+
 .sidebar-navigation {
     display: none;
     flex-direction: column;
@@ -252,10 +278,12 @@ a:hover{
     height: 100%;
     background: #f8fafc;
 }
+
 .app {
     position: relative;
 }
-.sidebar-navigation .sidebar-nav{
+
+.sidebar-navigation .sidebar-nav {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -265,42 +293,51 @@ a:hover{
     padding: 0 16px;
     margin: 0;
 }
+
 .sidebar-navigation .sidebar-nav .nav-item {
     width: 100%;
     left: 0;
-    border-top: 1px solid rgba(0,0,0,.1);
+    border-top: 1px solid rgba(0, 0, 0, .1);
 }
+
 .sidebar-navigation .sidebar-nav .nav-item a {
     color: #999999!important;
 }
+
 .sidebar-navigation .sidebar-nav .nav-item a:hover {
-    background: rgba(0,0,0,.1);
+    background: rgba(0, 0, 0, .1);
 }
+
 .sidebar-navigation div {
     color: #999999!important;
     margin: 0 auto;
 }
+
 .toggle-show {
     display: flex!important;
 }
+
 .fa-bars {
     display: none;
 }
+
 .event-action-mobile {
     display: none;
     flex-direction: column;
     background: #fafafa;
-    box-shadow: 0 0 4px 2px rgb(0,0,0,0.1);
+    box-shadow: 0 0 4px 2px rgb(0, 0, 0, 0.1);
     padding: 0;
     position: absolute;
     z-index: 2;
     top: 40px;
     right: 40px;
 }
+
 .event-action-mobile li {
-    border-top: 1px solid rgba(0,0,0,.1);
+    border-top: 1px solid rgba(0, 0, 0, .1);
     padding: 10px 40px;
 }
+
 .toggle-action {
     display: none;
     position: absolute;
@@ -308,21 +345,22 @@ a:hover{
     margin: auto;
     right: 20px;
 }
+
 .event-container {
     position: relative;
 }
+
 footer {
-    position: absolute;
-    bottom: 10px;
     left: 100px;
     font-weight: 700;
     color: #555;
 }
-@media only screen and (max-width:1200px){
-    .navbar_info .container{
+
+@media only screen and (max-width:1200px) {
+    .navbar_info .container {
         max-width: 600px;
     }
-   .container{
+    .container {
         max-width: 600px;
     }
     .desktop-btn {
@@ -331,9 +369,9 @@ footer {
     .toggle-action {
         display: initial;
     }
-
 }
-@media only screen and (max-width:768px){
+
+@media only screen and (max-width:768px) {
     .vlask-logo {
         position: absolute;
         top: 0;
@@ -350,7 +388,7 @@ footer {
         display: inline;
         padding-top: 10px;
     }
-    .user_info_container{
+    .user_info_container {
         display: none;
     }
     .navbar_info {
@@ -364,16 +402,15 @@ footer {
         padding: 0;
     }
     .search_event_form i.fa.fa-search {
-        top:10px;
+        top: 10px;
     }
-
 }
+
 @media only screen and (max-width:575px) {
-    .search_event_form input{
+    .search_event_form input {
         display: none;
     }
     .search_event_form i.fa.fa-search {
         position: static;
     }
-
 }
