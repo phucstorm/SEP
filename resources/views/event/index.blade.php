@@ -23,21 +23,18 @@
                     </div>
                 </div>
                 <div class="event-action">
-                    <button type="button" class="btn btn-outline-success desktop-btn" data-id="{{$value->id}}"
-                        data-name="{{$value->event_name}}" data-start="{{$value->start_date}}"
-                        data-end="{{$value->end_date}}" data-join="{{$value->setting_join}}"
-                        data-question="{{$value->setting_question}}" data-reply="{{$value->setting_reply}}"
+                    <button type="button" class="btn btn-outline-success desktop-btn" 
+                        data-id="{{$value->id}}" data-code="{{$value->event_code}}"
+                        data-name="{{$value->event_name}}" data-description="{{$value->event_description}}"
+                        data-link="{{$value->event_link}}" data-mod="{{$value->setting_moderation}}"
+                        data-start="{{$value->start_date}}" data-end="{{$value->end_date}}" 
+                        data-join="{{$value->setting_join}}" data-question="{{$value->setting_question}}" 
+                        data-reply="{{$value->setting_reply}}" data-anonymous="{{$value->setting_anonymous}}"
                         data-toggle="modal" data-target="#edit"><i class="fa fa-edit"></i>
-                    </button>
-                    <!-- hiển thị qr code dạng modal hoặc popup -->
-                    <button type="button" class="btn btn-outline-info desktop-btn" data-toggle="modal" data-target="#qrcode">
-                        <!-- <a href="/qr/{{$value->event_code}}"> -->
-                        <i class="fa fa-qrcode"></i>
-                    <!-- </a> -->
                     </button>
                     <button type="button" class="btn btn-outline-danger desktop-btn" data-id="{{$value->id}}" data-toggle="modal"
                         data-target="#delete"><i class="fa fa-trash"></i></button>
-                    <button class="toggle-action"><i class="fa fa-ellipsis-v"></i></button>
+                    <i class="fa fa-ellipsis-v toggle-action"></i>
                     <ul class="event-action-mobile">
                         <li>QR Code</li>
                         <li>Edit</li>
@@ -76,6 +73,13 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="event_description" name="event_description"
+                                placeholder="Write desciption here" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Start Date</label>
                         <div class="col-sm-8">
                             <input type="date" class="form-control" id="start_date" name="start_date" required>
@@ -110,12 +114,12 @@
             </div>
             <div class="modal-body">
                 <form role="form" method="post">
-                    <div class="form-group row" hidden>
+                    <!-- <div class="form-group row" hidden>
                         <label class="col-sm-3 col-form-label">ID</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="ei" name="ei">
                         </div>
-                    </div>
+                    </div> -->
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Event Name</label>
                         <div class="col-sm-8">
@@ -131,7 +135,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Description</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="event-description" name="event-description" required>
+                            <input type="text" class="form-control" id="ds" name="ds" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -166,11 +170,23 @@
                             <span>Reply</span>
                             </label>
                         </div>
+                        <div class="form-group row">
+                            <label for="rl" class="checkbox-label">
+                            <input type="checkbox" class="form-control" id="md" name="md">
+                            <span>Moderation</span>
+                            </label>
+                        </div>
+                        <div class="form-group row">
+                            <label for="rl" class="checkbox-label">
+                            <input type="checkbox" class="form-control" id="an" name="an">
+                            <span>Anonymous</span>
+                            </label>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Link</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="event-description" name="event-description" readonly>
+                            <input type="text" class="form-control" id="li" name="li" readonly>
                         </div>
                     </div>
                 </form>
@@ -188,7 +204,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="title">Event name goes here...</h5>
+                <h4 class="modal-title" id="delete_title">Warning !!!</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -204,22 +220,6 @@
         </div>
     </div>
 </div>
-<!-- Modal For QR CODE Event -->
-<div class="modal fade" id="qrcode" tabindex="-1" role="dialog" aria-labelledby="qrcode" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="title">Event name goes here...</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <img src="{{ asset('img/qr-code-image-example.png')}}" id="qr-code-image" alt="">
 
-            </div>
-        </div>
-    </div>
-</div>
 
 @endsection

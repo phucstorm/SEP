@@ -26,11 +26,12 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm" id="attendee-navbar">
-            <div class="sidebar-toggle">
-                <i class="fa fa-bars" ></i>
-            </div>
-            <img src="{{ asset('img/VLask-logo.png')}}" class="vlask-logo" alt="">
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm" id="attendee-navbar">
+        <div class="sidebar-toggle">
+            <i class="fa fa-bars" ></i>
+        </div>
+        <img src="{{ asset('img/VLask-logo.png')}}" class="vlask-logo" alt="">
             <div class="container">
                 <div class="event-info">
                     <div class="event-name">{{$event->event_name}}</div>
@@ -67,8 +68,6 @@
                 </li>
             </ul>
         </nav>
-    <div id="app">
-
         <main class="py">
             @yield('content')
         </main>         
