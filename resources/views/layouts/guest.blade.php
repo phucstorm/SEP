@@ -12,36 +12,65 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/guest.js') }}" defer></script>
     <!-- <script src="{{ asset('js/event.js') }}" defer></script> -->
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/guest.css') }}" rel="stylesheet">
 </head>
 
 <body>
     <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
-        <div class="container">
-            
-            <a href="" class="navbar-brand">{{$event->event_name}}</a>
-            <ul class="nav justify-content-center">
+        <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm" id="attendee-navbar">
+        <div class="sidebar-toggle">
+            <i class="fa fa-bars" ></i>
+        </div>
+        <img src="{{ asset('img/VLask-logo.png')}}" class="vlask-logo" alt="">
+            <div class="container">
+                <div class="event-info">
+                    <div class="event-name">{{$event->event_name}}</div>
+                    <div class="event-code">#{{$event->event_code}}</div>
+                </div>      
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link" class="nav-item-link" href="" style="color: white;">QUESTIONS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" class="nav-item-link" href="" style="color: white;">POLLS</a>
+                    </li>
+                </ul>
+                <div class="switch-event">
+                    <button>
+                        <i class="fa fa-exchange"></i> Switch event
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <nav class="sidebar-navigation">
+            <div class="event-name">{{$event->event_name}}</div>
+            <div class="event-code">#{{$event->event_code}}</div>
+            <div class="event-code">#{{$event->start_date}}</div>
+            <ul class="sidebar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="" style="color: white;">Question</a>
+                    <a class="nav-link" class="nav-item-link" href="" style="color: white;">Question</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="" style="color: white;">Poll</a>
+                        <a class="nav-link" class="nav-item-link" href="" style="color: white;">Polls</a>
+                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" class="nav-item-link" href="" style="color: white;"><i class="fa fa-exchange"></i> Switch event</a>
                 </li>
             </ul>
-        </div>
-    </nav>
-    <main class="py" style="padding: 0px 200px;">
-        @yield('content')
-    </main>  
-        
+        </nav>
+        <main class="py">
+            @yield('content')
+        </main>         
     </div>
 </body>
 

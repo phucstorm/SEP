@@ -13,12 +13,12 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/event.js') }}" defer></script>
+    <script src="{{ asset('js/layout.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
@@ -28,57 +28,67 @@
 <body>
     <header>
         @auth
-        <div class='navbar_info'>
-            <div class="container">
-                <div class="row justify-content-between">
-                    <div class="user_info_container">
-                        <div class=user_header_info>
-                            <div class="user_info">
-                                <i class="fa fa-user"></i>
-                                {{Auth::user()->email}}
-                            </div>
-                            <div class="user_role">
-                                Host
-                            </div>
+            <div class='navbar_info'>
+                <div class="sidebar-toggle">
+                    <i class="fa fa-bars" ></i>
+                </div>
+                <img src="{{ asset('img/VLask-logo.png')}}" class="vlask-logo" alt="">
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="user_info_container">
+                            <div class=user_header_info>
+                                    <div class="user_info">
+                                        <i class="fa fa-user"></i>
+                                        {{Auth::user()->email}}
+                                    </div>
+                                    <div class="user_role">
+                                        Host
+                                    </div>
 
-                        </div>
-                        <div class="user_setting" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <i class="fa fa-cog"></i>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Edit</a>
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                    style="display: none;">
-                                    @csrf
-                                </form>
+                            </div>
+                            <div class="user_setting id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-cog"></i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">Edit</a>
+                                        <a class="dropdown-item" href="#">Logout</a>
+                                    </div>
                             </div>
                         </div>
+                        <div class="search_event_form">
+                            <form action="/search" method="get">
+                                <div>
+                                    <i class="fa fa-search"></i>
+                                    <input type="text" name="search" placeholder="Search event...">
+                                </div>
+    
+                            </form>
+                        </div>                   
                     </div>
-                    <div class="search_event_form">
-                        <form action="/search" method="get">
-                            <div>
-                                <i class="fa fa-search"></i>
-                                <input type="text" name="search" placeholder="Search event...">
-                            </div>
-
-                        </form>
-                    </div>
-
                 </div>
             </div>
-        </div>
-        <div class="navbar_select">
-            <div class="container">
-                <ul class="links_list">
-                    <li><a href="/admin/event">Event</a></li>
-                    <li><a href="#">Analytics</a></li>
+            <nav class="sidebar-navigation">
+                <div class="user_info">
+                    <i class="fa fa-user"></i>
+                    {{Auth::user()->email}}
+                </div>
+                <div class="user_role">
+                    Host
+                </div>
+                <ul class="sidebar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" class="nav-item-link" href="" style="color: white;">Edit</a>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link" class="nav-item-link" href="" style="color: white;">Log out</a>
+                        </li>
                 </ul>
+            </nav>
+            <div class="navbar_select">
+                <div class="container">
+                    <button class="is-active">Event</button>
+                    <button>Analytics</button>
+                </div>
             </div>
-        </div>
         @else
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -113,7 +123,7 @@
     @yield('content')
 
     <footer>
-        Design footer
+        Design by 5Bs
     </footer>
 </body>
 
