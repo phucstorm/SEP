@@ -12,35 +12,56 @@
         @foreach($event as $value)
         <!-- dẫn link event-container vô room -->
         <div class="event-container">       
-                <div class="event-short-info">
-                    <div class="event-icon"></div>
-                    <div class="event-namecode">
-                        <div class="event-name"><i class="fa fa-calendar" aria-hidden="true"></i> {{$value->event_name}}</div>
-                        <div class="event-code">#{{$value->event_code}}</div>
-                    </div>
-                    <div class="event-startend-date">
-                        {{$value->start_date}} - {{$value->end_date}}
+            <div class="event-short-info">
+                <div class="event-icon"></div>
+                <div class="event-namecode">
+                    <div class="event-name"><i class="fa fa-calendar" aria-hidden="true"></i> {{$value->event_name}}</div>
+                    <div class="event-code">#{{$value->event_code}}</div>
+                </div>
+                <div class="event-startend-date">
+                    {{$value->start_date}} - {{$value->end_date}}
+                </div>
+            </div>
+            <div class="event-action">
+                <button type="button" class="btn btn-outline-success desktop-btn" 
+                    data-id="{{$value->id}}" data-code="{{$value->event_code}}"
+                    data-name="{{$value->event_name}}" data-description="{{$value->event_description}}"
+                    data-link="{{$value->event_link}}" data-mod="{{$value->setting_moderation}}"
+                    data-start="{{$value->start_date}}" data-end="{{$value->end_date}}" 
+                    data-join="{{$value->setting_join}}" data-question="{{$value->setting_question}}" 
+                    data-reply="{{$value->setting_reply}}" data-anonymous="{{$value->setting_anonymous}}"
+                    data-toggle="modal" data-target="#edit"><i class="fa fa-edit"></i>
+                </button>
+                <button type="button" class="btn btn-outline-info desktop-btn qr-btn" data-toggle="modal" data-target="this .qrcode">
+                    <!-- <a href="/qr/{{$value->event_code}}"> -->
+                    <i class="fa fa-qrcode"></i>
+                <!-- </a> -->
+                </button>
+                <button type="button" class="btn btn-outline-danger desktop-btn" data-id="{{$value->id}}" data-toggle="modal"
+                    data-target="#delete"><i class="fa fa-trash"></i></button>
+                <i class="fa fa-ellipsis-v toggle-action"></i>
+                <ul class="event-action-mobile">
+                    <li>QR Code</li>
+                    <li>Edit</li>
+                    <li>Delete</li>
+                </ul>
+            </div>
+            <div class="modal fade qrcode" tabindex="-1" role="dialog" aria-labelledby="qrcode" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="title">Event name goes here...</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            Qr code đây
+                        </div>
                     </div>
                 </div>
-                <div class="event-action">
-                    <button type="button" class="btn btn-outline-success desktop-btn" 
-                        data-id="{{$value->id}}" data-code="{{$value->event_code}}"
-                        data-name="{{$value->event_name}}" data-description="{{$value->event_description}}"
-                        data-link="{{$value->event_link}}" data-mod="{{$value->setting_moderation}}"
-                        data-start="{{$value->start_date}}" data-end="{{$value->end_date}}" 
-                        data-join="{{$value->setting_join}}" data-question="{{$value->setting_question}}" 
-                        data-reply="{{$value->setting_reply}}" data-anonymous="{{$value->setting_anonymous}}"
-                        data-toggle="modal" data-target="#edit"><i class="fa fa-edit"></i>
-                    </button>
-                    <button type="button" class="btn btn-outline-danger desktop-btn" data-id="{{$value->id}}" data-toggle="modal"
-                        data-target="#delete"><i class="fa fa-trash"></i></button>
-                    <i class="fa fa-ellipsis-v toggle-action"></i>
-                    <ul class="event-action-mobile">
-                        <li>QR Code</li>
-                        <li>Edit</li>
-                        <li>Delete</li>
-                    </ul>
-                </div>
+            </div>
         </div>
         @endforeach
  

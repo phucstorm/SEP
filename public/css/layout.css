@@ -267,24 +267,31 @@ a:hover {
 }
 
 .sidebar-navigation {
-    display: none;
+    visibility: hidden;
     flex-direction: column;
     align-items: flex-start;
-    color: #555;
+    color: #000;
     width: 260px;
     position: fixed;
     z-index: 2;
-    transition: 0.5s;
-    height: 100%;
-    background: #f8fafc;
+    height: 0;
+    background: #fff;
+    font-weight: 700;
+    box-shadow: 1px 3px 8px 2px #999;
+    padding-top:20px;
 }
-
+.has-darken-bg {
+    transition: all 0.3s ease;
+    opacity: 0.3;
+}
+.fa-bars:hover {
+    cursor: pointer;
+}
 .app {
     position: relative;
 }
 
 .sidebar-navigation .sidebar-nav {
-    display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
@@ -311,10 +318,19 @@ a:hover {
 .sidebar-navigation div {
     color: #999999!important;
     margin: 0 auto;
+    text-align: center;
 }
 
-.toggle-show {
-    display: flex!important;
+.toggle-event-action {
+    transition: all 0.4s;
+    opacity: 1!important;
+    visibility: visible!important;
+}
+.toggle-sidebar{
+    transition: all 0.3s;
+    visibility: visible!important;
+
+    height: 100%;
 }
 
 .fa-bars {
@@ -322,7 +338,8 @@ a:hover {
 }
 
 .event-action-mobile {
-    display: none;
+    visibility: hidden;
+    opacity:0;
     flex-direction: column;
     background: #fafafa;
     box-shadow: 0 0 4px 2px rgb(0, 0, 0, 0.1);

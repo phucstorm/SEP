@@ -66,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            <nav class="sidebar-navigation">
+            <div class="sidebar-navigation">
                 <div class="user_info">
                     <i class="fa fa-user"></i>
                     {{Auth::user()->email}}
@@ -82,7 +82,7 @@
                             <a class="nav-link" class="nav-item-link" href="" style="color: white;">Log out</a>
                         </li>
                 </ul>
-            </nav>
+            </div>
             <div class="navbar_select">
                 <div class="container">
                     <button class="is-active"><a href="/admin/event">Event</a></button>

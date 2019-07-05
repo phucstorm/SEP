@@ -122,3 +122,16 @@ $(document).on('click', '.btn.btn-outline-danger.desktop-btn', function() {
         });
     });
 });
+
+//popup for qr code
+$(document).ready(function() {
+    $('button.qr-btn').each(function(index) {
+      $(this).attr('data-target', '.qrcode' + index);
+    })
+  
+    $('.modal.fade.qrcode').each(function(index) {
+      $(this).removeClass('qrcode');
+      $(this).addClass('qrcode' + index);
+    })
+  })
+  
