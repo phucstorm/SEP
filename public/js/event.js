@@ -1,25 +1,33 @@
 // Create Event 
-
-
 $('#add').click(function() {
-    $.ajax({
-        type: 'POST',
-        url: 'event/create',
-        data: {
-            '_token': $('input[name=_token]').val(),
-            'event_name': $('input[name=event_name]').val(),
-            'event_code': $('input[name=event_code]').val(),
-            'event_description': $('input[name=event_description]').val(),
-            'start_date': $('input[name=start_date]').val(),
-            'end_date': $('input[name=end_date]').val()
-        },
-        success: function(data) {
-            window.location.reload();
-        },
-        error: function(data) {
-            console.log(data);
-        }
-    });
+    if (
+        $('input[name=event_name]').val() != "" &&
+        $('input[name=event_description]').val() != "" &&
+        $('input[name=start_date]').val() != "" &&
+        $('input[name=end_date]').val() != ""
+    ) {
+        $.ajax({
+            type: 'POST',
+            url: 'event/create',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'event_name': $('input[name=event_name]').val(),
+                'event_code': $('input[name=event_code]').val(),
+                'event_description': $('input[name=event_description]').val(),
+                'start_date': $('input[name=start_date]').val(),
+                'end_date': $('input[name=end_date]').val()
+            },
+            success: function(data) {
+                alert("Tạo event thành công");
+                window.location.reload();
+            },
+            error: function(data) {
+                alert("Yêu cầu kiểm tra lại các dữ liệu đã nhập");
+            }
+        });
+    } else {
+        alert("Bạn phải điền đầy đủ thông tin mới có thể tạo được event !");
+    }
 });
 
 // Edit Event
@@ -94,7 +102,8 @@ $(document).on('click', '.btn.btn-outline-success.desktop-btn', function() {
             },
             error: function(data) {
                 // window.location.reload();
-                console.log(data);
+                // console.log(data);
+                alert("Bạn cần phải nhập đầy đủ thông tin để hoàn tất việc chỉnh sửa");
             },
         });
     });

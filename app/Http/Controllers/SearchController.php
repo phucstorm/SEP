@@ -11,7 +11,7 @@ class SearchController extends Controller
     //
 
     public function search(Request $request){
-        $event = Event::where('event_code', '=', $request->get('room'))->firstOrFail();
+        $event = Event::where('event_code', '=', $request->get('room') )->firstOrFail();
         if($event->setting_join == 1){
             return view('room', compact('event', $event));
         }else{
