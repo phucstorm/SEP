@@ -27,6 +27,7 @@
             @if($value->status == 1)
                 <div>{{$value->content}}</div>
                 <div>{{$value->user_name}}</div>
+                <button><a href="/room/question/denied/{{$value->id}}">Delete</a></button>
             @endif
             @endforeach
             </div>
