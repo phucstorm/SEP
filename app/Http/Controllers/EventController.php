@@ -59,19 +59,19 @@ class EventController extends Controller
     }
 
     public function edit(Request $request){
-            $event = Event::find($request->id);
-            $event->event_name = $request->event_name;
-            $event->event_description = $request->event_description;
-            $event->start_date = $request->event_start;
-            $event->end_date = $request->event_end;
-            $event->setting_join = $request->join;
-            $event->setting_question = $request->question;
-            $event->setting_reply = $request->reply;
-            $event->setting_moderation = $request->moderation;
-            $event->setting_anonymous = $request->anonymous;
-            $event->save();
-            return response()->json($event);
-
+        $event = Event::find($request->id);
+        $event->event_name = $request->event_name;
+        $event->event_code = $request->event_code;
+        $event->event_description = $request->event_description;
+        $event->start_date = $request->event_start;
+        $event->end_date = $request->event_end;
+        $event->setting_join = $request->join;
+        $event->setting_question = $request->question;
+        $event->setting_reply = $request->reply;
+        $event->setting_moderation = $request->moderation;
+        $event->setting_anonymous = $request->anonymous;
+        $event->save();
+        return response()->json($event);
     }
 
     public function show(Request $request){

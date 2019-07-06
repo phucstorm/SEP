@@ -18,8 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/user', 'UserController@index');
-Route::post('/user/edit', 'UserController@edit');
-
+Route::post('/user/edit/info', 'UserController@edit_user_info');
+Route::post('/user/edit/password', 'UserController@edit_user_password');
 
 Route::get('admin/home', 'HomeController@index')->name('home');
 // CRUD for Event Function

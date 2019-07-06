@@ -18,12 +18,23 @@ class UserController extends Controller
         return view('user');
     }
 
-    public function edit(Request $request){ 
+    public function edit_user_info(Request $request){ 
         $user = User::find($request->id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
         $user->save();
         return response()->json($user);
+    }
+
+    public function edit_user_password(Request $request){ 
+        $validator = "Mật khẩu hiện tại không đúng";
+        $user = User::find($request->id);
+        if(password_verify( $request->current_pass, $user->password)){
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return response()->json($user);
+        }else{
+            return $validator;
+        }     
     }
 }
