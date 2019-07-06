@@ -162,26 +162,34 @@ $(document).on('click', '.edit_user_pass-btn', function() {
     var id = $(this).attr('data-id');
     $('#edit_pass').click(function() {
         if ($('input[name=cpw]').val() != "") {
-            if ($('input[name=pw]').val() == $('input[name=cp]').val()) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/user/edit/password',
-                    data: {
-                        '_token': $('input[name=_token]').val(),
-                        'id': id,
-                        'current_pass': $('input[name=cpw]').val(),
-                        'password': $('input[name=pw]').val(),
-                    },
-                    success: function(data) {
-                        alert(data);
-                        window.location.reload();
-                    },
-                    error: function(data) {
-                        alert(data);
-                    },
-                });
+            if ($('input[name=pw]').val() != "") {
+                if ($('input[name=cp]').val() != "") {
+                    if ($('input[name=pw]').val() == $('input[name=cp]').val()) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/user/edit/password',
+                            data: {
+                                '_token': $('input[name=_token]').val(),
+                                'id': id,
+                                'current_pass': $('input[name=cpw]').val(),
+                                'password': $('input[name=pw]').val(),
+                            },
+                            success: function(data) {
+                                alert("Cập nhật mật khẩu thành công");
+                                window.location.reload();
+                            },
+                            error: function(data) {
+                                alert(data);
+                            },
+                        });
+                    } else {
+                        alert("Mật khẩu xác nhận không đúng");
+                    }
+                } else {
+                    alert("Bạn cần phải nhập xác nhận mật khẩu");
+                }
             } else {
-                alert("Mật khẩu xác nhận không đúng");
+                alert("Bạn cần phải nhập mật khẩu mới");
             }
         } else {
             alert("Bạn cần phải nhập mật khẩu hiện tại");
