@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/user', 'UserController@index');
+Route::post('/user/edit', 'UserController@edit');
+
+
 Route::get('admin/home', 'HomeController@index')->name('home');
 // CRUD for Event Function
 Route::get('admin/event', 'EventController@index');

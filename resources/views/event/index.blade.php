@@ -32,6 +32,24 @@
                         data-reply="{{$value->setting_reply}}" data-anonymous="{{$value->setting_anonymous}}"
                         data-toggle="modal" data-target="#edit"><i class="fa fa-edit"></i>
                     </button>
+                    <button type="button" class="btn btn-outline-info qr-btn desktop-btn" data-toggle="modal" data-target=".qrcode">
+                     <i class="fa fa-qrcode"></i></button>
+                     <div class="modal fade qrcode" tabindex="-1" role="dialog" aria-labelledby="qrcode" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="title">QR Code to join this event</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {!! QrCode::size(250)->generate($value->event_link); !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
                     <button type="button" class="btn btn-outline-danger desktop-btn" data-id="{{$value->id}}" data-toggle="modal"
                         data-target="#delete"><i class="fa fa-trash"></i></button>
                     <i class="fa fa-ellipsis-v toggle-action"></i>

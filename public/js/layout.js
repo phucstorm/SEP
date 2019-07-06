@@ -22,3 +22,13 @@ $(document).mouseup(function(e) {
         container.removeClass('toggle-show');
     }
 });
+$(document).ready(function() {
+    $('button.qr-btn').each(function(index) {
+        $(this).attr('data-target', '.qrcode' + index);
+    })
+
+    $('.modal.fade.qrcode').each(function(index) {
+        $(this).removeClass('qrcode');
+        $(this).addClass('qrcode' + index);
+    })
+})

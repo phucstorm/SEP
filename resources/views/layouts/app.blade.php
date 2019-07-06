@@ -45,13 +45,12 @@
                             <div class="user_role">
                                 Host
                             </div>
-
                         </div>
-                        <div class="user_setting id=" dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                        <div class="user_setting" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             <i class="fa fa-cog"></i>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Edit</a>
+                                <a class="dropdown-item" href="/user">Edit</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
@@ -86,7 +85,7 @@
             </div>
             <ul class="sidebar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" class="nav-item-link" href="" style="color: white;">Edit</a>
+                    <a class="nav-link" class="nav-item-link" href="/user" style="color: white;">Edit</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" class="nav-item-link" href="{{ route('logout') }}" style="color: white;"

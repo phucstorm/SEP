@@ -25,6 +25,6 @@ class SearchController extends Controller
         $code = $request->event_code;
         $link = 'http://localhost:8000/room?room=';
         $total =  $link.''.$code;
-        return view('event.qr')-> with('total', $total);
+        return view('event.index')-> with('total', $total);
     }
 }

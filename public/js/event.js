@@ -122,3 +122,39 @@ $(document).on('click', '.btn.btn-outline-danger.desktop-btn', function() {
         });
     });
 });
+
+$(document).on('click', '.edit_user-btn', function() {
+    var id = $(this).attr('data-id');
+    var name = $(this).attr('data-name');
+    var email = $(this).attr('data-email');
+
+    $('#un').val(name);
+    $('#em').val(email);
+
+    $('#eUser').click(function() {
+        if ($('input[name=pw]').val() == $('input[name=cp]').val()) {
+            $.ajax({
+                type: 'POST',
+                url: '/user/edit',
+                data: {
+                    '_token': $('input[name=_token]').val(),
+                    'id': id,
+                    'name': $('input[name=un]').val(),
+                    'email': $('input[name=em]').val(),
+                    'password': $('input[name=pw]').val(),
+                },
+                success: function(data) {
+                    // window.location.reload();
+                    // console.log(data);
+                },
+                error: function(data) {
+                    // window.location.reload();
+                    console.log(data);
+                },
+            });
+        } else {
+            console.log('sai');
+        }
+    });
+
+});
