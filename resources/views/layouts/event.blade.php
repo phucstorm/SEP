@@ -25,16 +25,12 @@
 
         var channel = pusher.subscribe('my-channel');
         channel.bind('form-submitted', function (data) {
-            // alert(JSON.stringify(data));
-            // $get = JSON.stringify(data);
-            // console.log(data.question);
-            // console.log(data.user_name);
             $('.content').append(
                "<div>Question: "+data.question+" by "+data.user_name+"</div>"+
-                "<div>ID: by "+data.user_name+"</div>"+
+                "<div>ID: "+data.id+" by "+data.user_name+"</div>"+
                 "<div>"+
-                    "<button><a href=''>Yes</a></button>"+
-                    "<button><a href=''>No</a></button>"+
+                    "<button><a href='/room/question/accept/"+data.id+"'>Yes</a></button>"+
+                    "<button><a href='/room/question/denied/"+data.id+"'>No</a></button>"+
                 "</div>"
             );
         });

@@ -196,3 +196,24 @@ $(document).on('click', '.edit_user_pass-btn', function() {
         }
     });
 });
+
+//Delete question
+$(document).on('click', '.btn.btn-outline-danger.delete_question', function() {
+    var question_id = $(this).attr('data-id');
+    $('#del_ques').click(function() {
+        $.ajax({
+            type: 'POST',
+            url: '/room/question/denied',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'id': question_id
+            },
+            success: function(data) {
+                window.location.reload();
+            },
+            error: function(data) {
+                alert("Gặp vấn đề khi xóa question");
+            }
+        });
+    });
+});

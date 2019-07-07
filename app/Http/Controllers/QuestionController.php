@@ -24,14 +24,13 @@ class QuestionController extends Controller
         }else{
             $user_name = "Anonymus";
         }
-        event(new FormSubmitted($question, $user_name, request()->event_id));
-
         $qt = new Question;
         $qt->event_id = request()->event_id;
         $qt->content = $question;
         $qt->user_name = $user_name;
         $qt->status = 0;
         $qt->save();
+        event(new FormSubmitted($qt->id,$qt->content, $user_name, request()->event_id, $qt->created_at));
         return redirect()->back();
         
     }
@@ -40,11 +39,12 @@ class QuestionController extends Controller
         $qt = Question::find($id);
         $qt->status = 1;
         $qt->save();
+        event(new FormSubmitted($qt->id,$qt->content, $qt->user_name, $qt->event_id,$qt->created_at));
         return redirect()->back();
     }
 
-    public function denied($id){
-        $qt = Question::find($id)->delete();
+    public function denied(Request $request){
+        $qt = Question::find($request->id)->delete();
         return redirect()->back();
     }
     public function index()
