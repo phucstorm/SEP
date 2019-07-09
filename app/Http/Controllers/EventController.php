@@ -19,14 +19,13 @@ class EventController extends Controller
     }
 
     public function index(){
-        $event = Event::all();
+        $event = Event::where('user_id', '=',Auth::user()->id)->get();
         return view('event.index',compact('event'));
     }
 
     public function create(Request $request){
         $rules = array(
             'event_name' => 'required',
-            'event_code' => 'required',
             'event_description' => 'required',
             'start_date' => 'required',
             'end_date' => 'required'
@@ -37,16 +36,16 @@ class EventController extends Controller
         }else{
             $event = new Event;
             $event->event_name = $request->event_name;
-            $event->event_code = $request->event_code;
+            $event->event_code = str_random(5);
             $event->event_description = $request->event_description;
-            $event->event_link = 'http://localhost:8000/room?room='.$request->event_code;
+            $event->event_link = 'http://localhost:8000/room?room='.$event->event_code;
             $event->user_id = Auth::user()->id;
             $event->start_date = $request->start_date;
             $event->end_date = $request->end_date;
             $event->setting_join = 1;
             $event->setting_question = 1;
             $event->setting_reply = 1;
-            $event->setting_moderation = 1;
+            $event->setting_moderation = 0;
             $event->setting_anonymous = 1;
             $event->save();
             return response()->json($event);
@@ -61,7 +60,9 @@ class EventController extends Controller
     public function edit(Request $request){
         $event = Event::find($request->id);
         $event->event_name = $request->event_name;
+        $event->event_code = $request->event_code;
         $event->event_description = $request->event_description;
+        $event->event_link = 'http://localhost:8000/room?room='.$event->event_code;
         $event->start_date = $request->event_start;
         $event->end_date = $request->event_end;
         $event->setting_join = $request->join;
@@ -86,7 +87,7 @@ class EventController extends Controller
     }
 
     public function search(Request $request){
-        $event = Event::where('event_code','like', '%'.$request->get('search').'%')->get();
+        $event = Event::where('event_name','like', '%'.$request->get('search').'%')->where('user_id', '=', Auth::user()->id)->get();
         return view('event.search', compact('event', $event));
     }
 }

@@ -25,16 +25,12 @@
 
         var channel = pusher.subscribe('my-channel');
         channel.bind('form-submitted', function (data) {
-            // alert(JSON.stringify(data));
-            // $get = JSON.stringify(data);
-            // console.log(data.question);
-            // console.log(data.user_name);
             $('.content').append(
                "<div>Question: "+data.question+" by "+data.user_name+"</div>"+
-                "<div>ID: by "+data.user_name+"</div>"+
+                "<div>ID: "+data.id+" by "+data.user_name+"</div>"+
                 "<div>"+
-                    "<button><a href=''>Yes</a></button>"+
-                    "<button><a href=''>No</a></button>"+
+                    "<button><a href='/room/question/accept/"+data.id+"'>Yes</a></button>"+
+                    "<button><a href='/room/question/denied/"+data.id+"'>No</a></button>"+
                 "</div>"
             );
         });
@@ -52,7 +48,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/admin/event') }}">
                     <!-- {{ config('app.name', 'Laravel') }} -->
                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30px" height="30px"
@@ -68,7 +64,6 @@
                             </g>
                         </g>
                     </svg>
-
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"

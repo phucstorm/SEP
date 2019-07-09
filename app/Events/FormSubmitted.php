@@ -14,20 +14,24 @@ class FormSubmitted implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $id;
     public $question;
     public $user_name;
     public $event_id;
+    public $created_at;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($question, $user_name, $event_id)
+    public function __construct($id, $question, $user_name, $event_id, $created_at)
     {
         //
+        $this->id = $id;
         $this->question = $question;
         $this->user_name = $user_name;
         $this->event_id = $event_id;
+        $this->created_at = $created_at;
     }
 
     /**

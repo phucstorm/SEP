@@ -5,11 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>VLAsk</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/index.css')}}">
     <link rel="stylesheet" href="{{ asset('css/app.css')}}">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -208,11 +209,11 @@
                                 </span>
                                 @enderror
                                 <div class="form-footer">
-                                     @if (Route::has('password.request'))
+                                    @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
-                                    <button type="submit" class="btn-form" >
+                                    <button type="submit" class="btn-form">
                                         LOG IN
                                     </button>
                                 </div>
@@ -227,6 +228,15 @@
                         <div class="input_placed">
                             <form method="POST" action="{{ route('register') }}">
                                 @csrf
+
+                                <input id="name" placeholder="Name" type="text" 
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                                 <input id="email" placeholder="Email" type="email"
                                     class="form-control @error('email') is-invalid @enderror" name="email"
                                     value="{{ old('email') }}" required autocomplete="email">
@@ -273,23 +283,25 @@
                     <span>028. 3836 7933</span>
                 </div>
                 <div class="row_hotline_pd">
-                    <strong>Cơ sở 2 : </strong> 
+                    <strong>Cơ sở 2 : </strong>
                     <span>233A Phan Văn Trị , P.11, Q. Bình Thạnh, Tp. HCM</span>
                 </div>
                 <div class="row_hotline_pd">
-                    <strong>Cơ sở 3 : </strong>   
-                    <span>Cổng 1 - 80/68 Dương Quảng Hàm, P.5, Q. Gò Vấp, Tp. HCM</span> 
+                    <strong>Cơ sở 3 : </strong>
+                    <span>Cổng 1 - 80/68 Dương Quảng Hàm, P.5, Q. Gò Vấp, Tp. HCM</span>
                 </div>
                 <div class="row_hotline_pd">
-                    <strong>Cơ sở 3 :</strong>  
-                    <span>Cổng 2 - 69/68 Đặng Thùy Trâm, P. 13, Q. Bình Thạnh, Tp. HCM</span> 
-                </div>    
+                    <strong>Cơ sở 3 :</strong>
+                    <span>Cổng 2 - 69/68 Đặng Thùy Trâm, P. 13, Q. Bình Thạnh, Tp. HCM</span>
+                </div>
             </div>
             <div class="pages_info_social">
                 <div class="social_list">
-                        <a href="https://www.facebook.com/truongdaihocvanlang/" class="icons_social_fb" title="Follow on Facebook" target="_blank">
-                            <span class="fa fa-facebook"></span>
-                        <a href="https://www.youtube.com/user/truongdhvanlang" class="icons_social_yt" title="Follow on Youtube" target="_blank">
+                    <a href="https://www.facebook.com/truongdaihocvanlang/" class="icons_social_fb"
+                        title="Follow on Facebook" target="_blank">
+                        <span class="fa fa-facebook"></span>
+                        <a href="https://www.youtube.com/user/truongdhvanlang" class="icons_social_yt"
+                            title="Follow on Youtube" target="_blank">
                             <span class="fa fa-youtube-play"></span>
                         </a>
                 </div>

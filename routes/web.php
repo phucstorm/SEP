@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/user', 'UserController@index');
+Route::post('/user/edit/info', 'UserController@edit_user_info');
+Route::post('/user/edit/password', 'UserController@edit_user_password');
+
 Route::get('admin/home', 'HomeController@index')->name('home');
 // CRUD for Event Function
 Route::get('admin/event', 'EventController@index');
@@ -34,4 +38,4 @@ Route::get('qr/{event_code}','SearchController@getQR');
 Route::post('/room', 'QuestionController@postQuestion');
 
 Route::get('/room/question/accept/{id}' , 'QuestionController@accept');
-Route::get('/room/question/denied/{id}' , 'QuestionController@denied');
+Route::post('/room/question/denied' , 'QuestionController@denied');
