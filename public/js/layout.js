@@ -32,3 +32,22 @@ $(document).ready(function() {
         $(this).addClass('qrcode' + index);
     })
 })
+
+
+$('.sidebar-toggle').click(function() {
+    $('.sidebar-navigation').css('visibility', 'visible');
+    $('.sidebar-navigation').css('display', 'unset');
+    $('.sidebar-navigation').css('transform', 'translateX(0px)');
+    $('.opacity_menu').toggleClass('open_opacity');
+})
+
+$('.opacity_menu').click(function(e) {
+    $('.opacity_menu').removeClass('open_opacity');
+    $('.sidebar-navigation').css('visibility', 'hidden');
+    $('.sidebar-navigation').css('transform', 'translateX(-280px)');
+});
+
+$("body > header > div.navbar_select > div > button").on('click', function() {
+    $('.is-active').removeClass();
+    $(this).addClass('is-active');
+});

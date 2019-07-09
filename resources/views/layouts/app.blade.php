@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>VLAsk</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -27,12 +27,33 @@
 </head>
 
 <body>
+    <div class="opacity_menu"></div>
+    <nav class="sidebar-navigation">
+        <ul class="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link" class="nav-item-link" href="/user" style="color: white;"> <i class="fa fa-user"></i>
+                    {{Auth::user()->email}} - Host</a>
+            </li>
+            <li class="nav-item">
+                <span><a class="nav-link" class="nav-item-link" href="/user" style="color: white;">Edit</a></span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" class="nav-item-link" href="{{ route('logout') }}" style="color: white;"
+                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </li>
+        </ul>
+    </nav>
     <header>
         @auth
         <div class='navbar_info'>
             <div class="sidebar-toggle">
                 <i class="fa fa-bars"></i>
             </div>
+
             <img src="{{ asset('img/VLask-logo.png')}}" class="vlask-logo" alt="">
             <div class="container">
                 <div class="row justify-content-between">
@@ -50,7 +71,7 @@
                             aria-expanded="false">
                             <i class="fa fa-cog"></i>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/user">Edit</a>
+                                <a class="dropdown-item" onclick="window.location.href='/user'">Edit</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
@@ -75,28 +96,6 @@
                 </div>
             </div>
         </div>
-        <nav class="sidebar-navigation">
-            <div class="user_info">
-                <i class="fa fa-user"></i>
-                {{Auth::user()->email}}
-            </div>
-            <div class="user_role">
-                Host
-            </div>
-            <ul class="sidebar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" class="nav-item-link" href="/user" style="color: white;">Edit</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" class="nav-item-link" href="{{ route('logout') }}" style="color: white;"
-                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </li>
-            </ul>
-        </nav>
         <div class="navbar_select">
             <div class="container">
                 <button class="is-active"><a href="/admin/event">Event</a></button>
@@ -137,7 +136,9 @@
     @yield('content')
 
     <footer>
-        Design by 5Bs
+        <div class="top-footer">
+        <div class="wrapper-title">Design by 5Bs</div>    
+        </div>
     </footer>
 </body>
 

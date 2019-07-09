@@ -12,7 +12,6 @@ $('#add').click(function() {
             data: {
                 '_token': $('input[name=_token]').val(),
                 'event_name': $('input[name=event_name]').val(),
-                'event_code': $('input[name=event_code]').val(),
                 'event_description': $('input[name=event_description]').val(),
                 'start_date': $('input[name=start_date]').val(),
                 'end_date': $('input[name=end_date]').val()

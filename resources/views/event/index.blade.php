@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<main class="main">
 <div class="container">
     <div class="create-event-btn">
         <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#createEvent"
@@ -20,7 +21,7 @@
                 <div class="event-code">#{{$value->event_code}}</div>
             </div>
             <div class="event-startend-date">
-                {{$value->start_date}} - {{$value->end_date}}
+            {{Carbon\Carbon::parse($value->start_date)->format('d-m-Y')}} to {{Carbon\Carbon::parse($value->end_date)->format('d-m-Y')}}
             </div>
         </div>
         <div class="event-action">
@@ -45,7 +46,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" style="margin:0 auto;">
                             {!! QrCode::size(250)->generate($value->event_link); !!}
                         </div>
                     </div>
@@ -71,9 +72,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="title">Create Event</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                
             </div>
             <div class="modal-body">
                 <form role="form" method="post">
@@ -82,13 +81,6 @@
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="event_name" name="event_name"
                                 placeholder="Event Name" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Event Code</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="event_code" name="event_code"
-                                placeholder="Event Code" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -232,4 +224,6 @@
         </div>
     </div>
 </div>
+</main>
+
 @endsection

@@ -26,7 +26,6 @@ class EventController extends Controller
     public function create(Request $request){
         $rules = array(
             'event_name' => 'required',
-            'event_code' => 'required',
             'event_description' => 'required',
             'start_date' => 'required',
             'end_date' => 'required'
@@ -37,7 +36,7 @@ class EventController extends Controller
         }else{
             $event = new Event;
             $event->event_name = $request->event_name;
-            $event->event_code = $request->event_code;
+            $event->event_code = str_random(5);
             $event->event_description = $request->event_description;
             $event->event_link = 'http://localhost:8000/room?room='.$request->event_code;
             $event->user_id = Auth::user()->id;
