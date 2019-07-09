@@ -38,7 +38,7 @@ class EventController extends Controller
             $event->event_name = $request->event_name;
             $event->event_code = str_random(5);
             $event->event_description = $request->event_description;
-            $event->event_link = 'http://localhost:8000/room?room='.$request->event_code;
+            $event->event_link = 'http://localhost:8000/room?room='.$event->event_code;
             $event->user_id = Auth::user()->id;
             $event->start_date = $request->start_date;
             $event->end_date = $request->end_date;
@@ -62,6 +62,7 @@ class EventController extends Controller
         $event->event_name = $request->event_name;
         $event->event_code = $request->event_code;
         $event->event_description = $request->event_description;
+        $event->event_link = 'http://localhost:8000/room?room='.$event->event_code;
         $event->start_date = $request->event_start;
         $event->end_date = $request->event_end;
         $event->setting_join = $request->join;
