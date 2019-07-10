@@ -37,7 +37,7 @@
         <ul class="sidebar-nav">
             <li class="nav-item">
                 <span><a class="nav-link" class="nav-item-link" href="/user" style="color: white;"><i
-                            class="fa fa-edit"></i>Edit</a></span>
+                            class="fa fa-edit"></i> Edit</a></span>
             </li>
             <li class="nav-item">
                 <a class="nav-link" class="nav-item-link" href="{{ route('logout') }}" style="color: white;"

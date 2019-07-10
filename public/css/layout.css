@@ -1,6 +1,5 @@
 body {
     font-size: 16px;
-    font-family: 'Muli', 'Helvetical', sans-serif;
     line-height: 1.7;
     position: relative;
     padding-bottom: 6rem;
@@ -236,11 +235,16 @@ a:hover {
     position: absolute;
     top: 10px;
     left: 10px;
+    justify-content: center;
     align-items: center;
 }
 
 .vlask-logo img {
     width: 60px;
+}
+
+.vlask-logo h1 {
+    font-weight: 400;
 }
 
 .form-event-optional {
@@ -318,8 +322,8 @@ a:hover {
 }
 
 .sidebar-navigation .sidebar-nav .nav-item a {
-    color: #777777!important;
-    padding: 10px 40px;
+    color: #444444!important;
+    padding: 15px 40px;
 }
 
 .sidebar-navigation .sidebar-nav .nav-item a:hover {
@@ -368,6 +372,7 @@ a:hover {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+    font-weight: 400;
 }
 
 .event-action-mobile li button:hover {
@@ -478,123 +483,6 @@ footer .wrapper-title {
 .form-event-optional .form-group:last-of-type {
     margin-right: 0px;
 }
-
-@media only screen and (max-width:1200px) {
-    .navbar_info .container {
-        max-width: 600px;
-    }
-    .container {
-        max-width: 600px;
-    }
-    .container.event_container {
-        max-width: 960px;
-    }
-    .desktop-btn {
-        display: none;
-    }
-    .toggle-action {
-        display: initial;
-    }
-}
-
-@media only screen and (max-width:768px) {
-    .modal.fade svg {
-        width: 550px;
-        height: 550px;
-    }
-    .vlask-logo {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 130px;
-        margin: 0 auto;
-        transition-duration: 0.5s;
-    }
-    .fa-bars {
-        display: initial;
-        color: white;
-        font-size: 30px;
-        transition-duration: 0.5s;
-    }
-    .sidebar-toggle {
-        display: inline;
-        padding-top: 10px;
-    }
-    .sidebar-toggle:hover {
-        cursor: pointer;
-    }
-    .user_info_container {
-        display: none;
-    }
-    .navbar_info {
-        display: flex;
-        padding: 0 20px;
-    }
-    .row.justify-content-between {
-        justify-content: flex-end;
-    }
-    .search-desktop {
-        padding: 0;
-    }
-    .search-desktop i.fa.fa-search {
-        top: 10px;
-    }
-    .container.event_container>.row>.col-lg-4.col-md-12 {
-        text-align: center;
-    }
-}
-
-@media only screen and (max-width:575px) {
-    .modal.fade svg {
-        width: 280px;
-        height: 280px;
-    }
-    .search-desktop {
-        display: none;
-    }
-    .search-mobile {
-        display: initial;
-        width: 0%;
-        transition-duration: 0.5s;
-    }
-    .search-mobile i.fa.fa-search {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-    }
-    .search-mobile i.fa.fa-search:hover,
-    .search-mobile i.fa.fa-chevron-left:hover {
-        cursor: pointer;
-    }
-    .search-mobile input {
-        display: none;
-        border: none;
-        border-radius: 0;
-        background: transparent;
-        border-bottom: 1px solid #fff;
-        width: 100%;
-        outline-style: none;
-        color: #ffffff;
-    }
-    .search-mobile i.fa.fa-chevron-left {
-        display: none;
-        padding-top: 10px;
-        margin-right: 20px;
-    }
-    .search-mobile form div {
-        display: flex;
-    }
-    .form-event-optional {
-        flex-direction: column;
-    }
-    .form-event-optional .form-group {
-        padding-left: 40px;
-    }
-    .event-namecode {
-        flex-direction: column;
-    }
-}
-
 .sidebar-navigation {
     width: 280px;
     height: 100%;
@@ -620,45 +508,166 @@ footer .wrapper-title {
     z-index: 1;
 }
 
-.event_left {
-    display: flex;
+input:-webkit-autofill-selected {
+    background-color: hsla(0, 0%, 100%, .16)!important;
+}
+@media only screen and (min-width:320px) {
+    .modal.fade svg {
+        width: 280px;
+        height: 280px;
+    }
+    .search-desktop {
+        display: none;
+    }
+    .search-mobile {
+        display: initial;
+        width: 0%;
+        transition-duration: 0.5s;
+    }
+    .search-mobile i.fa.fa-search {
+        position: absolute;
+        top: 20px;
+        right: 15px;
+        font-size: 20px;
+    }
+    .search-mobile i.fa.fa-search:hover,
+    .search-mobile i.fa.fa-chevron-left:hover {
+        cursor: pointer;
+    }
+    .search-mobile input {
+        display: none;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+        border-bottom: 1px solid #fff;
+        width: 100%;
+        outline-style: none;
+        color: #ffffff;
+        margin-bottom: -10px;
+    }
+    .search-mobile i.fa.fa-chevron-left {
+        display: none;
+        padding-top: 10px;
+        margin-right: 20px;
+    }
+    .search-mobile form div {
+        display: flex;
+    }
+    .form-event-optional {
+        flex-direction: column;
+    }
+    .form-event-optional .form-group {
+        padding-left: 40px;
+    }
+    .event-namecode {
+        flex-direction: column;
+    }
+    .desktop-btn {
+        display: none;
+    }
+    .toggle-action {
+        display: initial;
+    }
+    .vlask-logo {
+        top: 5px;
+        left: 100px;
+        right: 100px;
+        margin: 0 auto;
+    }
+    .vlask-logo img {
+        width: 50px;
+        transition-duration: 0.5s;
+    }
+    .vlask-logo h1 {
+        display: none;
+    }
+    .fa-bars {
+        display: initial;
+        color: white;
+        font-size: 30px;
+        transition-duration: font-size 0.5s;
+    }
+    .sidebar-toggle {
+        display: inline;
+        padding-top: 15px;
+    }
+    .sidebar-toggle:hover {
+        cursor: pointer;
+    }
+    .user_info_container {
+        display: none;
+    }
+    .navbar_info {
+        display: flex;
+        padding: 0 20px;
+        padding-bottom: 10px;
+    }
+    .row.justify-content-between {
+        justify-content: flex-end;
+    }
+    .search-desktop {
+        padding: 0;
+    }
+    .search-desktop i.fa.fa-search {
+        top: 10px;
+    }
+    .container.event_container>.row>.col-lg-4.col-md-12 {
+        text-align: center;
+    }
+}
+@media only screen and (min-width:480px) {
+    .modal.fade svg {
+        width: 440px;
+        height: 440px;
+    }
+}
+@media only screen and (min-width:768px) {
+    .modal.fade svg {
+        width: 600px;
+        height: 600px;
+    }
+    .form-event-optional {
+        flex-direction: row;
+    }
+    .event-namecode {
+        flex-direction: row;
+    }
+}
+@media only screen and (min-width:1024px) {
+    .sidebar-toggle {
+        display: none;
+    }
+    .user_info_container {
+        display: flex;
+    }
+    .search-desktop {
+        display: initial;
+    }
+    .search-mobile {
+        display: none;
+    }
+    .row.justify-content-between {
+        justify-content: space-between;
+        align-items: center;
+    }
+    .vlask-logo img {
+        width: 60px;
+    }
+    .vlask-logo {
+        top: 5px;
+        left: 500px;
+        right: 500px;
+        margin: 0 auto;
+    }
+    .vlask-logo h1 {
+        display: initial;
+    }
+}
+@media only screen and (min-width:1140px) {
+
+}
+@media only screen and (min-width:1280px) {
+
 }
 
-.event_info_code {
-    text-align: center;
-    font-weight: bold;
-    font-size: 21px;
-}
 
-.event_info_name {
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 22px;
-}
-
-.event_info_date {
-    font-size: 13px;
-}
-
-.event_container>div>div:nth-child(1)>div>div:nth-child(1)>a {
-    padding: 0;
-}
-
-.container.event_option {
-    height: auto;
-    padding: 0;
-    max-width: 1140px;
-}
-
-.fixed_row {
-    margin: 0 15px;
-}
-
-.mobile-flex {
-    height: 62px;
-    padding: 10px;
-}
-
-.event-short-info {
-    width: 85%;
-}
