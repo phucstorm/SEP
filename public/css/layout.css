@@ -1,6 +1,6 @@
 body {
     font-size: 16px;
-    font-family: 'Muli', 'Helvetical', sans-serif;
+    font-family: 'Roboto', 'Muli', 'Helvetical', sans-serif;
     line-height: 1.7;
 }
 
@@ -221,6 +221,7 @@ a:hover {
 .navbar_select .container button.is-active {
     font-weight: 700;
     color: #20b875;
+    outline-style: none;
 }
 
 .navbar_select .container button.is-active:before {
@@ -368,12 +369,12 @@ footer {
     .navbar_info .container {
         max-width: 600px;
     }
-    .container {
+    /* .container {
         max-width: 600px;
-    }
-    .container.event_container {
+    } */
+    /* .container.event_container {
         max-width: 960px;
-    }
+    } */
     .desktop-btn {
         display: none;
     }
@@ -382,7 +383,13 @@ footer {
     }
 }
 
-@media only screen and (max-width:768px) {
+@media only screen and (max-width:992px) {
+    /* .container {
+        max-width: 992px;
+    } */
+}
+
+@media only screen and (max-width:767.98px) {
     .vlask-logo {
         position: absolute;
         top: 0;
@@ -397,7 +404,9 @@ footer {
     }
     .sidebar-toggle {
         display: inline;
-        padding-top: 10px;
+        /* padding: 10px; */
+        margin: auto;
+        padding-left: 10px;
     }
     .user_info_container {
         display: none;
@@ -415,7 +424,22 @@ footer {
     .search_event_form i.fa.fa-search {
         top: 10px;
     }
-    .container.event_container>.row>.col-lg-4.col-md-12 {
+    .container.event_container>.row>.col-lg-4.col-md-4:nth-child(2),
+    .container.event_container>.row>.col-lg-4.col-md-4:nth-child(3),
+    .event_container>div>div:nth-child(1)>div>div:nth-child(1) {
+        /* text-align: center; */
+        display: none;
+    }
+    .mobile-flex {
+        display: flex;
+    }
+    .fixed_row {
+        width: 100%;
+    }
+    .event_left {
+        justify-content: center;
+    }
+    .flex_content {
         text-align: center;
     }
 }
@@ -454,6 +478,41 @@ footer {
     z-index: 999999;
 }
 
+.event_container {
+    padding: 10px 0px;
+    height: 62px;
+}
+
 .event_left {
     display: flex;
+}
+
+.event_info_code {
+    text-align: center;
+    font-weight: bold;
+    font-size: 21px;
+}
+
+.event_info_name {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+}
+
+.event_info_date {
+    font-size: 13px;
+}
+
+.event_container>div>div:nth-child(1)>div>div:nth-child(1)>a {
+    padding: 0;
+}
+
+.container.event_option {
+    height: auto;
+    padding: 0;
+    max-width: 1140px;
+}
+
+.fixed_row {
+    margin: 0 15px;
 }

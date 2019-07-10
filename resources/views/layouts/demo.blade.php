@@ -34,10 +34,12 @@
                 "</div>"
             );
         });
+
     </script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
@@ -82,80 +84,91 @@
             </li>
         </ul>
     </nav>
-    <header style="background-color: #1d73ad;">
+    <header style="background-color: #1d73ad;color:#fff;">
         <div class="wrapper-flex">
-            <div class="sidebar-toggle">
-                <i class="fa fa-bars"></i>
-            </div>
-            <div class="container event_container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-12">
-                        <div class="event_left">
-                            <div>
-                                <a class="navbar-brand" href="{{ url('/admin/event') }}">
-                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30"
-                                        style="enable-background:new 0 0 30 30;height: 30px;width: 40px;"
-                                        xml:space="preserve">
-                                        <style type="text/css">
-                                            .st0 {
-                                                fill: #FFFFFF;
-                                            }
+            <div class="mobile-flex">
+                <div class="sidebar-toggle">
+                    <i class="fa fa-bars"></i>
+                </div>
+                <div class="fixed_row">
+                    <div class="container event_container">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4">
+                                <div class="event_left">
+                                    <div>
+                                        <a class="navbar-brand" href="{{ url('/admin/event') }}">
+                                            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                viewBox="0 0 30 30"
+                                                style="enable-background:new 0 0 30 30;height: 40px;width: 40px;"
+                                                xml:space="preserve">
+                                                <style type="text/css">
+                                                    .st0 {
+                                                        fill: #FFFFFF;
+                                                    }
 
-                                            .st1 {
-                                                fill: #1D73AD;
-                                            }
-                                        </style>
-                                        <circle class="st0" cx="15.4" cy="15" r="13.1"></circle>
-                                        <g>
-                                            <g>
-                                                <polygon class="st1"
-                                                    points="16.6,20.7 12,15 16.6,9.3 18,10.5 14.3,15 18,19.5 		">
-                                                </polygon>
-                                            </g>
-                                        </g>
-                                    </svg>
-                                </a>
-                            </div>
-                            <div>
-                                <div>{{ $event->event_name}}</div>
-                                <div>{{Carbon\Carbon::parse($event->start_date)->format('d-m-Y')}} -
-                                    {{Carbon\Carbon::parse($event->end_date)->format('d-m-Y')}}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div># {{$event->event_code}}</div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="dropdown" style="float:right">
-                            <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <img src="{{asset('img/149071.png')}}" alt="" width="40px" height="40px">
-                            </a>
+                                                    .st1 {
+                                                        fill: #1D73AD;
+                                                    }
 
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="/user">Edit</a>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                    style="display: none;">
-                                    @csrf
-                                </form>
+                                                </style>
+                                                <circle class="st0" cx="15.4" cy="15" r="13.1"></circle>
+                                                <g>
+                                                    <g>
+                                                        <polygon class="st1"
+                                                            points="16.6,20.7 12,15 16.6,9.3 18,10.5 14.3,15 18,19.5 		">
+                                                        </polygon>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="flex_content">
+                                        <div class="event_info_name">{{ $event->event_name}}</div>
+                                        <div class="event_info_date">
+                                            {{Carbon\Carbon::parse($event->start_date)->format('d/m/Y')}} -
+                                            {{Carbon\Carbon::parse($event->end_date)->format('d/m/Y')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="event_info_code"># {{$event->event_code}}</div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="dropdown" style="text-align:center;">
+                                    <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <img src="{{asset('img/149071.png')}}" alt="" width="40px" height="40px">
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="#">{{Auth::user()->email}}</a>
+                                        <a class="dropdown-item" href="/user">Edit</a>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- <div class="container event_container">
-                <div>Question</div>
-                <div>Poll</div>
-            </div> -->
-        </div>
 
+            </div>
+            <div class="navbar_select">
+                <div class="container event_option">
+                    <button class="is-active"><a href="/admin/event/{{$event->event_code}}">Question</a></button>
+                    <button>Poll</button>
+                </div>
+            </div>
+        </div>
     </header>
+    @yield('content')
     <footer>
 
     </footer>

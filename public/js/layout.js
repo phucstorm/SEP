@@ -47,7 +47,7 @@ $('.opacity_menu').click(function(e) {
     $('.sidebar-navigation').css('transform', 'translateX(-280px)');
 });
 
-$("body > header > div.navbar_select > div > button").on('click', function() {
+$(".navbar_select > div > button").on('click', function() {
     $('.is-active').removeClass();
     $(this).addClass('is-active');
 });
