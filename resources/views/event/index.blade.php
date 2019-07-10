@@ -16,7 +16,7 @@
         @foreach($event as $value)
         <!-- dẫn link event-container vô room -->
         <div class="event-container">
-            <div class="event-short-info">
+            <div class="event-short-info" onclick="window.location.href='/admin/event/{{$value->event_code}}'">
                 <div class="event-icon"></div>
                 <div class="event-namecode">
                     <div class="event-name"><i class="fa fa-calendar" aria-hidden="true"></i><a
