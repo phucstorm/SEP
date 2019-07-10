@@ -31,7 +31,7 @@ Route::get('admin/event/{event_code}', 'EventController@show');
 
 //Search Event Room : /room for guest , /search for host
 Route::get('/room' , 'SearchController@search');
-Route::get('/search' , 'EventController@search');
+Route::get('/admin/event' , 'EventController@search');
 
 // Generate QR code for Event Room depend on event_code
 Route::get('qr/{event_code}','SearchController@getQR');

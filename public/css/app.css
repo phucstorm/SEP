@@ -2237,7 +2237,6 @@ textarea.form-control {
 .btn.focus,
 .btn:focus {
     outline: 0;
-    box-shadow: 0 0 0 .2rem rgba(52, 144, 220, .25)
 }
 
 .btn.disabled,
@@ -2647,11 +2646,6 @@ fieldset:disabled a.btn {
     border-color: #38c172
 }
 
-.btn-outline-success.focus,
-.btn-outline-success:focus {
-    box-shadow: 0 0 0 .2rem rgba(56, 193, 114, .5)
-}
-
 .btn-outline-success.disabled,
 .btn-outline-success:disabled {
     color: #38c172;
@@ -2662,14 +2656,7 @@ fieldset:disabled a.btn {
 .btn-outline-success:not(:disabled):not(.disabled):active,
 .show>.btn-outline-success.dropdown-toggle {
     color: #fff;
-    background-color: #38c172;
-    border-color: #38c172
-}
-
-.btn-outline-success:not(:disabled):not(.disabled).active:focus,
-.btn-outline-success:not(:disabled):not(.disabled):active:focus,
-.show>.btn-outline-success.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(56, 193, 114, .5)
+    border-color: #38c172;
 }
 
 .btn-outline-info {
@@ -2685,11 +2672,6 @@ fieldset:disabled a.btn {
     border-color: #6cb2eb
 }
 
-.btn-outline-info.focus,
-.btn-outline-info:focus {
-    box-shadow: 0 0 0 .2rem rgba(108, 178, 235, .5)
-}
-
 .btn-outline-info.disabled,
 .btn-outline-info:disabled {
     color: #6cb2eb;
@@ -2699,16 +2681,10 @@ fieldset:disabled a.btn {
 .btn-outline-info:not(:disabled):not(.disabled).active,
 .btn-outline-info:not(:disabled):not(.disabled):active,
 .show>.btn-outline-info.dropdown-toggle {
-    color: #212529;
-    background-color: #6cb2eb;
+    color: #fff;
     border-color: #6cb2eb
 }
 
-.btn-outline-info:not(:disabled):not(.disabled).active:focus,
-.btn-outline-info:not(:disabled):not(.disabled):active:focus,
-.show>.btn-outline-info.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(108, 178, 235, .5)
-}
 
 .btn-outline-warning {
     color: #ffed4a;
@@ -2761,11 +2737,6 @@ fieldset:disabled a.btn {
     border-color: #e3342f
 }
 
-.btn-outline-danger.focus,
-.btn-outline-danger:focus {
-    box-shadow: 0 0 0 .2rem rgba(227, 52, 47, .5)
-}
-
 .btn-outline-danger.disabled,
 .btn-outline-danger:disabled {
     color: #e3342f;
@@ -2776,14 +2747,7 @@ fieldset:disabled a.btn {
 .btn-outline-danger:not(:disabled):not(.disabled):active,
 .show>.btn-outline-danger.dropdown-toggle {
     color: #fff;
-    background-color: #e3342f;
     border-color: #e3342f
-}
-
-.btn-outline-danger:not(:disabled):not(.disabled).active:focus,
-.btn-outline-danger:not(:disabled):not(.disabled):active:focus,
-.show>.btn-outline-danger.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(227, 52, 47, .5)
 }
 
 .btn-outline-light {

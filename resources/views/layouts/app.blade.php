@@ -29,18 +29,20 @@
 <body>
     <div class="opacity_menu"></div>
     <nav class="sidebar-navigation">
+        <div class='host-info'>
+            <div><i class="fa fa-user"></i>
+                {{Auth::user()->email}}</div>
+            <div>Host</div>
+        </div>
         <ul class="sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link" class="nav-item-link" href="/user" style="color: white;"> <i class="fa fa-user"></i>
-                    {{Auth::user()->email}} - Host</a>
-            </li>
-            <li class="nav-item">
-                <span><a class="nav-link" class="nav-item-link" href="/user" style="color: white;">Edit</a></span>
+                <span><a class="nav-link" class="nav-item-link" href="/user" style="color: white;"><i
+                            class="fa fa-edit"></i>Edit</a></span>
             </li>
             <li class="nav-item">
                 <a class="nav-link" class="nav-item-link" href="{{ route('logout') }}" style="color: white;"
                     onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}</a>
+                    <i class="fa fa-sign-out"></i> {{ __('Logout') }}</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
@@ -54,7 +56,11 @@
                 <i class="fa fa-bars"></i>
             </div>
 
-            <img src="{{ asset('img/VLask-logo.png')}}" class="vlask-logo" alt="">
+            <div class="vlask-logo">
+                <img src="{{ asset('img/VLask-logo.png')}}" alt="">
+                <h1>VLask</h1>
+            </div>
+
             <div class="container">
                 <div class="row justify-content-between">
                     <div class="user_info_container">
@@ -71,10 +77,10 @@
                             aria-expanded="false">
                             <i class="fa fa-cog"></i>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" onclick="window.location.href='/user'">Edit</a>
+                                <a class="dropdown-item" onclick="window.location.href='/user'"><i class="fa fa-edit"></i>Edit</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    <i class="fa fa-sign-out"></i>{{ __('Logout') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -84,9 +90,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="search_event_form">
-                        <form action="/search" method="get">
+                    <div class="search_event_form search-desktop">
+                        <form action="/admin/event" method="get">
                             <div>
+                                <i class="fa fa-search"></i>
+                                <input type="text" name="search" placeholder="Search event...">
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="search_event_form search-mobile">
+                        <form action="/admin/event" method="get">
+                            <div>
+                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
                                 <i class="fa fa-search"></i>
                                 <input type="text" name="search" placeholder="Search event...">
                             </div>
@@ -137,7 +153,7 @@
 
     <footer>
         <div class="top-footer">
-        <div class="wrapper-title">Design by 5Bs</div>    
+            <div class="wrapper-title">VLask | Designed by 5Bs</div>
         </div>
     </footer>
 </body>

@@ -30,7 +30,7 @@ $('#add').click(function() {
 });
 
 // Edit Event
-$(document).on('click', '.btn.btn-outline-success.desktop-btn', function() {
+$(document).on('click', '.btn.btn-outline-success', function() {
     var event_id = $(this).attr('data-id');
     $('#en').val($(this).attr('data-name'));
     $('#ec').val($(this).attr('data-code'));
@@ -92,9 +92,11 @@ $(document).on('click', '.btn.btn-outline-success.desktop-btn', function() {
                 success: function(data) {
                     alert("Cập nhật thông tin event hoàn tất");
                     window.location.reload();
+                    // console.log(data);
                 },
                 error: function(data) {
                     alert("Dữ liệu bạn nhập không đúng định dạng !");
+                    // console.log(data);
                 },
             });
         } else {
