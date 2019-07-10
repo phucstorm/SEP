@@ -634,3 +634,8 @@ footer .wrapper-title {
 .fixed_row {
     margin: 0 15px;
 }
+
+.mobile-flex {
+    height: 62px;
+    padding: 10px;
+}
