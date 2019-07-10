@@ -10,6 +10,9 @@
         </button>
     </div>
     {{ csrf_field() }}
+    @if($event == '[]' && isset($_GET['search']))
+    <div>No result found</div>
+    @else
     @foreach($event as $value)
     <!-- dẫn link event-container vô room -->
     <div class="event-container">
@@ -72,6 +75,7 @@
         </div>
     </div>
     @endforeach
+    @endif
 </div>
 
 <!-- Modal For Creat Event -->

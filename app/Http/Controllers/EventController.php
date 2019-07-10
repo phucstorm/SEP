@@ -88,6 +88,6 @@ class EventController extends Controller
 
     public function search(Request $request){
         $event = Event::where('event_name','like', '%'.$request->get('search').'%')->where('user_id', '=', Auth::user()->id)->get();
-        return view('event.search', compact('event', $event));
+        return view('event.index', compact('event', $event));
     }
 }

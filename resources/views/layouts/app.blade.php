@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="search_event_form search-desktop">
-                        <form action="/search" method="get">
+                        <form action="/admin/event" method="get">
                             <div>
                                 <i class="fa fa-search"></i>
                                 <input type="text" name="search" placeholder="Search event...">
@@ -96,7 +96,7 @@
                         </form>
                     </div>
                     <div class="search_event_form search-mobile">
-                        <form action="/search" method="get">
+                        <form action="/admin/event" method="get">
                             <div>
                             <i class="fa fa-chevron-left" aria-hidden="true"></i>
                                 <i class="fa fa-search"></i>
