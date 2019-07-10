@@ -30,7 +30,7 @@ $('#add').click(function() {
 });
 
 // Edit Event
-$(document).on('click', '.btn.btn-outline-success', function() {
+$(document).on('click', '.btn.btn-outline-success.desktop-btn', function() {
     var event_id = $(this).attr('data-id');
     $('#en').val($(this).attr('data-name'));
     $('#ec').val($(this).attr('data-code'));
@@ -106,7 +106,7 @@ $(document).on('click', '.btn.btn-outline-success', function() {
 });
 
 // Delete Event
-$(document).on('click', '.btn.btn-outline-danger', function() {
+$(document).on('click', '.btn.btn-outline-danger.desktop-btn', function() {
     var event_id = $(this).attr('data-id');
     $('#del').click(function() {
         $.ajax({

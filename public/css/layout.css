@@ -3,9 +3,7 @@ body {
     font-family: 'Muli', 'Helvetical', sans-serif;
     line-height: 1.7;
 }
-button {
-    outline:none!important;
-}
+
 ul {
     list-style: none;
 }
@@ -39,7 +37,7 @@ a:hover {
     padding-right: 5em;
 }
 
-.search-desktop {
+.search_event_form {
     padding: 10px 0;
 }
 
@@ -53,11 +51,11 @@ a:hover {
     color: #20b875;
 }
 
-.search-desktop {
+.search_event_form {
     position: relative;
 }
 
-.search-desktop input {
+.search_event_form input {
     color: #fff;
     background-color: #fff;
     background-color: hsla(0, 0%, 100%, .16);
@@ -69,7 +67,7 @@ a:hover {
     outline-style: none;
 }
 
-.search-desktop i.fa.fa-search {
+.search_event_form i.fa.fa-search {
     position: absolute;
     top: 20px;
     left: 10px;
@@ -149,7 +147,7 @@ a:hover {
 }
 
 .event-container button:hover {
-    background: none;
+    background: #d0d0d0;
 }
 
 .event-container .btn-outline-danger {
@@ -293,8 +291,8 @@ a:hover {
     justify-content: center;
     list-style: none;
     width: 100%;
+    padding: 0 16px;
     margin: 0;
-    padding: 0;
 }
 
 .sidebar-navigation .sidebar-nav .nav-item {
@@ -304,8 +302,7 @@ a:hover {
 }
 
 .sidebar-navigation .sidebar-nav .nav-item a {
-    color: #777777!important;
-    padding: 10px 40px;
+    color: #999999!important;
 }
 
 .sidebar-navigation .sidebar-nav .nav-item a:hover {
@@ -335,31 +332,13 @@ a:hover {
     z-index: 2;
     top: 40px;
     right: 40px;
-    height: 0;
-    transition-duration: 0.4s;
 }
 
 .event-action-mobile li {
     border-top: 1px solid rgba(0, 0, 0, .1);
-}
-.event-action-mobile button {
-    color: #000!important;
-    display: block;
-    width: 100%;
     padding: 10px 40px;
-    border:none;
-    background-image:none;
-    background-color:transparent;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
 }
-.event-action-mobile li button:hover {
-    background: #d0d0d0;
-}
-.event-action-mobile button:hover {
-    cursor: pointer;
-}
+
 .toggle-action {
     display: none;
     position: absolute;
@@ -373,76 +352,11 @@ a:hover {
 }
 
 footer {
-    color: #ffffff;
-    margin-top: 50px;
-    background: rgba(0,0,0,0.85);
-    padding: 10px;
-    box-shadow: -1px 0px 20px 1px #d0d0d0;
+    left: 100px;
+    font-weight: 700;
+    color: #555;
 }
-footer .wrapper-title {
-    text-align: center;
-}
-.desktop-btn {
-    outline-color: transparent!important;
-    position: relative;
-    background: transparent;
-}
-.desktop-btn i {
-    position: relative;
-    z-index: 1;
-}
-.desktop-btn::after {
-    content:'';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 0%;
-    height: 0%;
-    transition: 0.4s;
-    z-index: 0;
-    background-color: #e0e0e0;
-    border-radius: 6px;
-}
-.desktop-btn::before {
-    content:'';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    height: 0%;
-    transition: 0.4s;
-    z-index: 0;
-    background-color: #f0f0f0;
-    border-radius: 6px;
-}
-.desktop-btn:hover::after, .desktop-btn:hover::before {
-    width: 100%;
-    height: 100%;
-}
-.host-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 3em 1em 1em 1em;
-    background: #11998e; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #11998e, #20b875); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #11998e, #20b875); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-
-    width: 100%;
-}
-.host-info div {
-    color: #ffffff!important;
-}
-.search-mobile {
-    display: none;
-}
-.form-event-optional .form-group{
- margin-right: 5px;
-}
-.form-event-optional .form-group:last-of-type{
-    margin-right: 0px;
-   }
 @media only screen and (max-width:1200px) {
     .navbar_info .container {
         max-width: 600px;
@@ -462,30 +376,21 @@ footer .wrapper-title {
 }
 
 @media only screen and (max-width:768px) {
-    .modal.fade svg {
-        width: 550px;
-        height: 550px;
-    }
     .vlask-logo {
         position: absolute;
         top: 0;
         right: 0;
         width: 130px;
         margin: 0 auto;
-        transition-duration: 0.5s;
     }
     .fa-bars {
         display: initial;
         color: white;
         font-size: 30px;
-        transition-duration: 0.5s;
     }
     .sidebar-toggle {
         display: inline;
         padding-top: 10px;
-    }
-    .sidebar-toggle:hover {
-        cursor: pointer;
     }
     .user_info_container {
         display: none;
@@ -497,10 +402,10 @@ footer .wrapper-title {
     .row.justify-content-between {
         justify-content: flex-end;
     }
-    .search-desktop {
+    .search_event_form {
         padding: 0;
     }
-    .search-desktop i.fa.fa-search {
+    .search_event_form i.fa.fa-search {
         top: 10px;
     }
     .container.event_container>.row>.col-lg-4.col-md-12 {
@@ -509,50 +414,11 @@ footer .wrapper-title {
 }
 
 @media only screen and (max-width:575px) {
-    .modal.fade svg {
-        width: 280px;
-        height: 280px;
-    }
-    .search-desktop {
+    .search_event_form input {
         display: none;
     }
-    .search-mobile{
-        display: initial;
-        width: 0%;
-        transition-duration: 0.5s;
-    }
-    .search-mobile i.fa.fa-search{
-        position: absolute;
-        top: 15px;
-        right: 15px;
-    }
-    .search-mobile i.fa.fa-search:hover, .search-mobile i.fa.fa-chevron-left:hover {
-        cursor: pointer;
-    }
-    .search-mobile input {
-        display: none;
-        border: none;
-        border-radius: 0;
-        background: transparent;
-        border-bottom: 1px solid #fff;
-        width: 100%;
-        outline-style: none;
-        color: #ffffff;
-    }
-    .search-mobile i.fa.fa-chevron-left {
-        display: none;
-        padding-top: 10px;
-        margin-right: 20px;
-    }
-    .search-mobile form div {
-        display: flex;
-
-    }
-    .form-event-optional {
-        flex-direction: column;
-    }
-    .form-event-optional .form-group{
-        padding-left: 40px;
+    .search_event_form i.fa.fa-search {
+        position: static;
     }
 }
 
@@ -560,7 +426,7 @@ footer .wrapper-title {
     width: 280px;
     height: 100%;
     position: fixed;
-    z-index: 1;
+    z-index: 999999;
     top: 0px !important;
     background-color: #fff;
     overflow-x: hidden;
@@ -578,7 +444,7 @@ footer .wrapper-title {
     position: fixed;
     top: 0px !important;
     left: 0px;
-    z-index: 1;
+    z-index: 999999;
 }
 
 .event_left {

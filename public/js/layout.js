@@ -6,30 +6,24 @@ function classToggle() {
 
 document.querySelector('.sidebar-toggle').addEventListener('click', classToggle);
 
+// function toggleAction() {
+//     const actions = document.querySelectorAll('.event-action-mobile')
+//     actions.forEach(action => action.classList.toggle('toggle-show'));
+// }
+
+// document.querySelector('.toggle-action').addEventListener('click',toggleAction);
 $(".toggle-action").click(function() {
     $(".event-action-mobile").removeClass('toggle-show');
     $(this).next().addClass('toggle-show');
-    $(this).next().css('height', '143px');
 })
 $(document).mouseup(function(e) {
     var container = $(".event-action-mobile");
     if (!container.is(e.target) && container.has(e.target).length === 0) {
         container.removeClass('toggle-show');
-        container.css('height', '0px');
     }
 });
 $(document).ready(function() {
     $('button.qr-btn').each(function(index) {
-        $(this).attr('data-target', '.qrcode' + index);
-    })
-
-    $('.modal.fade.qrcode').each(function(index) {
-        $(this).removeClass('qrcode');
-        $(this).addClass('qrcode' + index);
-    })
-})
-$(document).ready(function() {
-    $('button.qr-btn-mobile').each(function(index) {
         $(this).attr('data-target', '.qrcode' + index);
     })
 
@@ -57,25 +51,3 @@ $("body > header > div.navbar_select > div > button").on('click', function() {
     $('.is-active').removeClass();
     $(this).addClass('is-active');
 });
-
-$('.search-mobile i.fa.fa-search').click(function() {
-    $('.search-mobile input').css('display','initial');
-    $('.vlask-logo').css('display','none');
-    $('.vlask-logo').css('width','0');
-    $('.sidebar-toggle').css('display','none');
-    $('.fa-bars').css('font-size','0px');
-    $('.search-mobile i.fa.fa-chevron-left').css('display','initial');
-    $('.search-mobile i.fa.fa-search').css('display','none');
-    $('.search-mobile').css('width','100%');
-})
-
-$('.search-mobile i.fa.fa-chevron-left').click(function() {
-    $('.search-mobile').css('width','0%');
-    $('.vlask-logo').css('width','130px');
-    $('.vlask-logo').css('display','initial');
-    $('.sidebar-toggle').css('display','initial');
-    $('.fa-bars').css('font-size','30px');
-    $('.search-mobile i.fa.fa-chevron-left').css('display','none');
-    $('.search-mobile i.fa.fa-search').css('display','initial');
-    
-})

@@ -22,20 +22,6 @@
                 </div>
             </div>
             <div class="event-action">
-            <i class="fa fa-ellipsis-v toggle-action"></i>
-            <ul class="event-action-mobile">
-                <li><button class="btn btn-outline-info qr-btn-mobile" data-toggle="modal"
-                data-target=".qrcode">QR Code</button></li>
-                <li><button class="btn btn-outline-success" data-id="{{$value->id}}"
-                data-code="{{$value->event_code}}" data-name="{{$value->event_name}}"
-                data-description="{{$value->event_description}}" data-link="{{$value->event_link}}"
-                data-mod="{{$value->setting_moderation}}" data-start="{{$value->start_date}}"
-                data-end="{{$value->end_date}}" data-join="{{$value->setting_join}}"
-                data-question="{{$value->setting_question}}" data-reply="{{$value->setting_reply}}"
-                data-anonymous="{{$value->setting_anonymous}}" data-toggle="modal" data-target="#edit">Edit</button></li>
-                <li><button type="button" class="btn btn-outline-danger" data-id="{{$value->id}}"
-                data-toggle="modal" data-target="#delete">Delete</button></li>
-            </ul>
                 <button type="button" class="btn btn-outline-success desktop-btn" data-id="{{$value->id}}"
                     data-code="{{$value->event_code}}" data-name="{{$value->event_name}}"
                     data-description="{{$value->event_description}}" data-link="{{$value->event_link}}"
@@ -58,7 +44,7 @@
                                     </button>
                             </div>
                             <div class="modal-body" style="margin:0 auto;">
-                                {!! QrCode::size(600)->generate($value->event_link); !!}
+                                {!! QrCode::size(250)->generate($value->event_link); !!}
                             </div>
                         </div>
                     </div>
@@ -66,7 +52,12 @@
 
                 <button type="button" class="btn btn-outline-danger desktop-btn" data-id="{{$value->id}}"
                     data-toggle="modal" data-target="#delete"><i class="fa fa-trash"></i></button>
-
+                <i class="fa fa-ellipsis-v toggle-action"></i>
+                <ul class="event-action-mobile">
+                    <li>QR Code</li>
+                    <li>Edit</li>
+                    <li>Delete</li>
+                </ul>
             </div>
         </div>
         @endforeach

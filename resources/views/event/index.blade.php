@@ -25,20 +25,6 @@
             </div>
         </div>
         <div class="event-action">
-        <i class="fa fa-ellipsis-v toggle-action"></i>
-            <ul class="event-action-mobile">
-                <li><button class="btn btn-outline-info qr-btn-mobile" data-toggle="modal"
-                data-target=".qrcode">QR Code</button></li>
-                <li><button class="btn btn-outline-success" data-id="{{$value->id}}"
-                data-code="{{$value->event_code}}" data-name="{{$value->event_name}}"
-                data-description="{{$value->event_description}}" data-link="{{$value->event_link}}"
-                data-mod="{{$value->setting_moderation}}" data-start="{{$value->start_date}}"
-                data-end="{{$value->end_date}}" data-join="{{$value->setting_join}}"
-                data-question="{{$value->setting_question}}" data-reply="{{$value->setting_reply}}"
-                data-anonymous="{{$value->setting_anonymous}}" data-toggle="modal" data-target="#edit">Edit</button></li>
-                <li><button type="button" class="btn btn-outline-danger" data-id="{{$value->id}}"
-                data-toggle="modal" data-target="#delete">Delete</button></li>
-            </ul>
             <button type="button" class="btn btn-outline-success desktop-btn" data-id="{{$value->id}}"
                 data-code="{{$value->event_code}}" data-name="{{$value->event_name}}"
                 data-description="{{$value->event_description}}" data-link="{{$value->event_link}}"
@@ -55,13 +41,13 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="title">{{$value->event_name}}</h5>
+                            <h4 class="modal-title" id="title">QR Code to join this event</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                         </div>
                         <div class="modal-body" style="margin:0 auto;">
-                            {!! QrCode::size(600)->generate($value->event_link); !!}
+                            {!! QrCode::size(250)->generate($value->event_link); !!}
                         </div>
                     </div>
                 </div>
@@ -69,7 +55,12 @@
 
             <button type="button" class="btn btn-outline-danger desktop-btn" data-id="{{$value->id}}"
                 data-toggle="modal" data-target="#delete"><i class="fa fa-trash"></i></button>
-
+            <i class="fa fa-ellipsis-v toggle-action"></i>
+            <ul class="event-action-mobile">
+                <li>QR Code</li>
+                <li>Edit</li>
+                <li>Delete</li>
+            </ul>
         </div>
     </div>
     @endforeach
@@ -81,9 +72,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="title">Create Event</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                
             </div>
             <div class="modal-body">
                 <form role="form" method="post">
@@ -170,31 +159,31 @@
                         <div class="form-group row">
                             <label for="ji" class="checkbox-label">
                                 <input type="checkbox" class="form-control" id="ji" name="ji">
-                                <span> Join</span>
+                                <span>Join</span>
                             </label>
                         </div>
                         <div class="form-group row">
                             <label for="qt" class="checkbox-label">
                                 <input type="checkbox" class="form-control" id="qt" name="qt">
-                                <span> Ask</span>
+                                <span>Ask question</span>
                             </label>
                         </div>
                         <div class="form-group row">
                             <label for="rl" class="checkbox-label">
                                 <input type="checkbox" class="form-control" id="rl" name="rl">
-                                <span> Reply</span>
+                                <span>Reply</span>
                             </label>
                         </div>
                         <div class="form-group row">
                             <label for="rl" class="checkbox-label">
                                 <input type="checkbox" class="form-control" id="md" name="md">
-                                <span> Moderation</span>
+                                <span>Moderation</span>
                             </label>
                         </div>
                         <div class="form-group row">
                             <label for="rl" class="checkbox-label">
                                 <input type="checkbox" class="form-control" id="an" name="an">
-                                <span> Anonymous</span>
+                                <span>Anonymous</span>
                             </label>
                         </div>
                     </div>
