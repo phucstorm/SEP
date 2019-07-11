@@ -76,18 +76,17 @@
                         <div class="user_setting" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             <i class="fa fa-cog"></i>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" onclick="window.location.href='/user'"><i class="fa fa-edit"></i>Edit</a>
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" onclick="window.location.href='/user'"><i class="fa fa-edit"></i>Edit</a></li>
+                                <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     <i class="fa fa-sign-out"></i>{{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                </a></li>
+                            </ul>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                     style="display: none;">
                                     @csrf
-                                </form>
-                            </div>
+                            </form>
                         </div>
                     </div>
                     <div class="search_event_form search-desktop">

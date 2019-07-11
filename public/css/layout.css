@@ -354,7 +354,7 @@ a:hover {
     top: 40px;
     right: 40px;
     height: 0;
-    transition-duration: 0.4s;
+    transition-duration: 0.1s;
 }
 
 .event-action-mobile li {
@@ -511,6 +511,16 @@ footer .wrapper-title {
 input:-webkit-autofill-selected {
     background-color: hsla(0, 0%, 100%, .16)!important;
 }
+.dropdown-menu li a {
+    padding: 10px 30px;
+    color: #555555!important;
+}
+.dropdown-menu li a:hover {
+    cursor: pointer;
+}
+.dropdown-menu.show {
+    top: -15px!important;
+}
 @media only screen and (min-width:320px) {
     .modal.fade svg {
         width: 280px;
@@ -655,12 +665,18 @@ input:-webkit-autofill-selected {
     }
     .vlask-logo {
         top: 5px;
-        left: 500px;
-        right: 500px;
+        left: 700px;
+        right: 700px;
         margin: 0 auto;
     }
     .vlask-logo h1 {
         display: initial;
+    }
+    .desktop-btn {
+        display: initial;
+    }
+    .toggle-action {
+        display: none;
     }
 }
 @media only screen and (min-width:1140px) {
