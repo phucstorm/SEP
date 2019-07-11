@@ -330,10 +330,6 @@ a:hover {
     background: rgba(0, 0, 0, .1);
 }
 
-.sidebar-navigation div {
-    color: #999999!important;
-    /* margin: 0 auto; */
-}
 
 .toggle-show {
     display: flex!important;
@@ -590,6 +586,7 @@ input:-webkit-autofill-selected {
     }
     .vlask-logo h1 {
         display: none;
+        color: #ffffff;
     }
     .fa-bars {
         display: initial;

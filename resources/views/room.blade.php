@@ -5,10 +5,13 @@
         <div class="input-group">
             <h1 class="h1-content">Ask the host</h1>  
             <form action="/room" method="post">
-                <input type="text" name="event_id" value="{{$event->id}}" hidden>
-                <textarea type="text" name="question" maxlength='300' placeholder="Type your question (maximum input up to 300 characters)" id="input-question"></textarea>
-                    
+                <div class="question-form-body">
+                    <input type="text" name="event_id" value="{{$event->id}}" hidden>
+                    <textarea type="text" name="question" maxlength='300' placeholder="Type your question..." id="input-question"></textarea>
+                    <span id="characters">300</span>
+                </div>   
                 <div class="question-form__footer">
+
                     <input type="text" name="user_name" placeholder="Your name (optional)" id="input-name">
                     <button type="submit" id="submit-btn">Send</button>
                 </div>
@@ -49,7 +52,7 @@
         <div class="question-list recent-question">
             <div class="question-container">
                 <div class="question-info">
-                    <div class="question-username"><i class="fa fa-user"></i> Đây là các câu hỏi recent</div>
+                    <div class="question-username"><i class="fa fa-user"></i> Đây là các câu hỏi recent aaaaaaaaaaaaaaa</div>
                     <div class="question-date">Date goes here...</div>
                     <div class="question-content">Content goes here...</div>
                 </div>

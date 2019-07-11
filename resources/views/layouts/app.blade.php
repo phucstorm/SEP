@@ -55,12 +55,10 @@
             <div class="sidebar-toggle">
                 <i class="fa fa-bars"></i>
             </div>
-
             <div class="vlask-logo">
                 <img src="{{ asset('img/VLask-logo.png')}}" alt="">
                 <h1>VLask</h1>
             </div>
-
             <div class="container">
                 <div class="row justify-content-between">
                     <div class="user_info_container">
