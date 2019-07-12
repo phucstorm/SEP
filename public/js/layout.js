@@ -54,11 +54,6 @@ $('.opacity_menu').click(function(e) {
     $('.sidebar-navigation').css('transform', 'translateX(-280px)');
 });
 
-$(".navbar_select > div > button").on('click', function() {
-    $('.is-active').removeClass();
-    $(this).addClass('is-active');
-});
-
 $('.search-mobile i.fa.fa-search').click(function() {
     $('.search-mobile input').css('display', 'initial');
     $('.vlask-logo').css('display', 'none');

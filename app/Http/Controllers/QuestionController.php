@@ -14,25 +14,29 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function __construct(){
-    //     $this->middleware('guest');
-    // }
+    public function __construct(){
+        $this->middleware('guest');
+    }
     public function postQuestion(Request $request){
         $question = request()->question;
-        if(request()->user_name != ""){
-            $user_name = request()->user_name;
+        if($question == ""){
+            return redirect()->back()->with('alert','You must type question'); 
+            
         }else{
-            $user_name = "Anonymus";
-        }
-        $qt = new Question;
-        $qt->event_id = request()->event_id;
-        $qt->content = $question;
-        $qt->user_name = $user_name;
-        $qt->status = 0;
-        $qt->save();
-        event(new FormSubmitted($qt->id,$qt->content, $user_name, request()->event_id, $qt->created_at));
-        return redirect()->back();
-        
+            if(request()->user_name != ""){
+                $user_name = request()->user_name;
+            }else{
+                $user_name = "Anonymus";
+            }
+            $qt = new Question;
+            $qt->event_id = request()->event_id;
+            $qt->content = $question;
+            $qt->user_name = $user_name;
+            $qt->status = 0;
+            $qt->save();
+            event(new FormSubmitted($qt->id,$qt->content, $user_name, request()->event_id, $qt->created_at));
+            return redirect()->back();
+        } 
     }
 
     public function accept($id){

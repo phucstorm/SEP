@@ -11,10 +11,10 @@ use App\Events\FormSubmitted;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
 
+Route::get('/', ['middleware' =>'guest', function(){
+    return view('index');
+  }]);
 Auth::routes();
 
 Route::get('/user', 'UserController@index');
@@ -39,3 +39,5 @@ Route::post('/room', 'QuestionController@postQuestion');
 
 Route::get('/room/question/accept/{id}' , 'QuestionController@accept');
 Route::post('/room/question/denied' , 'QuestionController@denied');
+
+Route::get('/room/poll/{event_code}' , 'PollAnswerController@index');

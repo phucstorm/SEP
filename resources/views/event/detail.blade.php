@@ -30,7 +30,7 @@
                         <div>{{$value->user_name}}</div>
                         <!-- <button><a href="/room/question/denied/{{$value->id}}">Delete</a></button> -->
                         <button type="button" class="btn btn-outline-danger delete_question" data-id="{{$value->id}}"
-                            data-toggle="modal" data-target="#delete_question">delete
+                            data-toggle="modal" data-target="#delete_question">delete 
                         </button>
                         @endif
                     @endforeach

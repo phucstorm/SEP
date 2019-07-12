@@ -12,7 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/guest.js') }}" defer></script>
+    @stack('head')    
     <script src="{{ asset('js/layout.js') }}" defer></script>
     <!-- <script src="{{ asset('js/event.js') }}" defer></script> -->
 
@@ -75,11 +75,11 @@
                 </div>
             </div>
             <div class="navbar_select">
-            <div class="container">
-                <button class="is-active"><a href="#">QUESTIONS</a></button>
-                <button>POLLS</button>
+                <div class="container">
+                    <button class="question-btn" onclick="window.location.href='/room?room={{$event->event_code}}'">QUESTIONS</button>
+                    <button class="poll-btn" onclick="window.location.href='/room/poll/{{$event->event_code}}'">POLLS</button>
+                </div>
             </div>
-        </div>
         </header>
         <div class="opacity_menu"></div>
         <nav class="sidebar-navigation">

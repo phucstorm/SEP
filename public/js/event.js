@@ -6,24 +6,31 @@ $('#add').click(function() {
         $('input[name=start_date]').val() != "" &&
         $('input[name=end_date]').val() != ""
     ) {
-        $.ajax({
-            type: 'POST',
-            url: 'event/create',
-            data: {
-                '_token': $('input[name=_token]').val(),
-                'event_name': $('input[name=event_name]').val(),
-                'event_description': $('input[name=event_description]').val(),
-                'start_date': $('input[name=start_date]').val(),
-                'end_date': $('input[name=end_date]').val()
-            },
-            success: function(data) {
-                alert("Tạo event thành công");
-                window.location.reload();
-            },
-            error: function(data) {
-                alert("Yêu cầu kiểm tra lại các dữ liệu đã nhập");
-            }
-        });
+        if ($('input[name=start_date]').val() > $('input[name=end_date]').val()) {
+            alert("Ngày kết thúc phải lớn hơn ngày bắt đầu");
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: 'event/create',
+                data: {
+                    '_token': $('input[name=_token]').val(),
+                    'event_name': $('input[name=event_name]').val(),
+                    'event_description': $('input[name=event_description]').val(),
+                    'start_date': $('input[name=start_date]').val(),
+                    'end_date': $('input[name=end_date]').val()
+                },
+                success: function(data) {
+                    alert("Tạo event thành công");
+                    window.location.reload();
+                    // console.log(data);
+                },
+                error: function(data) {
+                    alert("Yêu cầu kiểm tra lại các dữ liệu đã nhập");
+                    // console.log(data);
+                }
+            });
+        }
+
     } else {
         alert("Bạn phải điền đầy đủ thông tin mới có thể tạo được event !");
     }
@@ -72,33 +79,39 @@ $(document).on('click', '.btn.btn-outline-success', function() {
             $('input[name=sd]').val() != "" &&
             $('input[name=ed]').val() != ""
         ) {
-            $.ajax({
-                type: 'POST',
-                url: 'event/edit',
-                data: {
-                    '_token': $('input[name=_token]').val(),
-                    'id': event_id,
-                    'event_name': $('input[name=en]').val(),
-                    'event_code': $('input[name=ec]').val(),
-                    'event_description': $('input[name=ds]').val(),
-                    'event_start': $('input[name=sd]').val(),
-                    'event_end': $('input[name=ed]').val(),
-                    'join': $('input[name=ji]').is(':checked') == true ? 1 : 0,
-                    'question': $('input[name=qt]').is(':checked') == true && $('input[name=ji]').is(':checked') == true ? 1 : 0,
-                    'reply': $('input[name=rl]').is(':checked') == true && $('input[name=ji]').is(':checked') == true ? 1 : 0,
-                    'moderation': $('input[name=md]').is(':checked') == true && $('input[name=md]').is(':checked') == true ? 1 : 0,
-                    'anonymous': $('input[name=an]').is(':checked') == true && $('input[name=an]').is(':checked') == true ? 1 : 0,
-                },
-                success: function(data) {
-                    alert("Cập nhật thông tin event hoàn tất");
-                    window.location.reload();
-                    // console.log(data);
-                },
-                error: function(data) {
-                    alert("Dữ liệu bạn nhập không đúng định dạng !");
-                    // console.log(data);
-                },
-            });
+            if ($('input[name=sd]').val() > $('input[name=ed]').val()) {
+                alert("Ngày kết thúc phải lớn hơn ngày bắt đầu");
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: 'event/edit',
+                    data: {
+                        '_token': $('input[name=_token]').val(),
+                        'id': event_id,
+                        'event_name': $('input[name=en]').val(),
+                        'event_code': $('input[name=ec]').val(),
+                        'event_description': $('input[name=ds]').val(),
+                        'event_start': $('input[name=sd]').val(),
+                        'event_end': $('input[name=ed]').val(),
+                        'join': $('input[name=ji]').is(':checked') == true ? 1 : 0,
+                        'question': $('input[name=qt]').is(':checked') == true && $('input[name=ji]').is(':checked') == true ? 1 : 0,
+                        'reply': $('input[name=rl]').is(':checked') == true && $('input[name=ji]').is(':checked') == true ? 1 : 0,
+                        'moderation': $('input[name=md]').is(':checked') == true && $('input[name=md]').is(':checked') == true ? 1 : 0,
+                        'anonymous': $('input[name=an]').is(':checked') == true && $('input[name=an]').is(':checked') == true ? 1 : 0,
+                    },
+                    success: function(data) {
+                        if (data == "Mã event đã tồn tại") {
+                            alert(data);
+                        } else {
+                            alert("Cập nhật thông tin event hoàn tất");
+                            window.location.reload();
+                        }
+                    },
+                    error: function(data) {
+                        alert("Dữ liệu bạn nhập không đúng định dạng !");
+                    },
+                });
+            }
         } else {
             alert("Bạn phải nhập đầy đủ thông tin để hoàn tất việc chỉnh sửa event");
 
@@ -204,7 +217,7 @@ $(document).on('click', '.btn.btn-outline-danger.delete_question', function() {
     $('#del_ques').click(function() {
         $.ajax({
             type: 'POST',
-            url: '/room/question/denied',
+            url: '/room/question/denied'.question_id,
             data: {
                 '_token': $('input[name=_token]').val(),
                 'id': question_id
