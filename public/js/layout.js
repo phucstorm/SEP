@@ -62,7 +62,7 @@ $(".navbar_select > div > button").on('click', function() {
 $('.search-mobile i.fa.fa-search').click(function() {
     $('.search-mobile input').css('display', 'initial');
     $('.vlask-logo').css('display', 'none');
-    $('.vlask-logo').css('width', '0');
+    $('.vlask-logo img').css('width', '0');
     $('.sidebar-toggle').css('display', 'none');
     $('.fa-bars').css('font-size', '0px');
     $('.search-mobile i.fa.fa-chevron-left').css('display', 'initial');
@@ -72,8 +72,8 @@ $('.search-mobile i.fa.fa-search').click(function() {
 
 $('.search-mobile i.fa.fa-chevron-left').click(function() {
     $('.search-mobile').css('width', '0%');
-    $('.vlask-logo').css('width', '130px');
-    $('.vlask-logo').css('display', 'initial');
+    $('.vlask-logo img').css('width', '50px');
+    $('.vlask-logo').css('display', 'flex');
     $('.sidebar-toggle').css('display', 'initial');
     $('.fa-bars').css('font-size', '30px');
     $('.search-mobile i.fa.fa-chevron-left').css('display', 'none');

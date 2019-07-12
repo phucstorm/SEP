@@ -13,6 +13,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/guest.js') }}" defer></script>
+    <script src="{{ asset('js/layout.js') }}" defer></script>
     <!-- <script src="{{ asset('js/event.js') }}" defer></script> -->
 
     <!-- Fonts -->
@@ -23,6 +24,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/guest.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
     <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
     <script>
         // Enable pusher logging - don't include this in production
@@ -51,43 +53,42 @@
 </head>
 
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm" id="attendee-navbar">
-        <div class="sidebar-toggle">
-            <i class="fa fa-bars" ></i>
-        </div>
-        <img src="{{ asset('img/VLask-logo.png')}}" class="vlask-logo" alt="">
-            <div class="container">
-                <div class="event-info">
-                    <div class="event-name">{{$event->event_name}}</div>
-                    <div class="event-code">#{{$event->event_code}}</div>
-                </div>      
-                <ul class="nav justify-content-center">
-                    <li class="nav-item">
-                        <a class="nav-link" class="nav-item-link" href="" style="color: white;">QUESTIONS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" class="nav-item-link" href="" style="color: white;">POLLS</a>
-                    </li>
-                </ul>
+        <header>
+            <div class='navbar_info'>
+                <div class="sidebar-toggle">
+                    <i class="fa fa-bars" ></i>
+                </div>
+                <div class="vlask-logo">
+                    <img src="{{ asset('img/VLask-logo.png')}}" alt="">
+                    <h1>VLask</h1>
+                </div>
+                <div class="container">
+                    <div class="event-info">
+                        <div class="event-name">{{$event->event_name}}</div>
+                        <div class="event-code">#{{$event->event_code}}</div>
+                    </div>      
+                </div>
                 <div class="switch-event">
                     <button>
                         <i class="fa fa-exchange"></i> Switch event
                     </button>
                 </div>
             </div>
-        </nav>
+            <div class="navbar_select">
+            <div class="container">
+                <button class="is-active"><a href="#">QUESTIONS</a></button>
+                <button>POLLS</button>
+            </div>
+        </div>
+        </header>
+        <div class="opacity_menu"></div>
         <nav class="sidebar-navigation">
-            <div class="event-name">{{$event->event_name}}</div>
-            <div class="event-code">#{{$event->event_code}}</div>
-            <div class="event-code">#{{$event->start_date}}</div>
+            <div class="event-sidebar-info">
+                <div class="event-name">{{$event->event_name}}</div>
+                <div class="event-code">#{{$event->event_code}}</div>
+                <div class="event-code">#{{$event->start_date}}</div>
+            </div>
             <ul class="sidebar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" class="nav-item-link" href="" style="color: white;">Question</a>
-                </li>
-                <li class="nav-item">
-                        <a class="nav-link" class="nav-item-link" href="" style="color: white;">Polls</a>
-                    </li>
                 <li class="nav-item">
                     <a class="nav-link" class="nav-item-link" href="" style="color: white;"><i class="fa fa-exchange"></i> Switch event</a>
                 </li>
@@ -95,8 +96,12 @@
         </nav>
         <main class="py">
             @yield('content')
-        </main>         
-    </div>
+        </main>   
+        <footer>
+        <div class="top-footer">
+            <div class="wrapper-title">VLask | Designed by 5Bs</div>
+        </div>
+    </footer>      
 </body>
 
 </html>

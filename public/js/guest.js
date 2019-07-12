@@ -47,3 +47,17 @@ function classToggle() {
 
 document.querySelector('.sidebar-toggle')
     .addEventListener('click', classToggle);
+
+$('#input-question').focus(function () {
+    $(this).animate({ height: "220px" }, 500);
+    $('#characters').css('display', 'initial');
+});
+$('#input-question').blur(function () {
+    $(this).animate({height: '80px'}, 500);
+    //Resize back to one row if the textarea is manually resized via the handle
+    $('#characters').css('display', 'none');
+});
+$('#input-question').on('keyup keydown', updateCount);
+function updateCount() {
+    $('#characters').text(300-$(this).val().length);
+}

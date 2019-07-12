@@ -1,10 +1,19 @@
-.vlask-logo {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 10%;
+.event-sidebar-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3em 1em 1em 1em;
+    background: #11998e;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #11998e, #20b875);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #11998e, #20b875);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    width: 100%;
 }
-
+.event-sidebar-info div {
+    color: #ffffff!important;
+}
 .event-name {
     font-size: 1.4em;
     color: #ffffff;
@@ -26,31 +35,6 @@
     font-weight: 700;
 }
 
-.nav-item {
-    font-size: 1.2em;
-    -webkit-transition: color .3s ease;
-    -o-transition: color .3s ease;
-    transition: color .3s ease;
-    border: 0;
-    background-color: transparent;
-    color: #000;
-    color: rgba(0, 0, 0, .75);
-    height: 48px;
-    line-height: 48px;
-    position: relative;
-}
-
-.nav-item:hover {
-    color: #20b875;
-    cursor: pointer;
-    font-weight: 700;
-}
-
-.nav-item .is-active {
-    font-weight: 700;
-    font-size: 1.3em;
-}
-
 form {
     width: 100%;
 }
@@ -61,8 +45,8 @@ form label {
 
 #input-question {
     transition: padding .3s, min-height .3s;
-    padding: 5%;
-    min-height: 80px;
+    padding: 20px 5%;
+    height: 80px;
     width: 100%;
     border: none;
     border-bottom: 1px solid #f0f0f0;
@@ -107,14 +91,6 @@ form label {
     text-transform: uppercase;
     font-size: 12px;
     font-weight: 400;
-    font-size: 1.1em;
-}
-
-input::placeholder {
-    font-size: 1.1em;
-}
-
-textarea::placeholder {
     font-size: 1.1em;
 }
 
@@ -305,36 +281,6 @@ ul.content-nav-tabs li>button.is-selected {
     position: relative;
 }
 
-.sidebar-navigation .sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    list-style: none;
-    width: 100%;
-    padding: 0 16px;
-    margin: 0;
-}
-
-.sidebar-navigation .sidebar-nav .nav-item {
-    width: 100%;
-    left: 0;
-    border-top: 1px solid rgba(0, 0, 0, .1);
-}
-
-.sidebar-navigation .sidebar-nav .nav-item a {
-    color: #999999!important;
-}
-
-.sidebar-navigation .sidebar-nav .nav-item:hover {
-    background: rgba(0, 0, 0, .1);
-}
-
-.sidebar-navigation div {
-    color: #999999!important;
-    margin: 0 auto;
-}
-
 .toggle-show {
     display: flex;
 }
@@ -358,30 +304,103 @@ button:hover {
     position: relative;
     z-index: 0;
 }
-
-@media only screen and (max-width:991px) {
-    .navbar .container {
-        max-width: 600px;
-    }
+.navbar_select .container {
+    display: flex;
+    justify-content: center;
+}
+.navbar_select .container button {
+    height: 60px!important;
+    font-size: 1.3em;
+}
+.question-form-body {
+    position: relative;
+}
+#characters {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: none;
+    color: #888888;
+}
+textarea::-webkit-scrollbar {
+    width: 3px;
 }
 
-@media only screen and (max-width:768px) {
-    .vlask-logo {
-        display: initial;
-        position: static;
-        top: 10px;
-        right: 10px;
-        width: 30%;
-    }
-    .fa-bars {
-        display: initial;
-        color: white;
-        font-size: 30px;
-    }
-    .fa-bars:hover {
-        cursor: pointer;
-    }
-    .navbar .container {
+textarea::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #ffffff
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+@media only screen and (min-width:320px) {
+    .navbar_info .container {
         display: none;
     }
+    .switch-event {
+        display: none;
+    }
+    .navbar_select .container button {
+        font-size: 1.1em;
+        padding: 0 30px!important;
+    }
+    textarea {
+        height: 120px;
+    }
+    .question-container {
+        padding: 10px;
+    }
 }
+@media only screen and (min-width:480px) {
+
+}
+@media only screen and (min-width:768px) {
+    .question-container {
+        padding: 20px 40px;
+    }
+    .navbar_select .container button {
+        font-size: 1.2em;
+        padding: 0 50px!important;
+    }
+}
+@media only screen and (min-width:1024px) {
+    .navbar_info .container {
+        display: initial;
+    }
+    .switch-event {
+        display: initial;
+    }
+    .vlask-logo {
+        top: 5px;
+        right: 500px!important;
+        left: 500px!important;
+        margin: 0 auto;
+    }
+    .vlask-logo h1 {
+        display: none!important;
+    }
+    .navbar_info {
+        justify-content: space-between;
+        padding: 5px 100px !important;
+    }
+    .switch-event button {
+        width: 200px;
+        margin-top: 10px;
+    }
+    .navbar_info .container{
+        max-width: 100%!important;
+    }
+
+}
+@media only screen and (min-width:1140px) {
+    .vlask-logo h1 {
+        display: initial!important;
+    }
+}
+@media only screen and (min-width:1280px) {
+    .navbar_info {
+        padding: 5px 150px !important;
+    }
+}
+
