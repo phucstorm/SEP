@@ -41,4 +41,4 @@ Route::get('/room/question/accept/{id}' , 'QuestionController@accept');
 Route::post('/room/question/denied' , 'QuestionController@denied');
 
 
-Route::get('/room/poll' , 'PollQuestionController@index');
+Route::get('/room/poll' , 'PollAnswerController@index');
