@@ -6,7 +6,7 @@
             <h1 class="h1-content">Ask the host</h1>  
             <form action="/room" method="post">
                 <input type="text" name="event_id" value="{{$event->id}}" hidden>
-                <textarea type="text" name="question" maxlength='300' placeholder="Type your question (maximum input up to 300 characters)" id="input-question"></textarea>
+                <textarea type="text" name="question" min-length="1" maxlength='300' placeholder="Type your question (maximum input up to 300 characters)" id="input-question"></textarea>
                     
                 <div class="question-form__footer">
                     <input type="text" name="user_name" placeholder="Your name (optional)" id="input-name">
@@ -73,4 +73,11 @@
             </div>
         </div>
     </div>
+    <script>
+        var msg = '{{Session::get('alert')}}';
+        var exist = '{{Session::has('alert')}}';
+        if(exist){
+            alert(msg);
+        }
+  </script>
 @endsection

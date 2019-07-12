@@ -58,20 +58,25 @@ class EventController extends Controller
     }
 
     public function edit(Request $request){
-        $event = Event::find($request->id);
-        $event->event_name = $request->event_name;
-        $event->event_code = $request->event_code;
-        $event->event_description = $request->event_description;
-        $event->event_link = 'http://localhost:8000/room?room='.$event->event_code;
-        $event->start_date = $request->event_start;
-        $event->end_date = $request->event_end;
-        $event->setting_join = $request->join;
-        $event->setting_question = $request->question;
-        $event->setting_reply = $request->reply;
-        $event->setting_moderation = $request->moderation;
-        $event->setting_anonymous = $request->anonymous;
-        $event->save();
-        return response()->json($event);
+        $event = Event::find($request->id); 
+        $ifExist = Event::where('event_code', '=', $request->event_code)->get();
+        if(count($ifExist) > 0 && $ifExist[0]->id != $event->id){
+            return "Mã event đã tồn tại";
+        }else{
+            $event->event_name = $request->event_name;
+            $event->event_code = $request->event_code;
+            $event->event_description = $request->event_description;
+            $event->event_link = 'http://localhost:8000/room?room='.$event->event_code;
+            $event->start_date = $request->event_start;
+            $event->end_date = $request->event_end;
+            $event->setting_join = $request->join;
+            $event->setting_question = $request->question;
+            $event->setting_reply = $request->reply;
+            $event->setting_moderation = $request->moderation;
+            $event->setting_anonymous = $request->anonymous;
+            $event->save();
+            return response()->json($event);
+        }
     }
 
     public function show(Request $request){

@@ -11,10 +11,10 @@ use App\Events\FormSubmitted;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
 
+Route::get('/', ['middleware' =>'guest', function(){
+    return view('index');
+  }]);
 Auth::routes();
 
 Route::get('/user', 'UserController@index');
