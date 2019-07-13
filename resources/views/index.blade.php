@@ -55,7 +55,7 @@
                 <div class="description_content">
                     <div class="row_content">
                         <p style="text-align: center;">
-                            <span>Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s</span>
+                            <span>Come up with your questions to be supported by us!</span>
                         </p>
                     </div>
                 </div>
@@ -96,10 +96,10 @@
                 <div class="col">
                     <div class="row_col_text">
                         <div class="text_title_content">
-                            <h1>Title</h1>
+                            <h1>Your questions are sent quickly</h1>
                             <p>
-                                <span>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                <span>All your questions will be sent to us quickly and can be anonymous.
+                                 All the question will be moderation before display. We will try to answer you as soon as possible.
                                 </span>
                             </p>
                         </div>
@@ -112,10 +112,10 @@
                 <div class="col">
                     <div class="row_col_text">
                         <div class="text_title_content">
-                            <h1>Title</h1>
+                            <h1>Vote in real time</h1>
                             <p>
-                                <span>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                <span>Multiple choice questions will be created for participants.
+                                 The votes will be displayed accurately in the real-time.
                                 </span>
                             </p>
                         </div>
@@ -133,10 +133,10 @@
     <div class="section_2">
         <div class="sec_2_wrap_content row_pd">
             <div class="adv_title">
-                <h1><span>Title goes here</span></h1>
+                <h1><span>Utility of the application</span></h1>
             </div>
             <div class="adv_content">
-                <p><span>Content goes here</span></p>
+                <p><span>Easily to use Van Lang ask for events</span></p>
             </div>
         </div>
         <div class="adv_col_items row_pd">
@@ -149,9 +149,7 @@
                         <div class="adv_item_content_title">
                             <h4>Usability</h4>
                         </div>
-                        <div class="adv_item_content_des">
-                            <p><span>Content goes here</span></p>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="col-md-4" style="margin-bottom: 20px;">
@@ -162,9 +160,7 @@
                         <div class="adv_item_content_title">
                             <h4>Moderation</h4>
                         </div>
-                        <div class="adv_item_content_des">
-                            <p><span>Content goes here</span></p>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="col-md-4" style="margin-bottom: 20px;">
@@ -175,9 +171,7 @@
                         <div class="adv_item_content_title">
                             <h4>Unlimited poll</h4>
                         </div>
-                        <div class="adv_item_content_des">
-                            <p><span>Content goes here</span></p>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
