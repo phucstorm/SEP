@@ -38,6 +38,6 @@ Route::get('qr/{event_code}','SearchController@getQR');
 Route::post('/room', 'QuestionController@postQuestion');
 
 Route::get('/room/question/accept/{id}' , 'QuestionController@accept');
-Route::post('/room/question/denied' , 'QuestionController@denied');
+Route::get('/room/question/denied/{id}' , 'QuestionController@denied');
 
 Route::get('/room/poll/{event_code}' , 'PollAnswerController@index');

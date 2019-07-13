@@ -35,7 +35,7 @@
                 </ul>
             </div>
             <h1 class="h1-content total-question">
-                {{$count}}
+                {{$count}} questions
             </h1>
         </div>
         <div class="question-list popular-question">
@@ -43,7 +43,7 @@
         @if($value->status == 1)
             <div class="question-container">
                 <div class="question-info">
-                    <div class="question-username"><i class="fa fa-user"></i>{{$value->user_name}}</div>
+                    <div class="question-username"><i class="fa fa-user"></i> {{$value->user_name}}</div>
                     <div class="question-date">{{$value->created_at}}</div>
                     <div class="question-content">{{$value->content}}</div>
                 </div>

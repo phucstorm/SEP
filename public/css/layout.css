@@ -190,7 +190,9 @@ a:hover {
     font-size: 0.9em;
     padding-top: 5px;
 }
-
+.event-short-info {
+    width: 80%;
+}
 .navbar_select .container button {
     -webkit-transition: color .3s ease;
     -o-transition: color .3s ease;

@@ -188,7 +188,6 @@ ul.content-nav-tabs li>button.is-selected {
 
 .question-info .question-username {
     font-weight: 700;
-    font-size: 1.1em;
     color: #555555;
 }
 
@@ -198,7 +197,7 @@ ul.content-nav-tabs li>button.is-selected {
 }
 
 .question-info .question-content {
-    padding-top: 20px;
+    padding-top: 10px;
 }
 
 .like-btn {

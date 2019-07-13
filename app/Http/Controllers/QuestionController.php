@@ -14,9 +14,9 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
-        $this->middleware('guest');
-    }
+    // public function __construct(){
+    //     $this->middleware('guest');
+    // }
     public function postQuestion(Request $request){
         $question = request()->question;
         if($question == ""){
