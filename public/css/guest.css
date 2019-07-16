@@ -49,7 +49,6 @@ form label {
     height: 80px;
     width: 100%;
     border: none;
-    border-bottom: 1px solid #f0f0f0;
 }
 
 .question-form__footer {
@@ -63,6 +62,7 @@ form label {
     padding: 2% 5%;
     display: flex;
     justify-content: space-between;
+    border-top: 1px solid #f0f0f0;
 }
 
 #input-name {
@@ -70,7 +70,7 @@ form label {
     width: 100%;
 }
 
-#submit-btn {
+.poll-btn, .question-btn {
     height: 32px;
     line-height: 32px;
     margin-left: 5px;
@@ -81,7 +81,6 @@ form label {
     box-sizing: border-box;
     font-weight: 500;
     color: #fff;
-    border: none!important;
     padding: 0 15px;
     min-width: 80px;
     height: 34px;
@@ -189,7 +188,6 @@ ul.content-nav-tabs li>button.is-selected {
 
 .question-info .question-username {
     font-weight: 700;
-    font-size: 1.1em;
     color: #555555;
 }
 
@@ -199,7 +197,7 @@ ul.content-nav-tabs li>button.is-selected {
 }
 
 .question-info .question-content {
-    padding-top: 20px;
+    padding-top: 10px;
 }
 
 .like-btn {
@@ -334,6 +332,163 @@ textarea::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 1px solid slategrey;
 }
+.total-answer {
+    top:0px;
+    right:0px;
+    position: absolute;
+}
+.poll-container {
+    max-width: 700px;
+    position: relative;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+.submit-poll-btn {
+    display: block;
+    text-align: center;
+}
+.submit-poll-btn:hover {
+    background: #20b876de;
+}
+.edit-poll-btn {
+    background: #ffffff!important;
+    color: #20b875!important;
+    border: 1px solid #20b875!important;
+    display: none;
+}
+.edit-poll-btn:hover {
+    background: #fefefe!important;
+    color: #999999!important;
+    border: 1px solid #999999!important;
+}
+.poll-form-footer {
+    justify-content: center;
+    border:none;
+}
+.poll-form-header {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 10px 20px;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+.poll-form {
+    background: #ffffff;
+    border-radius: 6px;
+}
+.poll-form-body {
+    padding: 20px 40px;
+}
+.poll-answers {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.styled-radio-btn {
+    display:inline-block;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 1.5px solid #999999;
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    box-sizing: border-box;
+}
+.poll-label {
+    position: relative;
+    padding-left: 50px;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 20px;
+    background: #f8f8f8;
+}
+.styled-radio-btn::after {
+    content: '';
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    background: #20b875;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 50%;
+    display: none;
+}
+input[type=radio]:checked + label span::after {
+    display: initial;
+}
+input[type=radio]:checked + label span {
+    border-color: #20b875;
+}
+input[type=radio]:checked + label {
+    background: #20b87633;
+}
+input[type=radio] + label:hover {
+    cursor: pointer;
+}
+/* phần này là của checkbox */
+.checkbox-label {
+    width: 100%;
+}
+.styled-checkbox {
+    display:inline-block;
+    height: 25px;
+    width: 25px;
+    border-radius: 6px;
+    border: 1.5px solid #999999;
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    box-sizing: border-box;
+}
+.styled-checkbox::after {
+    content: '';
+    height: 20px;
+    width: 10px;
+    position: absolute;
+    border: solid white;
+    border-width: 0 4px 5px 0;
+    transform: rotate(45deg);
+    bottom: 5px;
+    left: 8px;
+    display: none;
+}
+input[type=checkbox]:checked + .styled-checkbox::after {
+    display: initial;
+}
+input[type=checkbox]:checked + .styled-checkbox{
+    border: none;
+    background: #20b875;
+}
+input[type=checkbox]:checked ~ .checkbox-label {
+    background: #20b87633;
+}
+.checkbox-label:hover {
+    cursor: pointer;
+}
+.poll-result {
+    padding: 20px 20px;
+    display: none;
+}
+.poll-result-bar {
+    background: #20b875;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    height: 10px;
+    width: 0;
+}
+.percent {
+    color: #20b875;
+}
 @media only screen and (min-width:320px) {
     .navbar_info .container {
         display: none;
@@ -351,6 +506,15 @@ textarea::-webkit-scrollbar-thumb {
     .question-container {
         padding: 10px;
     }
+    .poll-form-body {
+        padding: 10px 5px;
+    }
+    .poll-label {
+        margin-bottom: 10px;
+    }
+    .poll-form {
+        padding-bottom: 10px;
+    }
 }
 @media only screen and (min-width:480px) {
 
@@ -362,6 +526,9 @@ textarea::-webkit-scrollbar-thumb {
     .navbar_select .container button {
         font-size: 1.2em;
         padding: 0 50px!important;
+    }
+    .poll-form-body {
+        padding: 10px 10px;
     }
 }
 @media only screen and (min-width:1024px) {
@@ -391,11 +558,16 @@ textarea::-webkit-scrollbar-thumb {
     .navbar_info .container{
         max-width: 100%!important;
     }
-
+    .poll-form-body {
+        padding: 10px 20px;
+    }
 }
 @media only screen and (min-width:1140px) {
     .vlask-logo h1 {
         display: initial!important;
+    }
+    .poll-form-body {
+        padding: 20px 20px;
     }
 }
 @media only screen and (min-width:1280px) {

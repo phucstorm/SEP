@@ -1,5 +1,8 @@
 @extends('layouts.guest')
-
+@push('head')
+<!-- Scripts -->
+    <script src="{{ asset('js/guest.js') }}" defer></script>
+@endpush
 @section('content')
     <div class="container">
         <div class="input-group">
@@ -13,7 +16,7 @@
                 <div class="question-form__footer">
 
                     <input type="text" name="user_name" placeholder="Your name (optional)" id="input-name">
-                    <button type="submit" id="submit-btn">Send</button>
+                    <button type="submit" id="submit-btn" class='question-btn'>Send</button>
                 </div>
                 {{csrf_field()}}
             </form>
@@ -32,7 +35,7 @@
                 </ul>
             </div>
             <h1 class="h1-content total-question">
-                {{$count}}
+                {{$count}} questions
             </h1>
         </div>
         <div class="question-list popular-question">
@@ -40,7 +43,7 @@
         @if($value->status == 1)
             <div class="question-container">
                 <div class="question-info">
-                    <div class="question-username"><i class="fa fa-user"></i>{{$value->user_name}}</div>
+                    <div class="question-username"><i class="fa fa-user"></i> {{$value->user_name}}</div>
                     <div class="question-date">{{$value->created_at}}</div>
                     <div class="question-content">{{$value->content}}</div>
                 </div>

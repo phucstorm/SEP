@@ -30,7 +30,7 @@ class RegisterTest extends TestCase
             'password' => 'testpass',
             'password_confirmation' => 'testpass'
         ]);
-        $response->assertStatus(302)->assertRedirect('/admin/home');
+        $response->assertStatus(302)->assertRedirect('/admin/event');
         $this->assertAuthenticated();
     }
     

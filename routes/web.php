@@ -17,6 +17,7 @@ Route::get('/', ['middleware' =>'guest', function(){
   }]);
 Auth::routes();
 
+// User Function
 Route::get('/user', 'UserController@index');
 Route::post('/user/edit/info', 'UserController@edit_user_info');
 Route::post('/user/edit/password', 'UserController@edit_user_password');
@@ -29,16 +30,14 @@ Route::post('/admin/event/delete', 'EventController@delete');
 Route::post('admin/event/edit', 'EventController@edit');
 Route::get('admin/event/{event_code}', 'EventController@show');
 
-//Search Event Room : /room for guest , /search for host
-Route::get('/room' , 'SearchController@search');
+//Search Event Room : /room for guest , /admin/event for host
 Route::get('/admin/event' , 'EventController@search');
+Route::get('/room' , 'GuestController@search');
 
-// Generate QR code for Event Room depend on event_code
-Route::get('qr/{event_code}','SearchController@getQR');
-Route::post('/room', 'QuestionController@postQuestion');
+// Route::get('qr/{event_code}','SearchController@getQR');
+Route::post('/room', 'GuestController@postQuestion');
 
 Route::get('/room/question/accept/{id}' , 'QuestionController@accept');
-Route::post('/room/question/denied' , 'QuestionController@denied');
+Route::get('/room/question/denied/{id}' , 'QuestionController@denied');
 
-
-Route::get('/room/poll' , 'PollAnswerController@index');
+Route::get('/room/poll/{event_code}' , 'PollAnswerController@index');

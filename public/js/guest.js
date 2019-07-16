@@ -25,13 +25,6 @@ $(function() { //run when the DOM is ready
     });
 });
 
-$(function() {
-    $(".nav-item-link").click(function() {
-        $(".nav-item-link").removeClass("is-active");
-        $(this).addClass("is-active");
-    })
-});
-
 if ($(".popular-btn").hasClass("is-selected")) {
     $(".recent-question").addClass("display-none");
 }
@@ -61,3 +54,5 @@ $('#input-question').on('keyup keydown', updateCount);
 function updateCount() {
     $('#characters').text(300-$(this).val().length);
 }
+$('poll-btn').removeClass('is-active');
+$('.question-btn').addClass('is-active');

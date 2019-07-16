@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Event;
 class PollAnswerController extends Controller
 {
     //
@@ -11,7 +11,13 @@ class PollAnswerController extends Controller
     {
         $this->middleware('guest');
     }
-    public function index(){
-        return view('pollguest');
+    public function index($event_code){
+        $event = Event::where('event_code', '=', $event_code )->firstOrFail();
+        if($event->setting_join == 1){
+            return view('pollguest', compact('event' ,$event)); 
+        }else{
+            return "You don't have a permission to join this room";
+        }
     }
+
 }
