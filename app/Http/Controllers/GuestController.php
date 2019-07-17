@@ -42,6 +42,8 @@ class GuestController extends Controller
             $qt->content = $question;
             $qt->user_name = $user_name;
             $qt->status = 0;
+            $qt->like = 0;
+            $qt->unlike = 0;
             $qt->save();
             event(new FormSubmitted($qt->id,$qt->content, $user_name, request()->event_id, $qt->created_at));
             return redirect()->back();

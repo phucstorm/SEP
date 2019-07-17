@@ -218,3 +218,49 @@ $(document).on('click', '.item-action.delete-item', function() {
         window.location.href = "/room/question/denied/" + question_id;
     });
 });
+
+
+
+
+//Reply question
+$(document).on('click', '.question-item-accepted > div.accept > div.question-item > div:nth-child(5) > div:nth-child(2) > div > button', function() {
+    var question_id = $(this).attr('data-id');
+    var content = $(this).attr('data-content');
+    $("#reply > div > div > div.modal-header > .modal-title").text(content);
+    $('#reply > div > div > div.footer > button').click(function() {
+        $.ajax({
+            type: 'POST',
+            url: '/room/reply',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'question_id': question_id,
+                'content': $('#reply > div > div > div.footer > textarea').val(),
+            },
+            success: function(data) {
+                // alert("Cập nhật mật khẩu thành công");
+                window.location.reload();
+                // console.log(data);
+            },
+            error: function(data) {
+                // alert(data);
+                // console.log(data);
+            },
+        });
+    });
+});
+
+$(document).one('click', '.question-item > div.question-like > button.like-btn', function() {
+    var id = $('div.question-item  > div:nth-child(5) > div.left-action > input[type=text]').val();
+    $(this).addClass("is-active");
+    $.ajax({
+        url: "/room/like/" + id,
+    });
+});
+
+$(document).one('click', '.question-item > div.question-like > button.like-btn.is-active', function() {
+    var id = $('div.question-item  > div:nth-child(5) > div.left-action > input[type=text]').val();
+    $(this).removeClass("is-active");
+    $.ajax({
+        url: "/room/unlike/" + id,
+    });
+});

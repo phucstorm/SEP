@@ -8,6 +8,7 @@ use Response, Validator;
 use App\http\Requests;
 use App\Event;
 use App\Question;
+use App\Reply;
 use Auth;
 class EventController extends Controller
 {
@@ -83,12 +84,12 @@ class EventController extends Controller
         
         $event = Event::where('event_code', '=', $request->event_code)->firstOrFail();
         if($event->setting_join == 1 ){
-            $question = Question::all();
-            return view('event.detail', compact('question',$question,'event' ,$event));
+            $question = Question::where('event_id', '=' , $event->id)->get();     
+            $reply = Reply::all();
+            return view('event.detail', compact('question',$question,'event' ,$event, 'reply', $reply));    
         }else{
-            return "Hiển thị trang lỗi 404 hoặc thông báo cho người dùng phải cho phép vào room";
+            return "Bạn đã khóa event này";
         }
-        
     }
 
     public function search(Request $request){ 

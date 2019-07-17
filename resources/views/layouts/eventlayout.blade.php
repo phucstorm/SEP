@@ -28,11 +28,16 @@
         var channel = pusher.subscribe('my-channel');
         channel.bind('form-submitted', function (data) {
             $('.content').append(
-                "<div>Question: " + data.question + " by " + data.user_name + "</div>" +
-                "<div>ID: " + data.id + " by " + data.user_name + "</div>" +
-                "<div>" +
-                "<button><a href='/room/question/accept/" + data.id + "'>Yes</a></button>" +
-                "<button><a href='/room/question/denied/" + data.id + "'>No</a></button>" +
+                "<div class='question-item'>" +
+                    "<div class='question-username'>"+
+                        "<i class=' fa fa-user'></i>"+ data.user_name+
+                    "</div>"+
+                    "<div class='question-date'>"+data.created_at+"</div>"+
+                    "<div class='question-content'>"+data.question+"</div>"+
+                "<div class='check-question'>" +
+                "<a href='/room/question/accept/" + data.id + "'><i class='fa fa-check-circle-o text-success' aria-hidden='true'></i></a>" +
+                "<a href='/room/question/denied/" + data.id + "'><i class='fa fa-times-circle-o text-success' aria-hidden='true'></i></a>" +
+                "</div>"+
                 "</div>"
             );
         });
@@ -63,7 +68,7 @@
         </div>
         <ul class="sidebar-nav">
             <li class="nav-item">
-                <span><a class="nav-link" class="nav-item-link" href="/user" style="color: white;"><i class="fa fa-caret-square-o-left" aria-hidden="true"></i>
+                <span><a class="nav-link" class="nav-item-link" href="/admin/event" style="color: white;"><i class="fa fa-caret-square-o-left" aria-hidden="true"></i>
                  Back to event list</a></span>
             </li>
             <li class="nav-item">

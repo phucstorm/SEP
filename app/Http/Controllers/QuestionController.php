@@ -7,6 +7,7 @@ use App\Event;
 use App\Reply;
 use Illuminate\Http\Request;
 use App\Events\FormSubmitted;
+use Auth;
 
 class QuestionController extends Controller
 {
@@ -18,27 +19,6 @@ class QuestionController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-    // public function postQuestion(Request $request){
-    //     $question = request()->question;
-    //     if($question == ""){
-    //         return redirect()->back()->with('alert','You must type question'); 
-            
-    //     }else{
-    //         if(request()->user_name != ""){
-    //             $user_name = request()->user_name;
-    //         }else{
-    //             $user_name = "Anonymus";
-    //         }
-    //         $qt = new Question;
-    //         $qt->event_id = request()->event_id;
-    //         $qt->content = $question;
-    //         $qt->user_name = $user_name;
-    //         $qt->status = 0;
-    //         $qt->save();
-    //         event(new FormSubmitted($qt->id,$qt->content, $user_name, request()->event_id, $qt->created_at));
-    //         return redirect()->back();
-    //     } 
-    // }
 
     public function accept($id){
         $qt = Question::find($id);
@@ -55,31 +35,31 @@ class QuestionController extends Controller
 
     public function reply_question(Request $request){
         $rep = Question::find($request->question_id);
-        if( count($rep) > 0){
+        if( isset($rep)){
             $reply = new Reply;
             $reply->question_id = $request->question_id;
             $reply->content = $request->content;
-            $reply->user_id = $request->user_id;
+            $reply->user_name = NULL;
+            $reply->user_id = Auth::user()->id;
             $reply->save();
             return response()->json($reply);
         }else{
             return Response::json(array('errors'=> $validator->getMessageBag()->toarray()));
         }
-        
     }
 
-    public function like_question(Request $request){
-        $question = Question::find($request->id);
-        $question->like = $request->like;
-        $question->save();
-        return response()->json($question);
+    public function like_question($question_id){
+        $ques = Question::find($question_id);
+        $ques->like += 1;
+        $ques->save();
+        return redirect()->back();
     }
 
-    public function unlike_question(Request $request){
-        $unlike = Question::find($request->id);
-        $unlike->unlike = $request->unlike;
-        $unlike->save();
-        return response()->json($unlike);
+    public function unlike_question($question_id){
+        $ques = Question::find($question_id);
+        $ques->unlike -= 1;
+        $ques->save();
+        return redirect()->back();
     }
 
     public function index()
