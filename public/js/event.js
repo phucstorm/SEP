@@ -248,19 +248,19 @@ $(document).on('click', '.question-item-accepted > div.accept > div.question-ite
         });
     });
 });
+$(document).ready(function() {
+    $(document).one('click', '.question-item > div.question-like > button.like-btn', function() {
+        $(this).addClass("is-active");
+        $.ajax({
+            url: "/room/like/" + $(this).val(),
+        });
 
-$(document).one('click', '.question-item > div.question-like > button.like-btn', function() {
-    var id = $('div.question-item  > div:nth-child(5) > div.left-action > input[type=text]').val();
-    $(this).addClass("is-active");
-    $.ajax({
-        url: "/room/like/" + id,
     });
-});
 
-$(document).one('click', '.question-item > div.question-like > button.like-btn.is-active', function() {
-    var id = $('div.question-item  > div:nth-child(5) > div.left-action > input[type=text]').val();
-    $(this).removeClass("is-active");
-    $.ajax({
-        url: "/room/unlike/" + id,
+    $(document).on('click', '.question-item > div.question-like > button.like-btn.is-active', function() {
+        $(this).removeClass("is-active");
+        $.ajax({
+            url: "/room/unlike/" + $(this).val(),
+        });
     });
 });

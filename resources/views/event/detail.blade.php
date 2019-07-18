@@ -43,14 +43,14 @@
             <div class="accept">
                 @foreach($question as $key => $value)
                 @if($value->status == 1)
-                <div class="question-item {{$value->id}}">
-                    <div class="question-like"><button class="like-btn"> <i class="fa fa-thumbs-up"></i></button></div>
+                <div class="question-item">
+                    <div class="question-like"><button class="like-btn" value="{{$value->id}}"><i class="fa fa-thumbs-up"></i></button></div>
                     <div class="question-username"><i class="fa fa-user"></i> {{$value->user_name}} - {{$value->like}} likes</div>
                     <div class="question-date">{{$value->created_at}}</div>
                     <div class="question-content">{{$value->content}}</div>
                     <div style="display: flex; justify-content: space-between;">
                         <div class="left-action">
-                            <input type="text" value="{{$value->id}}" hidden>
+                        
                         </div>
                         <div style="float:right; display: flex">
                             <div style="margin-right:1em">
