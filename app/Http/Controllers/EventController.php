@@ -10,6 +10,7 @@ use App\Event;
 use App\Question;
 use App\Reply;
 use Auth;
+use DB;
 class EventController extends Controller
 {
     //
@@ -84,9 +85,15 @@ class EventController extends Controller
         
         $event = Event::where('event_code', '=', $request->event_code)->firstOrFail();
         if($event->setting_join == 1 ){
-            $question = Question::where('event_id', '=' , $event->id)->get();     
+            $question = Question::where('event_id', '=' , $event->id)->get();
+
             $reply = Reply::all();
-            return view('event.detail', compact('question',$question,'event' ,$event, 'reply', $reply));    
+            $result = DB::table('questions')
+                        ->leftjoin('events', 'questions.event_id', '=', 'events.id')
+                        ->rightjoin('replies', 'questions.id', '=', 'replies.question_id')
+                        ->get();
+            // return response()->json($result);
+            return view('event.detail', compact('question',$question,'event' ,$event,'result', $result));    
         }else{
             return "Bạn đã khóa event này";
         }

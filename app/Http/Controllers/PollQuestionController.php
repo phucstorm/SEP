@@ -9,7 +9,12 @@ class PollQuestionController extends Controller
 {
     //
     public function __construct(){
-        $this->middle('auth');
+        $this->middleware('auth');
+    }
+
+    public function index($event_id){
+        $poll = Poll_Question::where('event_id', '=',$event_id)->get();
+        return view('event.poll',compact('poll'));
     }
 
     public function create(Request $request){

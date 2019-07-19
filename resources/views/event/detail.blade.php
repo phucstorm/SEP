@@ -44,13 +44,15 @@
                 @foreach($question as $key => $value)
                 @if($value->status == 1)
                 <div class="question-item">
-                    <div class="question-like"><button class="like-btn" value="{{$value->id}}"><i class="fa fa-thumbs-up"></i></button></div>
-                    <div class="question-username"><i class="fa fa-user"></i> {{$value->user_name}} - {{$value->like}} likes</div>
+                    <div class="question-like"><button class="like-btn" value="{{$value->id}}"><i
+                                class="fa fa-thumbs-up"></i></button></div>
+                    <div class="question-username"><i class="fa fa-user"></i> {{$value->user_name}} - {{$value->like}}
+                        likes</div>
                     <div class="question-date">{{$value->created_at}}</div>
                     <div class="question-content">{{$value->content}}</div>
                     <div style="display: flex; justify-content: space-between;">
                         <div class="left-action">
-                        
+
                         </div>
                         <div style="float:right; display: flex">
                             <div style="margin-right:1em">
@@ -68,6 +70,8 @@
                         </button>
                     </div>
                 </div>
+                @endif
+                @endforeach
                 <!-- Modal Delete Question -->
                 <div class="modal fade" id="delete_question" tabindex="-1" role="dialog" aria-labelledby="delete"
                     aria-hidden="true">
@@ -101,11 +105,11 @@
                                 </button>
                             </div>
                             <div class="">
-                                @foreach($reply as $key => $item)
-
+                                @foreach($result as $key => $item)
                                 <div class="reply-item">
-                                    <div class="user"><i class="fa fa-user"></i> {{Auth::user()->email}}</div>
-                                    <div>{{$item->content}}</div>
+                                    <div class="user"><i class="fa fa-user"></i> {{Auth::user()->email}} -
+                                        {{$value->id}}</div>
+                                    <div>{{$item->rep_content}}</div>
                                     <div class="delete-question-btn">
                                         <button class="item-action delete-item delete-answer" data-toggle="modal"
                                             data-target="#deleteQuestion">
@@ -113,7 +117,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                
+
                                 @endforeach
                             </div>
                             <div class="footer">
@@ -126,11 +130,10 @@
                         </div>
                     </div>
                 </div>
-                @endif
-                @endforeach
             </div>
         </div>
     </div>
 </div>
 </main>
+
 @endsection

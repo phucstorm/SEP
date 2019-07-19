@@ -237,9 +237,8 @@ $(document).on('click', '.question-item-accepted > div.accept > div.question-ite
                 'content': $('#reply > div > div > div.footer > textarea').val(),
             },
             success: function(data) {
-                // alert("Cập nhật mật khẩu thành công");
                 window.location.reload();
-                // console.log(data);
+                console.log(data);
             },
             error: function(data) {
                 // alert(data);
@@ -250,11 +249,11 @@ $(document).on('click', '.question-item-accepted > div.accept > div.question-ite
 });
 $(document).ready(function() {
     $(document).one('click', '.question-item > div.question-like > button.like-btn', function() {
-        $(this).addClass("is-active");
+
         $.ajax({
             url: "/room/like/" + $(this).val(),
         });
-
+        $(this).addClass("is-active");
     });
 
     $(document).on('click', '.question-item > div.question-like > button.like-btn.is-active', function() {

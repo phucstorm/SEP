@@ -16,7 +16,7 @@ class Reply extends Migration
         Schema::create('replies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('question_id');
-            $table->string('content');
+            $table->string('rep_content');
             $table->string('user_name');
             $table->string('user_id');
             $table->timestamps();

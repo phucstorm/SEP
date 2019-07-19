@@ -46,3 +46,5 @@ Route::get('/room/poll/{event_code}' , 'PollAnswerController@index');
 Route::post('/room/reply', 'QuestionController@reply_question');
 Route::get('/room/like/{question_id}','QuestionController@like_question');
 Route::get('/room/unlike/{question_id}','QuestionController@unlike_question');
+
+Route::get('/admin/event/poll/{event_id}', 'PollQuestionController@index');

@@ -38,7 +38,7 @@ class QuestionController extends Controller
         if( isset($rep)){
             $reply = new Reply;
             $reply->question_id = $request->question_id;
-            $reply->content = $request->content;
+            $reply->rep_content = $request->content;
             $reply->user_name = NULL;
             $reply->user_id = Auth::user()->id;
             $reply->save();

@@ -193,7 +193,7 @@
                     <!-- <button class="is-active"><a href="/admin/event/{{$event->event_code}}">Question</a></button>
                     <button>Poll</button> -->
                     <button class="question-btn" onclick="window.location.href='/admin/event/{{$event->event_code}}'">QUESTIONS</button>
-                    <button class="poll-btn" onclick="window.location.href='#'">POLLS</button>
+                    <button class="poll-btn" onclick="window.location.href='/admin/event/poll/{{$event->id}}'">POLLS</button>
                 </div>
             </div>
         </div>
