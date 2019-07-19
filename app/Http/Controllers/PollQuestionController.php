@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Poll_Question;
 use App\Poll_Answer;
+use App\Event;
 class PollQuestionController extends Controller
 {
     //
@@ -13,8 +14,9 @@ class PollQuestionController extends Controller
     }
 
     public function index($event_id){
+        $event = Event::where('id', '=', $event_id)->firstOrFail();
         $poll = Poll_Question::where('event_id', '=',$event_id)->get();
-        return view('event.poll',compact('poll'));
+        return view('event.poll',compact('poll','event'));
     }
 
     public function create(Request $request){
