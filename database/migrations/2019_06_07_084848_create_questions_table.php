@@ -19,6 +19,8 @@ class CreateQuestionsTable extends Migration
             $table->string('content');
             $table->string('user_name');
             $table->boolean('status');
+            $table->integer('like');
+            $table->integer('unlike');
             $table->timestamps();
         });
     }

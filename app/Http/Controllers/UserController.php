@@ -21,7 +21,7 @@ class UserController extends Controller
     public function edit_user_info(Request $request){ 
         $user = User::find($request->id);
         $user->name = $request->name;
-        $user->email = $request->email;
+        // $user->email = $request->email;
         $user->save();
         return response()->json($user);
     }

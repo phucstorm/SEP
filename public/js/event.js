@@ -215,20 +215,51 @@ $(document).on('click', '.edit_user_pass-btn', function() {
 $(document).on('click', '.item-action.delete-item', function() {
     var question_id = $(this).attr('data-id');
     $('#del_ques').click(function() {
-        // $.ajax({
-        //     type: 'POST',
-        //     url: '/room/question/denied'.question_id,
-        //     data: {
-        //         '_token': $('input[name=_token]').val(),
-        //         'id': question_id
-        //     },
-        //     success: function(data) {
-        //         window.location.reload();
-        //     },
-        //     error: function(data) {
-        //         alert("Gặp vấn đề khi xóa question");
-        //     }
-        // });
-        window.location.href="/room/question/denied/"+question_id;
+        window.location.href = "/room/question/denied/" + question_id;
+    });
+});
+
+
+
+
+//Reply question
+$(document).on('click', '.question-item-accepted > div.accept > div.question-item > div:nth-child(5) > div:nth-child(2) > div > button', function() {
+    var question_id = $(this).attr('data-id');
+    var content = $(this).attr('data-content');
+    $("#reply > div > div > div.modal-header > .modal-title").text(content);
+    $('#reply > div > div > div.footer > button').click(function() {
+        $.ajax({
+            type: 'POST',
+            url: '/room/reply',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'question_id': question_id,
+                'content': $('#reply > div > div > div.footer > textarea').val(),
+            },
+            success: function(data) {
+                window.location.reload();
+                console.log(data);
+            },
+            error: function(data) {
+                // alert(data);
+                // console.log(data);
+            },
+        });
+    });
+});
+$(document).ready(function() {
+    $(document).one('click', '.question-item > div.question-like > button.like-btn', function() {
+
+        $.ajax({
+            url: "/room/like/" + $(this).val(),
+        });
+        $(this).addClass("is-active");
+    });
+
+    $(document).on('click', '.question-item > div.question-like > button.like-btn.is-active', function() {
+        $(this).removeClass("is-active");
+        $.ajax({
+            url: "/room/unlike/" + $(this).val(),
+        });
     });
 });

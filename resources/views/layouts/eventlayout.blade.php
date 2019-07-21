@@ -28,11 +28,16 @@
         var channel = pusher.subscribe('my-channel');
         channel.bind('form-submitted', function (data) {
             $('.content').append(
-                "<div>Question: " + data.question + " by " + data.user_name + "</div>" +
-                "<div>ID: " + data.id + " by " + data.user_name + "</div>" +
-                "<div>" +
-                "<button><a href='/room/question/accept/" + data.id + "'>Yes</a></button>" +
-                "<button><a href='/room/question/denied/" + data.id + "'>No</a></button>" +
+                "<div class='question-item'>" +
+                    "<div class='question-username'>"+
+                        "<i class=' fa fa-user'></i>"+ data.user_name+
+                    "</div>"+
+                    "<div class='question-date'>"+data.created_at+"</div>"+
+                    "<div class='question-content'>"+data.question+"</div>"+
+                "<div class='check-question'>" +
+                "<a href='/room/question/accept/" + data.id + "'><i class='fa fa-check-circle-o text-success' aria-hidden='true'></i></a>" +
+                "<a href='/room/question/denied/" + data.id + "'><i class='fa fa-times-circle-o text-success' aria-hidden='true'></i></a>" +
+                "</div>"+
                 "</div>"
             );
         });
@@ -63,7 +68,7 @@
         </div>
         <ul class="sidebar-nav">
             <li class="nav-item">
-                <span><a class="nav-link" class="nav-item-link" href="/user" style="color: white;"><i class="fa fa-caret-square-o-left" aria-hidden="true"></i>
+                <span><a class="nav-link" class="nav-item-link" href="/admin/event" style="color: white;"><i class="fa fa-caret-square-o-left" aria-hidden="true"></i>
                  Back to event list</a></span>
             </li>
             <li class="nav-item">
@@ -156,17 +161,16 @@
                         <div class=user_header_info>
                             <div class="user_info">
                                 <i class="fa fa-user"></i>
-                                {{Auth::user()->email}}
+                                {{Auth::user()->email}} <i class="fa fa-cog"></i>
                             </div>
                             <div class="user_role">
                                 Host
                             </div>
                         </div>
-                        <div class="user_setting" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <i class="fa fa-cog"></i>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" onclick="window.location.href='/user'"><i class="fa fa-edit"></i>Edit</a></li>
+                        <div class="user_setting">      
+                            <ul class="user-setting-menu">
+                                <li class="dropdown-item edit_user_info-btn" data-name="{{Auth::user()->name}}" data-email="{{Auth::user()->email}}"
+                                data-id="{{Auth::user()->id}}" data-toggle="modal" data-target="#editInfo"><a class="dropdown-item"><i class="fa fa-edit"></i>Edit</a></li>
                                 <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     <i class="fa fa-sign-out"></i>{{ __('Logout') }}
@@ -188,11 +192,44 @@
                     <!-- <button class="is-active"><a href="/admin/event/{{$event->event_code}}">Question</a></button>
                     <button>Poll</button> -->
                     <button class="question-btn" onclick="window.location.href='/admin/event/{{$event->event_code}}'">QUESTIONS</button>
-                    <button class="poll-btn" onclick="window.location.href='#'">POLLS</button>
+                    <button class="poll-btn" onclick="window.location.href='/admin/event/poll/{{$event->id}}'">POLLS</button>
                 </div>
             </div>
         </div>
     </header>
+            <!-- Modal Edit User Information -->
+            <div class="modal fade" id="editInfo" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="title">Edit User Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form role="form" method="post">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Name</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="un" name="un"required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="em" name="em" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success" id="edit_info">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     @yield('content')
     <footer>
         <div class="top-footer">
