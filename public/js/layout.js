@@ -1,11 +1,12 @@
+$(".user_info .fa-cog").click(function(){
+    $(".user-setting-menu").toggleClass('toggle-user-setting');
+})
 function classToggle() {
     const navs = document.querySelectorAll('.sidebar-navigation');
 
     navs.forEach(nav => nav.classList.toggle('toggle-show'));
 }
-
 document.querySelector('.sidebar-toggle').addEventListener('click', classToggle);
-
 $(".toggle-action").click(function() {
     $(".event-action-mobile").removeClass('toggle-show');
     $(this).next().addClass('toggle-show');

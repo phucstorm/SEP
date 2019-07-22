@@ -211,11 +211,6 @@ body {
 }
 
 
-/* Modal CSS */
-
-.modal-content {
-    position: absolute;
-}
 
 .footer {
     padding: 16px 16px 12px 24px;
@@ -240,8 +235,11 @@ body {
     display: block;
 }
 
-.check-question i:hover {
+.check-question .fa-check-circle-o:hover {
     color: darkgreen !important;
+}
+.check-question .fa-times-circle-o:hover {
+    color: darkred !important;
 }
 
 
@@ -360,12 +358,17 @@ div.content::-webkit-scrollbar-thumb {
     width: 100%;
 }
 
-.like-btn {
+.like-btn, .dislike-btn {
     border-radius: 50px;
     width: 50px;
     background: #ffffff;
     color: #888888;
     border: 1px solid #aaaaaa;
+}
+.dislike-btn:hover {
+    color: red;
+}
+.question-like {
     position: absolute;
     top: 15px;
     right: 40px;
@@ -401,7 +404,162 @@ div.content::-webkit-scrollbar-thumb {
 .question-nav div {
     margin-right: 10px;
 }
+.poll-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px 12px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    background-color: #fff;
+    -webkit-transition: background-color .1s;
+    -o-transition: background-color .1s;
+    transition: background-color .1s;
+}
 
+.poll-selected {
+    padding: 12px 16px 12px 16px;
+    background-color: #fff;
+    -webkit-transition: background-color .1s;
+    -o-transition: background-color .1s;
+    transition: background-color .1s;
+}
+
+.accept, .content{
+    margin-top: 1em;
+}
+
+/* Button CSS */
+
+.create-poll-btn {
+    background: #20b875;
+    border: none;
+    padding: 0.1em 1.2em;
+    border-radius: 2em;
+    color: white;
+    font-size: .9em;
+}
+.create-poll-btn:hover {
+    color: #20b875;
+    border: 1px solid #20B875;
+}
+.question-item-reviewing .flex-item{
+    display: block !important;
+}
+
+.btn-create:hover {
+    background: lightgreen;
+    color: white;
+}
+
+
+.footer {
+    padding: 16px 16px 12px 24px;
+}
+
+/* List CSS */
+
+.poll-item:hover {
+    background: #fafafa;
+}
+.poll-action {
+    display: flex;
+    align-items: center;
+}
+.poll-action button {
+    background: transparent;
+    border: none;
+    margin-right: 20px;
+}
+.stop-poll-btn {
+    color: red;
+    font-size: 2.4em;
+}
+.stop-poll-btn:hover {
+    color: darkred;
+}
+.play-poll-btn {
+    color: green;
+    font-size: 2.4em;
+}
+.edit-poll-btn {
+    color: #20b875;
+}
+.play-poll-btn:hover, .edit-poll-btn:hover {
+    color: darkgreen;
+}
+.delete-poll-btn {
+    color: #999999;
+}
+.delete-poll-btn:hover {
+    color:darkred;
+}
+.poll-action span {
+    padding-right: 1em;
+}
+
+
+/* Live CSS */
+
+
+.delete-item {
+    color: gray;
+    font-size: 1.5em;
+}
+
+/* Left Action */
+
+.left-action {
+    float: left;
+    font-size: 1.2em
+}
+
+.left-action i {
+    margin-right: 1em;
+}
+
+/* Fill Bar */
+
+.poll-fill {
+    background: #20b875;
+    height: 10px;
+    border-radius: 2em;
+}
+.poll-votes {
+    color: #20b875;
+}
+#multiple-answer {
+    height: 25px;
+    width: 25px;
+    margin-right: 15px;
+}
+.multiple-answer-label {
+    height: 40px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+.plus-answer {
+    background: transparent;
+    color: #20b875;
+    border: 2px solid #20b875;
+}
+.poll-answers input {
+    margin-bottom: 10px;
+    padding-right: 30px;
+}
+.poll-answers div {
+    position: relative;
+}
+.delete-poll-answer-btn {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: #999999;
+}
+.delete-poll-answer-btn:hover {
+    color: darkred;
+}
 @media only screen and (min-width:320px) {
     .event_left {
         display: none;
@@ -452,6 +610,7 @@ div.content::-webkit-scrollbar-thumb {
     .reply-btn {
         color: #20b875;
     }
+
 }
 
 @media only screen and (min-width:480px) {
