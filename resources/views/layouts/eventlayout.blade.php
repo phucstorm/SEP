@@ -218,7 +218,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="em" name="em" required>
+                                <input type="text" class="form-control" id="em" name="em" readonly>
                             </div>
                         </div>
                     </form>

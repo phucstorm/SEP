@@ -21,11 +21,19 @@ class PollQuestionController extends Controller
         $event = Event::where('id', '=', $event_id)->firstOrFail();
         $poll = Poll_Question::where('event_id', '=',$event_id)->get();
         $answer = Poll_Answer::select('poll_question_id',DB::raw('sum(votes) as sum_votes'))->groupBy('poll_question_id')->get();
-        $live_question = Poll_Question::where('status', '=',1)->firstOrFail();
-        $live_answer = Poll_Answer::where('poll_question_id', '=', $live_question->id)->get();   
-        $sum_votes = Poll_Answer::where('poll_question_id', '=', $live_question->id)->sum('votes');   
-        return view('event.poll',compact('poll','event', 'answer', 'live_question', 'live_answer', 'sum_votes'));
-        // return response()->json($sum_votes);
+        $live_question = Poll_Question::where('status', '=',1)->get();
+        if($live_question != '[]'){
+            foreach($live_question as $key => $item){
+                $title = $item->poll_question_content;
+                $live_answer = Poll_Answer::where('poll_question_id', '=', $item->id)->get();   
+                $sum_votes = Poll_Answer::where('poll_question_id', '=', $item->id)->sum('votes');
+                return view('event.poll',compact('poll','event', 'answer', 'live_question','title', 'live_answer', 'sum_votes'));
+                // return response()->json($item->poll_question_content);
+            }
+        }else{
+            return view('event.poll',compact('poll','event', 'live_question'));
+        }
+        
     }
 
     public function create(Request $request){

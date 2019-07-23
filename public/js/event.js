@@ -156,7 +156,7 @@ $(document).on('click', '.edit_user_info-btn', function() {
                     '_token': $('input[name=_token]').val(),
                     'id': id,
                     'name': $('input[name=un]').val(),
-                    'email': $('input[name=em]').val(),
+                    // 'email': $('input[name=em]').val(),
                 },
                 success: function(data) {
                     alert("Cập nhật thông tin người dùng hoàn tất");
@@ -167,7 +167,7 @@ $(document).on('click', '.edit_user_info-btn', function() {
                 },
             });
         } else {
-            alert("Bạn cần điền tên và email để hoàn tất cập nhật thông tin");
+            alert("Bạn cần điền tên để hoàn tất cập nhật thông tin");
         }
     });
 });
@@ -277,8 +277,8 @@ $('#add-poll').click(function() {
                     'option': $('input[name=multiple-answer]').is(':checked') == true ? 1 : 0,
                 },
                 success: function(data) {
-                    // window.location.reload();
-                    console.log('success' + data);
+                    window.location.reload();
+                    // console.log('success' + data);
                 },
                 error: function(data) {
                     // alert(data);

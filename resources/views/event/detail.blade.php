@@ -20,6 +20,7 @@
                 </div>
             </div>
             <div class="content">
+            
                 @foreach($question as $key => $value)
                 @if($value->status == 0)
                 <div class="question-item">
@@ -36,11 +37,13 @@
 
                 @endif
                 @endforeach
+            
             </div>
         </div>
         <div class="question-item-accepted">
             <div class="title-part">Live</div>
             <div class="accept">
+            
                 @foreach($question as $key => $value)
                 @if($value->status == 1)
                 <div class="question-item">
@@ -72,6 +75,7 @@
                 </div>
                 @endif
                 @endforeach
+                
                 <!-- Modal Delete Question -->
                 <div class="modal fade" id="delete_question" tabindex="-1" role="dialog" aria-labelledby="delete"
                     aria-hidden="true">
