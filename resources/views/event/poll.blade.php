@@ -22,7 +22,38 @@
                 </div>
             </div>
             <div class="content">
-                <div class="poll-item">
+                @foreach($poll as $key => $value)
+                    <div class="poll-item">
+                    <div class="poll-detail">
+                        <div style="opacity: 0.5">
+                        @if($value->mul_choice == 1)    
+                            Multiple Choice
+                        @else
+                            One Choice
+                        @endif
+                        </div>
+                        <div>
+                       Votes : @foreach ($answer as $key => $item)
+                       @if($item->poll_question_id == $value->id)
+                       {{ $item->sum_votes}}
+                       @endif
+                       @endforeach
+                        
+                        </div>
+                        <div>
+                           {{$value->poll_question_content}}
+                        </div>
+                    </div>
+                    <div class="poll-action">
+                        <button class="play-poll-btn"><i class="fa fa fa-play-circle" aria-hidden="true"></i></button>
+                        <button class="edit-poll-btn" data-toggle="modal" data-target="#editPoll"><i class="fa fa-edit"></i></button>
+                        <button class="delete-poll-btn" data-toggle="modal" data-target="#deletePoll"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+                    
+                
+                @endforeach
+                <!-- <div class="poll-item">
                     <div class="poll-detail">
                         <div style="opacity: 0.5">
                             Multiple Choice
@@ -57,7 +88,7 @@
                         <button class="edit-poll-btn" data-toggle="modal" data-target="#editPoll"><i class="fa fa-edit"></i></button>
                         <button class="delete-poll-btn" data-toggle="modal" data-target="#deletePoll"><i class="fa fa-trash"></i></button>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="question-item-accepted">
@@ -65,21 +96,28 @@
             <div class="accept">
                 <div class="poll-item">
                     <div class="poll-title">
-                        Do you like it?
+                        {{$live_question->poll_question_content}}
                     </div>
                 </div>
                 <div class="poll-selected">
+                    @foreach($live_answer as $key => $item)
                     <div class="poll-answer">
-                        Drinking <span class="poll-votes">(0)</span>
+                        {{$item->poll_answer_content}} <span class="poll-votes">({{$item->votes}})</span>
                     </div>
                     <div class="poll-bar" style="display: flex;">
-                        <div class="poll-fill" style="width: 1em;">
+                        <div class="poll-fill" style="width: 50%;">
                         </div>
                         <div class="poll-value">
-                            0%
+                        @if($sum_votes != 0)
+                            {{round(($item->votes/$sum_votes)*100,2)}} %
+                        @else
+                            0 %
+                        @endif
                         </div>
                     </div>
-                    <div class="poll-answer">
+
+                    @endforeach
+                    <!-- <div class="poll-answer">
                         Eating <span class="poll-votes">(101)</span>
                     </div>
                     <div class="poll-bar" style="display: flex;">
@@ -98,14 +136,14 @@
                         <div class="poll-value">
                             50%
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
         </div>
     </div>
 </div>
-    <!-- Modal For Creat Poll -->
+    <!-- Modal For Create Poll -->
     <div class="modal fade" id="createPoll" tabindex="-1" role="dialog" aria-labelledby="create" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -114,12 +152,13 @@
 
                 </div>
                 <div class="modal-body">
-                    <form role="form" method="post">
+                    <form role="form" method="post" id="form-poll-create">
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Question</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="poll-name" name="poll_name"
+                                <input type="text" class="form-control" id="poll-name" name="poll-name"
                                     placeholder="Poll Question" required>
+                                <input type="text" class="form-control" id="event_id" name="event_id" value="{{$event->id}}" hidden>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -150,7 +189,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success" id="add">Create Poll</button>
+                    <button type="submit" class="btn btn-success" id="add-poll">Create Poll</button>
                 </div>
             </div>
         </div>

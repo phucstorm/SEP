@@ -210,8 +210,6 @@ body {
     cursor: pointer;
 }
 
-
-
 .footer {
     padding: 16px 16px 12px 24px;
 }
@@ -238,6 +236,7 @@ body {
 .check-question .fa-check-circle-o:hover {
     color: darkgreen !important;
 }
+
 .check-question .fa-times-circle-o:hover {
     color: darkred !important;
 }
@@ -358,16 +357,19 @@ div.content::-webkit-scrollbar-thumb {
     width: 100%;
 }
 
-.like-btn, .dislike-btn {
+.like-btn,
+.dislike-btn {
     border-radius: 50px;
-    width: 50px;
+    width: 60px;
     background: #ffffff;
     color: #888888;
     border: 1px solid #aaaaaa;
 }
+
 .dislike-btn:hover {
     color: red;
 }
+
 .question-like {
     position: absolute;
     top: 15px;
@@ -404,6 +406,7 @@ div.content::-webkit-scrollbar-thumb {
 .question-nav div {
     margin-right: 10px;
 }
+
 .poll-item {
     display: flex;
     justify-content: space-between;
@@ -423,9 +426,11 @@ div.content::-webkit-scrollbar-thumb {
     transition: background-color .1s;
 }
 
-.accept, .content{
+.accept,
+.content {
     margin-top: 1em;
 }
+
 
 /* Button CSS */
 
@@ -437,11 +442,13 @@ div.content::-webkit-scrollbar-thumb {
     color: white;
     font-size: .9em;
 }
+
 .create-poll-btn:hover {
     color: #20b875;
     border: 1px solid #20B875;
 }
-.question-item-reviewing .flex-item{
+
+.question-item-reviewing .flex-item {
     display: block !important;
 }
 
@@ -450,48 +457,59 @@ div.content::-webkit-scrollbar-thumb {
     color: white;
 }
 
-
 .footer {
     padding: 16px 16px 12px 24px;
 }
+
 
 /* List CSS */
 
 .poll-item:hover {
     background: #fafafa;
 }
+
 .poll-action {
     display: flex;
     align-items: center;
 }
+
 .poll-action button {
     background: transparent;
     border: none;
     margin-right: 20px;
 }
+
 .stop-poll-btn {
     color: red;
     font-size: 2.4em;
 }
+
 .stop-poll-btn:hover {
     color: darkred;
 }
+
 .play-poll-btn {
     color: green;
     font-size: 2.4em;
 }
+
 .edit-poll-btn {
     color: #20b875;
 }
-.play-poll-btn:hover, .edit-poll-btn:hover {
+
+.play-poll-btn:hover,
+.edit-poll-btn:hover {
     color: darkgreen;
 }
+
 .delete-poll-btn {
     color: #999999;
 }
+
 .delete-poll-btn:hover {
-    color:darkred;
+    color: darkred;
 }
+
 .poll-action span {
     padding-right: 1em;
 }
@@ -499,11 +517,11 @@ div.content::-webkit-scrollbar-thumb {
 
 /* Live CSS */
 
-
 .delete-item {
     color: gray;
     font-size: 1.5em;
 }
+
 
 /* Left Action */
 
@@ -516,6 +534,7 @@ div.content::-webkit-scrollbar-thumb {
     margin-right: 1em;
 }
 
+
 /* Fill Bar */
 
 .poll-fill {
@@ -523,32 +542,39 @@ div.content::-webkit-scrollbar-thumb {
     height: 10px;
     border-radius: 2em;
 }
+
 .poll-votes {
     color: #20b875;
 }
+
 #multiple-answer {
     height: 25px;
     width: 25px;
     margin-right: 15px;
 }
+
 .multiple-answer-label {
     height: 40px;
     margin: auto;
     display: flex;
     align-items: center;
 }
+
 .plus-answer {
     background: transparent;
     color: #20b875;
     border: 2px solid #20b875;
 }
+
 .poll-answers input {
     margin-bottom: 10px;
     padding-right: 30px;
 }
+
 .poll-answers div {
     position: relative;
 }
+
 .delete-poll-answer-btn {
     position: absolute;
     top: 5px;
@@ -557,9 +583,11 @@ div.content::-webkit-scrollbar-thumb {
     border: none;
     color: #999999;
 }
+
 .delete-poll-answer-btn:hover {
     color: darkred;
 }
+
 @media only screen and (min-width:320px) {
     .event_left {
         display: none;
@@ -610,7 +638,6 @@ div.content::-webkit-scrollbar-thumb {
     .reply-btn {
         color: #20b875;
     }
-
 }
 
 @media only screen and (min-width:480px) {
@@ -659,7 +686,8 @@ div.content::-webkit-scrollbar-thumb {
 
 @media only screen and (min-width:1280px) {}
 
-div.question-like>button.like-btn.is-active {
+div.question-like>button.like-btn.is-active,
+div.question-like>button.dislike-btn.is-active {
     color: #20B875;
     border: 1px solid #20B875;
 }

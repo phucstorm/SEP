@@ -9,45 +9,41 @@
             <h1 class="h1-content total-answer">
                 0 <i class="fa fa-user" aria-hidden="true"></i>
             </h1>
-            <form action="/room" method="post" class="poll-form">
+            <form method="post" class="poll-form">
                 <div class="poll-form-header">
-                    Đố mấy bạn tui tên gì?
+                    {{$poll_question->poll_question_content}}
                 </div>
                 <div class="poll-form-body">
+                @if($poll_question->mul_choice == 0)
                     <!-- non-multiple choice thì hiển thị dạng radio button -->
                     <fieldset class='poll-answers'>
                         <legend hidden>id</legend>
-                            <input id='talk-type-1'
+                        @foreach($poll_answer as $key => $value)
+                            <input id='talk-type-{{$value->id}}'
                                     name='talk-type'
                                     type='radio'
                                     value='1' 
                                     hidden/>
-                            <label for='talk-type-1' class='radio-label poll-label'><span class="styled-radio-btn"></span>Linh đáng iu</label>
-                            <input id='talk-type-2'
-                                    name='talk-type'
-                                    type='radio'
-                                    value='workshop'
-                                    hidden />
-                            <label for='talk-type-2' class='radio-label poll-label'><span class="styled-radio-btn"></span>Linh cute</label>
+                            <label for='talk-type-{{$value->id}}' class='radio-label poll-label'><span class="styled-radio-btn"></span>{{$value->poll_answer_content}}</label>
+                        @endforeach
                     </fieldset>
+                @else
                     <!-- multiple choice thì hiển thị dạng checkbox -->
                     <div class='poll-answers'>
-                        <label class='checkbox-label poll-label' for='available'>
-                        <input id='available'
-                                name='available'
+                    @foreach($poll_answer as $key => $value)
+                        <label class='checkbox-label poll-label' for='available-{{$value->id}}'>
+                        <input id='available-{{$value->id}}'
+                                name='available-{{$value->id}}'
                                 type='checkbox'
-                                value='is-available' hidden/><span class="styled-checkbox"></span>
-                        Linhhhhhh
+                                value='is-available'
+                                 hidden/><span class="styled-checkbox"></span>
+                                {{$value->poll_answer_content}}
                         </label>
-                        <label class='checkbox-label poll-label' for='unavailable'>
-                        <input id='unavailable'
-                                name='unavailable'
-                                type='checkbox'
-                                value='is-available' hidden/><span class="styled-checkbox"></span>
-                        Linh vo hoxxx
-                        </label>
+                    @endforeach
+                       
                     </div>
-                </div>  
+                </div>
+                @endif  
                 <div class="poll-result">
                     <div class="poll-result-item">
                         <div class="poll-result-answer">
@@ -63,6 +59,7 @@
                         <div class="poll-result-bar" data-width="{{(9/10)*100}}%"></div>
                     </div>
                 </div> 
+
                 <div class="question-form__footer poll-form-footer">
                     <button type="button" id="submit-btn" class="submit-poll-btn poll-btn">Send</button>
                     <button type="button" id="edit-btn" class="edit-poll-btn poll-btn">Edit Response</button>

@@ -6,41 +6,61 @@ use Illuminate\Http\Request;
 use App\Poll_Question;
 use App\Poll_Answer;
 use App\Event;
+use Validator;
+use DB;
+use Illuminate\Support\Facades\Input;
 class PollQuestionController extends Controller
 {
     //
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
     public function index($event_id){
         $event = Event::where('id', '=', $event_id)->firstOrFail();
         $poll = Poll_Question::where('event_id', '=',$event_id)->get();
-        return view('event.poll',compact('poll','event'));
+        $answer = Poll_Answer::select('poll_question_id',DB::raw('sum(votes) as sum_votes'))->groupBy('poll_question_id')->get();
+        $live_question = Poll_Question::where('status', '=',1)->firstOrFail();
+        $live_answer = Poll_Answer::where('poll_question_id', '=', $live_question->id)->get();   
+        $sum_votes = Poll_Answer::where('poll_question_id', '=', $live_question->id)->sum('votes');   
+        return view('event.poll',compact('poll','event', 'answer', 'live_question', 'live_answer', 'sum_votes'));
+        // return response()->json($sum_votes);
     }
 
     public function create(Request $request){
         $rules = array(
-            'poll_question_content' => 'required',
+            'poll_name' => 'required',
+            'poll_answer' => 'required',
+            'event_id' => 'required',
         );
         $validator = Validator::make ( Input::all(), $rules);
         if($validator->fails()){
             return Response::json(array('errors'=> $validator->getMessageBag()->toarray()));
         }else{
+            $set_default_status = DB::table('poll__questions')->update(['status' => 0]);
             $poll_question = new Poll_Question;
             $poll_question->event_id = $request->event_id;
-            $poll_question->poll_question_content = $request->poll_question_content;
-            $poll_question->mul_choice = $request->mul_choice;
-            $poll_question->one_choice = $request->one_choice;
-            $poll_question->status = $request->status;
-            $poll_answer = new Poll_Answer;
-            foreach($request->except(['event_id', 'poll_question_content','mul_choice','one_choice','status']) as $item){
-                $poll_answer->$item;
+            $poll_question->poll_question_content = $request->poll_name;
+            if($request->option == 1){
+                $poll_question->mul_choice = 1;
+                $poll_question->one_choice = 0;
+            }else{
+                $poll_question->mul_choice = 0;
+                $poll_question->one_choice = 1;
+            }
+            $poll_question->status = 1;
+            $poll_question->save();
+            foreach($request->poll_answer as $key => $value){
+                $poll_answer = new Poll_Answer;
+                $poll_answer->poll_question_id = $poll_question->id;
+                $poll_answer->poll_answer_content = $value['value'];
+                $poll_answer->votes = 0;
                 $poll_answer->save();
             }
-            $poll_question->save();
-            return response()->json($poll_answer,$poll_question);
+            return response()->json();
         }
+        
     }
 
     public function update_poll_question_content(Request $request){

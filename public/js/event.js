@@ -220,8 +220,6 @@ $(document).on('click', '.item-action.delete-item', function() {
 });
 
 
-
-
 //Reply question
 $(document).on('click', '.question-item-accepted > div.accept > div.question-item > div:nth-child(5) > div:nth-child(2) > div > button', function() {
     var question_id = $(this).attr('data-id');
@@ -242,24 +240,56 @@ $(document).on('click', '.question-item-accepted > div.accept > div.question-ite
             },
             error: function(data) {
                 // alert(data);
-                // console.log(data);
+                console.log(data);
             },
         });
     });
 });
-$(document).ready(function() {
-    $(document).one('click', '.question-item > div.question-like > button.like-btn', function() {
 
-        $.ajax({
-            url: "/room/like/" + $(this).val(),
-        });
-        $(this).addClass("is-active");
+//Like question
+$(document).one('click', '.question-item > div.question-like > button.like-btn', function() {
+    $.ajax({
+        url: "/room/like/" + $(this).val(),
     });
+    $(this).toggleClass("is-active");
+});
 
-    $(document).on('click', '.question-item > div.question-like > button.like-btn.is-active', function() {
-        $(this).removeClass("is-active");
-        $.ajax({
-            url: "/room/unlike/" + $(this).val(),
-        });
+//Unlike question
+$(document).one('click', '.question-item > div.question-like > button.dislike-btn', function() {
+    $.ajax({
+        url: "/room/unlike/" + $(this).val(),
     });
+    $(this).toggleClass("is-active");
+});
+
+// Create Poll
+$('#add-poll').click(function() {
+    if ($('input[name=poll-name]').val() != '') {
+        if ($('input[name=poll-answer]').val() != '') {
+            $.ajax({
+                type: 'POST',
+                url: '/admin/event/poll/create',
+                data: {
+                    '_token': $('input[name=_token]').val(),
+                    'event_id': $('input[name=event_id]').val(),
+                    'poll_name': $('input[name=poll-name]').val(),
+                    'poll_answer': $('input[name=poll-answer]').serializeArray(),
+                    'option': $('input[name=multiple-answer]').is(':checked') == true ? 1 : 0,
+                },
+                success: function(data) {
+                    // window.location.reload();
+                    console.log('success' + data);
+                },
+                error: function(data) {
+                    // alert(data);
+                    console.log('error' + data);
+                    // window.location.reload();
+                },
+            });
+        } else {
+            alert('Nhập câu trả lời');
+        }
+    } else {
+        alert('Nhập câu hỏi');
+    }
 });
