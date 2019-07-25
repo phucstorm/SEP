@@ -51,5 +51,6 @@ Route::get('/admin/event/poll/{event_id}', 'PollQuestionController@index');
 
 //Poll 
 Route::post('/admin/event/poll/create' , 'PollQuestionController@create');
-
+Route::post('/admin/event/poll/delete', 'PollQuestionController@delete_poll_question');
+Route::post('/admin/event/poll/edit', 'PollQuestionController@update_poll');
 Route::get('/room/poll/{event_code}', 'GuestController@poll_question');

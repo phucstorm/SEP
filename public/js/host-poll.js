@@ -23,6 +23,6 @@ setInterval(function() {
 
 
 $('.plus-answer').click(function() {
-    var answer = '<div><input type="text" class="form-control" id="poll-answer" name="poll-answer" placeholder="Answer" required><button class="delete-poll-answer-btn"><i class="fa fa-trash"></i></button></div>'
+    var answer = '<div><input type="text" class="form-control" id="poll_answer" name="poll_answer" placeholder="Answer" required><button class="delete-poll-answer-btn"><i class="fa fa-trash"></i></button></div>'
     $('.poll-answers').append(answer);
 })

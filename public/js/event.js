@@ -264,19 +264,20 @@ $(document).one('click', '.question-item > div.question-like > button.dislike-bt
 
 // Create Poll
 $('#add-poll').click(function() {
-    if ($('input[name=poll-name]').val() != '') {
-        if ($('input[name=poll-answer]').val() != '') {
+    if ($('input[name=poll_name]').val() != '') {
+        if ($('input[name=poll_answer]').val() != '') {
             $.ajax({
                 type: 'POST',
                 url: '/admin/event/poll/create',
                 data: {
                     '_token': $('input[name=_token]').val(),
                     'event_id': $('input[name=event_id]').val(),
-                    'poll_name': $('input[name=poll-name]').val(),
-                    'poll_answer': $('input[name=poll-answer]').serializeArray(),
+                    'poll_name': $('input[name=poll_name]').val(),
+                    'poll_answer': $('input[name=poll_answer]').serializeArray(),
                     'option': $('input[name=multiple-answer]').is(':checked') == true ? 1 : 0,
                 },
                 success: function(data) {
+                    alert('You have successfully create new poll');
                     window.location.reload();
                     // console.log('success' + data);
                 },
@@ -287,9 +288,58 @@ $('#add-poll').click(function() {
                 },
             });
         } else {
-            alert('Nhập câu trả lời');
+            alert('Please, fill at least one option');
         }
     } else {
-        alert('Nhập câu hỏi');
+        alert('Question text is required');
     }
+});
+
+$('.delete-poll-btn').on('click', function() {
+    var poll_id = $(this).attr('data-id');
+    $('#delete-poll').click(function() {
+        $.ajax({
+            type: 'POST',
+            url: '/admin/event/poll/delete',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'id': poll_id,
+            },
+            success: function(data) {
+                alert('Thông báo delete thành công');
+                window.location.reload();
+                // console.log('success' + data);
+            },
+            error: function(data) {
+                // alert(data);
+                console.log('error' + data);
+                // window.location.reload();
+            },
+        });
+    });
+});
+
+$('button[id=edit-poll]').click(function() {
+    $.ajax({
+        type: 'POST',
+        url: '/admin/event/poll/edit',
+        data: {
+            '_token': $('input[name=_token]').val(),
+            'poll_id': $('#form-poll-edit > div:nth-child(1) > div > #poll_id').val(),
+            'event_id': $('#form-poll-edit > div:nth-child(1) > div > #event_id').val(),
+            'poll_question': $('#form-poll-edit > div:nth-child(1) > div > #poll-name').val(),
+            'poll_answer': $('#form-poll-edit > div:nth-child(2) > div.col-sm-8.poll-answers > div > input[name=poll-answer]').serializeArray(),
+            'option': $('#form-poll-edit > div:nth-child(4) > label > input[name=multiple-answer]').is(':checked') == true ? 1 : 0,
+        },
+        success: function(data) {
+            // window.location.reload();
+            console.log('success' + data);
+        },
+        error: function(data) {
+            // alert(data);
+            console.log('error' + data);
+            // window.location.reload();
+        },
+    });
+    console.log('this');
 });

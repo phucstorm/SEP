@@ -20,20 +20,25 @@ class PollQuestionController extends Controller
     public function index($event_id){
         $event = Event::where('id', '=', $event_id)->firstOrFail();
         $poll = Poll_Question::where('event_id', '=',$event_id)->get();
-        $answer = Poll_Answer::select('poll_question_id',DB::raw('sum(votes) as sum_votes'))->groupBy('poll_question_id')->get();
+        $vote_answer = Poll_Answer::select('poll_question_id',DB::raw('sum(votes) as sum_votes'))->groupBy('poll_question_id')->get();
+        $answer = Poll_Answer::select('id','poll_question_id','poll_answer_content')->get();
         $live_question = Poll_Question::where('status', '=',1)->get();
         if($live_question != '[]'){
             foreach($live_question as $key => $item){
                 $title = $item->poll_question_content;
                 $live_answer = Poll_Answer::where('poll_question_id', '=', $item->id)->get();   
                 $sum_votes = Poll_Answer::where('poll_question_id', '=', $item->id)->sum('votes');
-                return view('event.poll',compact('poll','event', 'answer', 'live_question','title', 'live_answer', 'sum_votes'));
-                // return response()->json($item->poll_question_content);
+                return view('event.poll',compact('poll','event', 'vote_answer', 'answer', 'live_question','title', 'live_answer', 'sum_votes'));
+                // return response()->json($live_answer);  
             }
         }else{
             return view('event.poll',compact('poll','event', 'live_question'));
         }
+        // return response()->json($poll);
+
+
         
+        // return response()->json($answer);
     }
 
     public function create(Request $request){
@@ -53,18 +58,23 @@ class PollQuestionController extends Controller
             if($request->option == 1){
                 $poll_question->mul_choice = 1;
                 $poll_question->one_choice = 0;
+                $poll_question->status = 1;
+                $poll_question->save();
             }else{
                 $poll_question->mul_choice = 0;
                 $poll_question->one_choice = 1;
+                $poll_question->status = 1;
+                $poll_question->save();
             }
-            $poll_question->status = 1;
-            $poll_question->save();
+            
             foreach($request->poll_answer as $key => $value){
                 $poll_answer = new Poll_Answer;
-                $poll_answer->poll_question_id = $poll_question->id;
-                $poll_answer->poll_answer_content = $value['value'];
-                $poll_answer->votes = 0;
-                $poll_answer->save();
+                if($value['value'] != ''){
+                    $poll_answer->poll_question_id = $poll_question->id;
+                    $poll_answer->poll_answer_content = $value['value'];
+                    $poll_answer->votes = 0;
+                    $poll_answer->save();
+                }
             }
             return response()->json();
         }
@@ -74,7 +84,9 @@ class PollQuestionController extends Controller
     public function update_poll_question_content(Request $request){
         $poll_question = Poll_Question::find($request->id);
         $rules = array(
-            'poll_question_content' => 'required',
+            'poll_name' => 'required',
+            'poll_answer' => 'required',
+            'event_id' => 'required',
         );
         $validator = Validator::make ( Input::all(), $rules);
         if($validator->fails()){
@@ -89,17 +101,22 @@ class PollQuestionController extends Controller
         }
     }
 
-    public function update_poll_answer(Request $request){
-        $ans = Poll_Answer::find($request->id);
+    public function update_poll(Request $request){
+        // $ans = Poll_Answer::find($request->id);
         
         // edit old answer and add new answer 
 
-        return response()->json($ans);
+        return response()->json($request);
 
     }
 
     public function delete_poll_question(Request $request){
+        $answer = Poll_Answer::where('poll_question_id', '=', Poll_Question::find($request->id)->id)->delete();
         $poll = Poll_Question::find($request->id)->delete();
+        $get_old_poll = Poll_Question::max('id');
+        $set_status = Poll_Question::find($get_old_poll)->firstOrFail();
+        $set_status->status = 1;
+        $set_status->save();
         return response()->json();
     }
 
