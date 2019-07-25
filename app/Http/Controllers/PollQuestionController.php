@@ -117,7 +117,7 @@ class PollQuestionController extends Controller
         $set_status = Poll_Question::find($get_old_poll)->firstOrFail();
         $set_status->status = 1;
         $set_status->save();
-        return response()->json();
+        return response()->json($set_status);
     }
 
     public function static_poll_result(){
