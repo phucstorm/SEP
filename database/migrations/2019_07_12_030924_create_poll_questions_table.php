@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Reply extends Migration
+class CreatePollQuestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,16 @@ class Reply extends Migration
      */
     public function up()
     {
-        Schema::create('replies', function (Blueprint $table) {
+        Schema::create('poll__questions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('question_id');
-            $table->string('content');
-            $table->string('user_name');
-            $table->string('user_id');
+            $table->unsignedBigInteger('event_id');
+            $table->string('poll_question_content');
+            $table->integer('total_votes');
+            $table->boolean('mul_choice');
+            $table->boolean('status');
             $table->timestamps();
+
+            $table->index('event_id');
         });
     }
 
@@ -30,6 +33,6 @@ class Reply extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('replies');
+        Schema::dropIfExists('poll__questions');
     }
 }

@@ -346,6 +346,7 @@ textarea::-webkit-scrollbar-thumb {
 .submit-poll-btn {
     display: block;
     text-align: center;
+    margin: 0 auto;
 }
 .submit-poll-btn:hover {
     background: #20b876de;
@@ -478,6 +479,7 @@ input[type=checkbox]:checked ~ .checkbox-label {
 .poll-result {
     padding: 20px 20px;
     display: none;
+    background:#fff;
 }
 .poll-result-bar {
     background: #20b875;

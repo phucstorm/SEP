@@ -15,13 +15,15 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('event_id');
-            $table->string('content');
+            $table->unsignedBigInteger('event_id');
+            $table->text('content');
             $table->string('user_name');
             $table->boolean('status');
             $table->integer('like');
             $table->integer('unlike');
             $table->timestamps();
+
+            $table->index('event_id');
         });
     }
 

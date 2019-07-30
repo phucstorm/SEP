@@ -9,7 +9,7 @@ $(document). ready(function(){
         }
     })
 })
-$('#submit-btn').click(function(){
+$('.show-result').click(function(){
     $('#submit-btn').css('display','none');
     $('#edit-btn').css('display','initial');
     $('.poll-result').css('display', 'inherit');

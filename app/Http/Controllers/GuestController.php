@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Events\FormSubmitted;
 use App\Event;
 use App\Question;
+use App\Poll_Question;
+use App\Poll_Answer;
 class GuestController extends Controller
 {
     //
@@ -14,7 +16,8 @@ class GuestController extends Controller
     }
 
     // Attendee input event code to join event room
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $event = Event::where('event_code', '=', $request->get('room') )->firstOrFail();
         $question = Question::where('event_id','=',$event->id)->get();
         $count = $question->where('status', 1)->count();
@@ -26,7 +29,8 @@ class GuestController extends Controller
     }
 
     //Attendee input question and submit
-    public function postQuestion(Request $request){
+    public function postQuestion(Request $request)
+    {
         $question = request()->question;
         if($question == ""){
             return redirect()->back()->with('alert','You must type question'); 
@@ -49,4 +53,41 @@ class GuestController extends Controller
             return redirect()->back();
         } 
     }
+
+    public function poll_question($event){
+        // $event = Event::where('event_code', '=', $event_code)->firstOrFail();
+        // $poll_question = Poll_Question::where('event_id', '=', $event->id)->where('status', '=', 1)->firstOrFail();
+        // $poll_answer = Poll_Answer::where('poll_question_id', '=', $poll_question->id)->get();
+        // return view('pollguest', compact('event' ,'poll_question', 'poll_answer'));
+        // return response()->json($poll_answer);
+        $event = Event::where('event_code', '=', $event)->firstOrFail();
+        $poll = $event->polls->where('status', 1)->first();
+        return view('pollguest', compact('event','poll'));
+    }
+
+    public function vote(Poll_Question $poll)
+    {
+        $answers = request()->input([
+            'poll_answer'
+        ]);
+
+        if(!empty($_POST['poll_answer']))
+        {
+            foreach($answers as $id)
+            {
+                $answer = Poll_Answer::where('id', $id)->first();
+                $voteAnswer = $answer->votes;
+                $answer->update(['votes'=>$voteAnswer+=1]);
+            }
+            $votes=$poll->total_votes;
+            $poll->update(['total_votes'=>$votes+=1]);
+        }else {
+            return back()->withErrors('Please vote for an answer!');
+        }
+        return redirect()->back();
+        
+
+
+    }
+    
 }

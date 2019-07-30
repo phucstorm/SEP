@@ -20,7 +20,7 @@
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
 
-        var pusher = new Pusher('8e870dcd45ee9590faac', {
+        var pusher = new Pusher('9ca3866fa2e26a25d235', {
             cluster: 'ap1',
             forceTLS: true
         });
@@ -192,7 +192,7 @@
                     <!-- <button class="is-active"><a href="/admin/event/{{$event->event_code}}">Question</a></button>
                     <button>Poll</button> -->
                     <button class="question-btn" onclick="window.location.href='/admin/event/{{$event->event_code}}'">QUESTIONS</button>
-                    <button class="poll-btn" onclick="window.location.href='/admin/event/poll/{{$event->id}}'">POLLS</button>
+                    <button class="poll-btn" onclick="window.location.href='/admin/event/poll/{{$event->event_code}}'">POLLS</button>
                 </div>
             </div>
         </div>
@@ -218,7 +218,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="em" name="em" required>
+                                <input type="text" class="form-control" id="em" name="em" readonly>
                             </div>
                         </div>
                     </form>

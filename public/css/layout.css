@@ -190,9 +190,11 @@ a:hover {
     font-size: 0.9em;
     padding-top: 5px;
 }
+
 .event-short-info {
     width: 80%;
 }
+
 .navbar_select .container button {
     -webkit-transition: color .3s ease;
     -o-transition: color .3s ease;
@@ -331,7 +333,6 @@ a:hover {
 .sidebar-navigation .sidebar-nav .nav-item a:hover {
     background: rgba(0, 0, 0, .1);
 }
-
 
 .toggle-show {
     display: flex!important;
@@ -481,6 +482,7 @@ footer .wrapper-title {
 .form-event-optional .form-group:last-of-type {
     margin-right: 0px;
 }
+
 .sidebar-navigation {
     width: 280px;
     height: 100%;
@@ -509,9 +511,11 @@ footer .wrapper-title {
 input:-webkit-autofill-selected {
     background-color: hsla(0, 0%, 100%, .16)!important;
 }
-.user-setting{
+
+.user-setting {
     position: relative;
 }
+
 .user-setting-menu {
     background: #ffffff;
     padding: 0;
@@ -520,10 +524,14 @@ input:-webkit-autofill-selected {
     box-shadow: 0 0 8px 1px #999;
     z-index: 10;
     display: none;
+    top: 30px;
+    right: 0;
 }
+
 .user-setting-menu li {
     padding: 5px 20px;
 }
+
 .user-setting-menu li:hover {
     color: #16181b;
     text-decoration: none;
@@ -531,9 +539,11 @@ input:-webkit-autofill-selected {
     cursor: pointer;
     border-radius: 6px;
 }
+
 .toggle-user-setting {
     display: initial;
 }
+
 @media only screen and (min-width:320px) {
     .modal.fade svg {
         width: 280px;
@@ -639,12 +649,14 @@ input:-webkit-autofill-selected {
         text-align: center;
     }
 }
+
 @media only screen and (min-width:480px) {
     .modal.fade svg {
         width: 440px;
         height: 440px;
     }
 }
+
 @media only screen and (min-width:768px) {
     .modal.fade svg {
         width: 600px;
@@ -657,6 +669,7 @@ input:-webkit-autofill-selected {
         flex-direction: row;
     }
 }
+
 @media only screen and (min-width:1024px) {
     .sidebar-toggle {
         display: none;
@@ -693,11 +706,7 @@ input:-webkit-autofill-selected {
         display: none;
     }
 }
-@media only screen and (min-width:1140px) {
 
-}
-@media only screen and (min-width:1280px) {
+@media only screen and (min-width:1140px) {}
 
-}
-
-
+@media only screen and (min-width:1280px) {}

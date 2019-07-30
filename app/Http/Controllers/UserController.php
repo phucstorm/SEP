@@ -27,7 +27,7 @@ class UserController extends Controller
     }
 
     public function edit_user_password(Request $request){ 
-        $validator = "Mật khẩu hiện tại không đúng";
+        $validator = "The current password is not correct";
         $user = User::find($request->id);
         if(password_verify( $request->current_pass, $user->password)){
             $user->password = bcrypt($request->password);

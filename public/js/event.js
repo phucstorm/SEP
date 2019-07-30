@@ -1,14 +1,22 @@
-// Create Event 
-$('#add').click(function() {
+// Create Event
+$(".date-error-message").hide();
+$(".data-error-message").hide();
+$('.event-code-error-message').hide();
+$(".submit-form").submit(function(e){
+    e.preventDefault();
+}); 
+$('#add-new-event-btn').click(function() {
     if (
         $('input[name=event_name]').val() != "" &&
         $('input[name=event_description]').val() != "" &&
         $('input[name=start_date]').val() != "" &&
         $('input[name=end_date]').val() != ""
     ) {
-        if ($('input[name=start_date]').val() > $('input[name=end_date]').val()) {
-            alert("Ngày kết thúc phải lớn hơn ngày bắt đầu");
+        if ($('input[name=start_date]').val() >= $('input[name=end_date]').val()) {
+            $(".date-error-message").show();
+            $(".data-error-message").hide();
         } else {
+            
             $.ajax({
                 type: 'POST',
                 url: 'event/create',
@@ -20,24 +28,25 @@ $('#add').click(function() {
                     'end_date': $('input[name=end_date]').val()
                 },
                 success: function(data) {
-                    alert("Tạo event thành công");
+                    alert("You have created event successfully");
                     window.location.reload();
                     // console.log(data);
                 },
                 error: function(data) {
-                    alert("Yêu cầu kiểm tra lại các dữ liệu đã nhập");
-                    // console.log(data);
+                    $(".data-error-message").show();
+                    $(".date-error-message").hide();
                 }
             });
         }
 
-    } else {
-        alert("Bạn phải điền đầy đủ thông tin mới có thể tạo được event !");
     }
 });
 
 // Edit Event
 $(document).on('click', '.btn.btn-outline-success', function() {
+    $(".date-error-message").hide();
+    $(".data-error-message").hide();
+    $('.event-code-error-message').hide();
     var event_id = $(this).attr('data-id');
     $('#en').val($(this).attr('data-name'));
     $('#ec').val($(this).attr('data-code'));
@@ -79,8 +88,10 @@ $(document).on('click', '.btn.btn-outline-success', function() {
             $('input[name=sd]').val() != "" &&
             $('input[name=ed]').val() != ""
         ) {
-            if ($('input[name=sd]').val() > $('input[name=ed]').val()) {
-                alert("Ngày kết thúc phải lớn hơn ngày bắt đầu");
+            if ($('input[name=sd]').val() >= $('input[name=ed]').val()) {
+                $(".date-error-message").show();
+                $(".data-error-message").hide();
+                $('.event-code-error-message').hide();
             } else {
                 $.ajax({
                     type: 'POST',
@@ -101,20 +112,23 @@ $(document).on('click', '.btn.btn-outline-success', function() {
                     },
                     success: function(data) {
                         if (data == "Mã event đã tồn tại") {
-                            alert(data);
+                            $('.event-code-error-message').show();
+                            $(".date-error-message").hide();
+                            $(".data-error-message").hide();
                         } else {
-                            alert("Cập nhật thông tin event hoàn tất");
+                            alert("Your event have updated successfully");
                             window.location.reload();
                         }
                     },
                     error: function(data) {
-                        alert("Dữ liệu bạn nhập không đúng định dạng !");
+                        $(".data-error-message").show();
+                        $(".date-error-message").hide();
+                        $('.event-code-error-message').hide();
                     },
                 });
             }
         } else {
-            alert("Bạn phải nhập đầy đủ thông tin để hoàn tất việc chỉnh sửa event");
-
+            
         }
 
     });
@@ -122,6 +136,7 @@ $(document).on('click', '.btn.btn-outline-success', function() {
 
 // Delete Event
 $(document).on('click', '.btn.btn-outline-danger.desktop-btn', function() {
+    $('#delete_title').append($(this).attr('data-name'));
     var event_id = $(this).attr('data-id');
     $('#del').click(function() {
         $.ajax({
@@ -156,7 +171,7 @@ $(document).on('click', '.edit_user_info-btn', function() {
                     '_token': $('input[name=_token]').val(),
                     'id': id,
                     'name': $('input[name=un]').val(),
-                    'email': $('input[name=em]').val(),
+                    // 'email': $('input[name=em]').val(),
                 },
                 success: function(data) {
                     alert("Cập nhật thông tin người dùng hoàn tất");
@@ -167,7 +182,7 @@ $(document).on('click', '.edit_user_info-btn', function() {
                 },
             });
         } else {
-            alert("Bạn cần điền tên và email để hoàn tất cập nhật thông tin");
+            alert("Bạn cần điền tên để hoàn tất cập nhật thông tin");
         }
     });
 });
@@ -220,8 +235,6 @@ $(document).on('click', '.item-action.delete-item', function() {
 });
 
 
-
-
 //Reply question
 $(document).on('click', '.question-item-accepted > div.accept > div.question-item > div:nth-child(5) > div:nth-child(2) > div > button', function() {
     var question_id = $(this).attr('data-id');
@@ -242,24 +255,106 @@ $(document).on('click', '.question-item-accepted > div.accept > div.question-ite
             },
             error: function(data) {
                 // alert(data);
-                // console.log(data);
+                console.log(data);
             },
         });
     });
 });
-$(document).ready(function() {
-    $(document).one('click', '.question-item > div.question-like > button.like-btn', function() {
 
-        $.ajax({
-            url: "/room/like/" + $(this).val(),
-        });
-        $(this).addClass("is-active");
+//Like question
+$(document).one('click', '.question-item > div.question-like > button.like-btn', function() {
+    $.ajax({
+        url: "/room/like/" + $(this).val(),
     });
+    $(this).toggleClass("is-active");
+});
 
-    $(document).on('click', '.question-item > div.question-like > button.like-btn.is-active', function() {
-        $(this).removeClass("is-active");
+//Unlike question
+$(document).one('click', '.question-item > div.question-like > button.dislike-btn', function() {
+    $.ajax({
+        url: "/room/unlike/" + $(this).val(),
+    });
+    $(this).toggleClass("is-active");
+});
+
+// Create Poll
+$('#add-poll').click(function() {
+    if ($('input[name=poll_name]').val() != '') {
+        if ($('input[name=poll_answer]').val() != '') {
+            $.ajax({
+                type: 'POST',
+                url: '/admin/event/poll/create',
+                data: {
+                    '_token': $('input[name=_token]').val(),
+                    'event_id': $('input[name=event_id]').val(),
+                    'poll_name': $('input[name=poll_name]').val(),
+                    'poll_answer': $('input[name=poll_answer]').serializeArray(),
+                    'option': $('input[name=multiple-answer]').is(':checked') == true ? 1 : 0,
+                },
+                success: function(data) {
+                    alert('You have successfully create new poll');
+                    window.location.reload();
+                    // console.log('success' + data);
+                },
+                error: function(data) {
+                    // alert(data);
+                    console.log('error' + data);
+                    // window.location.reload();
+                },
+            });
+        } else {
+            alert('Please, fill at least one option');
+        }
+    } else {
+        alert('Question text is required');
+    }
+});
+
+$('.delete-poll-btn').on('click', function() {
+    var poll_id = $(this).attr('data-id');
+    $('#delete-poll').click(function() {
         $.ajax({
-            url: "/room/unlike/" + $(this).val(),
+            type: 'POST',
+            url: '/admin/event/poll/delete',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'id': poll_id,
+            },
+            success: function(data) {
+                alert('Thông báo delete thành công');
+                window.location.reload();
+                // console.log('success' + data);
+            },
+            error: function(data) {
+                // alert(data);
+                console.log('error' + data);
+                // window.location.reload();
+            },
         });
     });
+});
+
+$('button[id=edit-poll]').click(function() {
+    $.ajax({
+        type: 'POST',
+        url: '/admin/event/poll/edit',
+        data: {
+            '_token': $('input[name=_token]').val(),
+            'poll_id': $('#form-poll-edit > div:nth-child(1) > div > #poll_id').val(),
+            'event_id': $('#form-poll-edit > div:nth-child(1) > div > #event_id').val(),
+            'poll_question': $('#form-poll-edit > div:nth-child(1) > div > #poll-name').val(),
+            'poll_answer': $('#form-poll-edit > div:nth-child(2) > div.col-sm-8.poll-answers > div > input[name=poll-answer]').serializeArray(),
+            'option': $('#form-poll-edit > div:nth-child(4) > label > input[name=multiple-answer]').is(':checked') == true ? 1 : 0,
+        },
+        success: function(data) {
+            // window.location.reload();
+            console.log('success' + data);
+        },
+        error: function(data) {
+            // alert(data);
+            console.log('error' + data);
+            // window.location.reload();
+        },
+    });
+    console.log('this');
 });
