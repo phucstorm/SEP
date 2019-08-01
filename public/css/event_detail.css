@@ -26,7 +26,16 @@ header {
 .user-role {
     text-align: right;
 }
+.like-btn.is-liked {
+    color: #20b875;
+    border: 1px solid #20b875;
 
+}
+.dislike-btn.is-disliked {
+    color: red;
+    border: 1px solid red;
+
+}
 .poll-btn,
 .question-btn {
     height: 32px;
@@ -531,14 +540,18 @@ div.content::-webkit-scrollbar-thumb {
 .delete-poll-btn:hover {
     color: darkred;
 }
-
+.voted-person {
+    top:10px;
+    right:10px;
+    color:#555;
+    font-size: 1.1em;
+}
 .poll-action span {
     padding-right: 1em;
 }
 .poll-result-bar {
     background: #20b875;
     border-radius: 20px;
-    margin-bottom: 10px;
     height: 10px;
     width: 0;
 }
@@ -548,7 +561,11 @@ div.content::-webkit-scrollbar-thumb {
     font-size: 1.1em;
 }
 .percent {
-    color: #20b875;
+    color: #555;
+    font-size: .9em;
+}
+.votes {
+    color:#20b875;
 }
 
 /* Live CSS */

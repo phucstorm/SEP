@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Question;
 use App\Event;
 use App\Reply;
+use App\Events\LikeQuestion;
+use App\Events\UnlikeQuestion;
 use Illuminate\Http\Request;
 use App\Events\FormSubmitted;
 use Auth;
@@ -52,14 +54,21 @@ class QuestionController extends Controller
         $ques = Question::find($question_id);
         $ques->like += 1;
         $ques->save();
-        return redirect()->back();
+
+        $likes = $ques->like;
+        // return response()->json($likes);
+        event(new LikeQuestion($question_id, $likes));
+        // return redirect()->back();
     }
 
     public function unlike_question($question_id){
         $ques = Question::find($question_id);
-        $ques->unlike -= 1;
+        $ques->like -= 1;
         $ques->save();
-        return redirect()->back();
+        $likes = $ques->like;
+        // return response()->json($likes);
+        event(new LikeQuestion($question_id, $likes));
+        // return redirect()->back();
     }
 
     public function index()

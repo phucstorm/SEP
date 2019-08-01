@@ -57,7 +57,7 @@ Route::get('/room/poll/{event_code}', 'GuestController@poll_question');
 Route::patch('/admin/event/poll/status/{poll}', 'PollQuestionController@updateStatus');
 
 //vote for poll
-Route::patch('/room/poll/vote/{poll}', 'GuestController@vote');
+Route::get('/room/poll/vote/{poll}', 'GuestController@vote');
 
 
 //testing pusher

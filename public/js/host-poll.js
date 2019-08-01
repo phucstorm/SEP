@@ -43,8 +43,11 @@ setInterval(function(){
         $(this).parent().remove();
     }); 
 }, 500);
+
+setInterval(function(){ 
 $(".poll-result-bar").each(function(){
     $(this).animate({
       width: $(this).attr("data-width")
     },2500)
   });
+}, 2500);

@@ -8,7 +8,21 @@
 
     <div class="poll-container">
     @if($poll==null)
-        There is no poll available at the moment!
+        <h1 class="h1-content total-answer">
+            0 <i class="fa fa-user" aria-hidden="true"></i>
+        </h1>
+        <form action="" enctype="multipart/form-data" method="post" class="poll-form">
+
+            <div class="poll-form-header">
+                There is no poll available at the moment!
+            </div>
+            <div class="poll-form-body">
+                <div class="poll-answers">
+
+                </div>
+            </div>
+            <!-- <button id="submit-btn" class="submit-poll-btn poll-btn">Send</button> -->
+        </form>
     @else
         <h1 class="h1-content total-answer">
             {{$poll->total_votes}} <i class="fa fa-user" aria-hidden="true"></i>
@@ -60,7 +74,7 @@
                     </div>
                 @endif            
             </div> 
-            <button id="submit-btn" class="submit-poll-btn poll-btn">Send</button>
+            <button id="submit-btn-poll" class="submit-poll-btn poll-btn" value="{{$poll->id}}">Send</button>
         </form>
         <div class="poll-result">
         @php
@@ -71,23 +85,28 @@
         @endphp
         @if($sum!=0)
             @foreach($poll->answers as $answer)
-                <div class="poll-result-item">
-                    <div class="poll-result-answer">
-                        {{$answer->poll_answer_content}} <span class="percent">({{round(($answer->votes/$sum)*100)}}%)</span>
-                    </div>
-                    <!-- width là (số lượt vote answers/tổng số vote) * 100 -->
-                    <div class="poll-result-bar" data-width="{{($answer->votes/$sum)*100}}%"></div>
+            <div class="poll-result-item p-1">
+                <div class="poll-result-answer">
+                    {{$answer->poll_answer_content}} <span class="votes">({{$answer->votes}})</span>
                 </div>
+                <div class="result-bar">
+                    <span class="poll-result-bar" data-width="{{($answer->votes/$sum)*90}}%"></span>
+                    <span class="percent">{{round(($answer->votes/$sum)*100)}}%</span>
+                </div>
+            </div>
             @endforeach
         @else
             @foreach($poll->answers as $answer)
-                <div class="poll-result-item">
-                    <div class="poll-result-answer">
-                        {{$answer->poll_answer_content}} <span class="percent">(0%)</span>
-                    </div>
-                    <!-- width là (số lượt vote answers/tổng số vote) * 100 -->
-                    <div class="poll-result-bar" data-width="0%"></div>
+            <div class="poll-result-item p-1">
+                <div class="poll-result-answer">
+                    {{$answer->poll_answer_content}} <span class="votes">(0)</span>
                 </div>
+                <!-- width là (số lượt vote answers/tổng số vote) * 100 -->
+                <div class="result-bar">
+                    <span class="poll-result-bar" data-width="0%"></span>
+                    <span class="percent">0%</span>
+                </div>
+            </div>
             @endforeach
         @endif
 

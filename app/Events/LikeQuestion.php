@@ -10,19 +10,22 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class DemoPusherEvent implements ShouldBroadcast
+class LikeQuestion implements ShouldBroadCast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $questionId;
+    public $likes;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public $message;
-    public function __construct($message)
+    public function __construct($questionId, $likes)
     {
-        $this->message = $message;
+        //
+        $this->questionId = $questionId;
+        $this->likes = $likes;
     }
 
     /**
@@ -32,6 +35,11 @@ class DemoPusherEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('channel-demo-real-time');
+        return new Channel('like-channel');
+    }
+
+    public function broadcastAs()
+    {
+        return 'like-question';
     }
 }

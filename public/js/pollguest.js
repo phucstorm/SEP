@@ -21,8 +21,36 @@ $('#edit-btn').click(function(){
     $('.poll-result').css('display', 'none');
     $('.poll-form-body').css('display', 'inherit');
 })
+
 $(".poll-result-bar").each(function(){
     $(this).animate({
       width: $(this).attr("data-width")
     },2500)
   });
+
+setInterval(function(){ 
+  $(".poll-result-bar").each(function(){
+      $(this).animate({
+        width: $(this).attr("data-width")
+      },2500)
+    });
+  }, 2500);
+
+$(".poll-form").submit(function(e){
+  e.preventDefault();
+})
+//Vote poll function
+$('.submit-poll-btn').on('click', function(){
+  $.ajax({
+    url: "/room/poll/vote/" + $(this).val(),
+    success: function(data) {
+      // window.location.reload();
+      console.log('success' + data);
+    },
+    error: function(data) {
+        // alert(data);
+        console.log('error' + data);
+        // window.location.reload();
+    },
+  });
+})

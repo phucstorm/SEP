@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Poll_Question;
 use App\Poll_Answer;
 use App\Event;
+use App\Events\PlayPoll;
 use Validator;
 use DB;
 use Illuminate\Support\Facades\Input;
@@ -59,6 +60,15 @@ class PollQuestionController extends Controller
         //     }
         //     return response()->json();
         // }
+
+        
+        // echo $selectedOption."\n";
+        // $answer = array(request()->validate([
+        //     'poll_answer' => ''
+        // ]));
+
+
+        $event = Event::findOrfail($request->event_id);
         $data = request()->validate([
             'poll_question_content' => 'required',
             'poll_answer' =>'',
@@ -72,11 +82,6 @@ class PollQuestionController extends Controller
             $mul_choice=0;
         }
         
-        // echo $selectedOption."\n";
-        // $answer = array(request()->validate([
-        //     'poll_answer' => ''
-        // ]));
-        $event = Event::findOrfail($data['event_id']);
 
         $event->polls()->create([
             'poll_question_content' => $data['poll_question_content'],
@@ -91,6 +96,7 @@ class PollQuestionController extends Controller
                 'votes' => 0
             ]);
         }
+        // return response()->json($request);
         return redirect("/admin/event/poll/".$event->event_code);
     }
 
@@ -191,6 +197,22 @@ class PollQuestionController extends Controller
         }else{
             $poll->update(['status'=>0]);
         }
+        //live
+        $pollGo = Poll_Question::where('status', 1)->first();
+        if($pollGo!=[])
+        {
+            $answerId = array();
+            $answerContent = array();
+            $mulChoice = $pollGo->mul_choice;
+            foreach($pollGo->answers as $answer)
+            {
+                array_push($answerId,$answer->id);
+                array_push($answerContent,$answer->poll_answer_content);
+            }
+            event(new PlayPoll($pollGo->id,$answerId,$answerContent, $mulChoice, $poll->poll_question_content));
+        }
+
+
         $event = Event::findOrfail($data['event_id']);
         return redirect("/admin/event/poll/".$event->event_code);
     }

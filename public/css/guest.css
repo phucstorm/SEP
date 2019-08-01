@@ -202,7 +202,7 @@ ul.content-nav-tabs li>button.is-selected {
 
 .like-btn {
     border-radius: 50px;
-    width: 50px;
+    min-width: 60px;
     background: #ffffff;
     color: #888888;
     border: 1px solid #aaaaaa;
@@ -484,12 +484,15 @@ input[type=checkbox]:checked ~ .checkbox-label {
 .poll-result-bar {
     background: #20b875;
     border-radius: 20px;
-    margin-bottom: 10px;
     height: 10px;
     width: 0;
 }
 .percent {
-    color: #20b875;
+    color: #555;
+    font-size: .9em;
+}
+.votes {
+    color:#20b875;
 }
 @media only screen and (min-width:320px) {
     .navbar_info .container {

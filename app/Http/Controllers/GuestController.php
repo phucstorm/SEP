@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Events\FormSubmitted;
+use App\Events\VoteSubmitted;
 use App\Event;
 use App\Question;
 use App\Poll_Question;
@@ -39,7 +40,7 @@ class GuestController extends Controller
             if(request()->user_name != ""){
                 $user_name = request()->user_name;
             }else{
-                $user_name = "Anonymus";
+                $user_name = "Anonymous";
             }
             $qt = new Question;
             $qt->event_id = request()->event_id;
@@ -65,22 +66,35 @@ class GuestController extends Controller
         return view('pollguest', compact('event','poll'));
     }
 
-    public function vote(Poll_Question $poll)
+    public function vote($poll_id)
     {
+        
+        $poll = Poll_Question::find($poll_id);
         $answers = request()->input([
             'poll_answer'
         ]);
-
+        return response()->json($poll);
         if(!empty($_POST['poll_answer']))
         {
+            
+            $votes=($poll->total_votes)+1;
             foreach($answers as $id)
             {
                 $answer = Poll_Answer::where('id', $id)->first();
-                $voteAnswer = $answer->votes;
-                $answer->update(['votes'=>$voteAnswer+=1]);
+                $voteAnswer = ($answer->votes)+1;
+                $answer->update(['votes'=>$voteAnswer]);          
             }
-            $votes=$poll->total_votes;
-            $poll->update(['total_votes'=>$votes+=1]);
+            $answerArray = array();
+            $answerContent = array();
+            $sumVotes = 0;
+            foreach($poll->answers as $answer){
+                array_push($answerArray,$answer->votes);
+                array_push($answerContent,$answer->poll_answer_content);
+                $sumVotes+=$answer->votes;
+            }
+            event(new VoteSubmitted($answerArray,$sumVotes,$votes,$answerContent));
+            $poll->update(['total_votes'=>$votes]);
+            
         }else {
             return back()->withErrors('Please vote for an answer!');
         }

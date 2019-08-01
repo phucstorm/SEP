@@ -12,6 +12,7 @@
     </div>
     <div class="row">
         <div class="poll-section col-md-6 col-sm-12">
+            <span>Poll list</span>
             <div class="poll-container">
                 @foreach ($event->polls as $poll)
                     <div class="poll-item p-3 d-flex justify-content-between">
@@ -165,9 +166,13 @@
             </div>
         </div>
         <div class="poll-section col-md-6 col-sm-12">
-            <div class="poll-container p-3">
+            <span>Live</span>
+            <div class="poll-container poll-live position-relative p-3">
+                
                 @if($event->polls()->where('status',1)->first()!=[])
                     @php $runningPoll = $event->polls()->where('status',1)->first(); @endphp
+                    <span class="position-absolute voted-person">{{$runningPoll->total_votes}} <i class="fa fa-user" aria-hidden="true"></i></span>
+
                     <div class="poll-title p-2">
                     {{$runningPoll->poll_question_content}}
                     </div>
@@ -182,20 +187,25 @@
                         @foreach($runningPoll->answers as $answer)
                             <div class="poll-result-item p-1">
                                 <div class="poll-result-answer">
-                                    {{$answer->poll_answer_content}} <span class="percent">({{round(($answer->votes/$sum)*100)}}%)</span>
+                                    {{$answer->poll_answer_content}} <span class="votes">({{$answer->votes}})</span>
                                 </div>
-                                <!-- width là (số lượt vote answers/tổng số vote) * 100 -->
-                                <div class="poll-result-bar" data-width="{{($answer->votes/$sum)*100}}%"></div>
+                                <div class="result-bar">
+                                    <span class="poll-result-bar" data-width="{{($answer->votes/$sum)*90}}%"></span>
+                                    <span class="percent">{{round(($answer->votes/$sum)*100)}}%</span>
+                                </div>
                             </div>
                         @endforeach
                     @else
                         @foreach($runningPoll->answers as $answer)
-                            <div class="poll-result-item p-3">
+                            <div class="poll-result-item p-1">
                                 <div class="poll-result-answer">
-                                    {{$answer->poll_answer_content}} <span class="percent">(0%)</span>
+                                    {{$answer->poll_answer_content}} <span class="votes">(0)</span>
                                 </div>
                                 <!-- width là (số lượt vote answers/tổng số vote) * 100 -->
-                                <div class="poll-result-bar" data-width="0%"></div>
+                                <div class="result-bar">
+                                    <span class="poll-result-bar" data-width="0%"></span>
+                                    <span class="percent">0%</span>
+                                </div>
                             </div>
                         @endforeach
                     @endif
@@ -213,7 +223,7 @@
         
         <!-- Modal content-->
         <div class="modal-content">
-            <form action="/admin/event/poll/create" enctype="multipart/form-data" method="post">
+            <form action="/admin/event/poll/create" class="create-poll-form" enctype="multipart/form-data" method="post">
                 @csrf
                 <div class="modal-header">
                 <h4 class="modal-title">Create Poll</h4>
@@ -253,6 +263,18 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                                    <input id="poll_answer" 
+                                        type="text" 
+                                        class="form-control @error('poll_answer') is-invalid @enderror mt-2" 
+                                        name="poll_answer[]" 
+                                        value="{{ old('poll_answer') }}" 
+                                        autocomplete="poll_answer" 
+                                        autofocus required>
+                                    @error('poll_answer')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group-row">
                                     <label class="col-sm-3 col-form-label"></label>
@@ -271,7 +293,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button class="btn btn-success">Save</button>
+                        <button id="create-poll" class="btn btn-success">Save</button>
                     </div>
                 </form>
             </div>   
