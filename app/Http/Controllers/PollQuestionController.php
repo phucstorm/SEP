@@ -24,50 +24,6 @@ class PollQuestionController extends Controller
     }
 
     public function create(Request $request){
-        // $rules = array(
-        //     'poll_name' => 'required',
-        //     'poll_answer' => 'required',
-        //     'event_id' => 'required',
-        // );
-        // $validator = Validator::make ( Input::all(), $rules);
-        // if($validator->fails()){
-        //     return Response::json(array('errors'=> $validator->getMessageBag()->toarray()));
-        // }else{
-        //     $set_default_status = DB::table('poll__questions')->update(['status' => 0]);
-        //     $poll_question = new Poll_Question;
-        //     $poll_question->event_id = $request->event_id;
-        //     $poll_question->poll_question_content = $request->poll_name;
-        //     if($request->option == 1){
-        //         $poll_question->mul_choice = 1;
-        //         $poll_question->one_choice = 0;
-        //         $poll_question->status = 1;
-        //         $poll_question->save();
-        //     }else{
-        //         $poll_question->mul_choice = 0;
-        //         $poll_question->one_choice = 1;
-        //         $poll_question->status = 1;
-        //         $poll_question->save();
-        //     }
-            
-        //     foreach($request->poll_answer as $key => $value){
-        //         $poll_answer = new Poll_Answer;
-        //         if($value['value'] != ''){
-        //             $poll_answer->poll_question_id = $poll_question->id;
-        //             $poll_answer->poll_answer_content = $value['value'];
-        //             $poll_answer->votes = 0;
-        //             $poll_answer->save();
-        //         }
-        //     }
-        //     return response()->json();
-        // }
-
-        
-        // echo $selectedOption."\n";
-        // $answer = array(request()->validate([
-        //     'poll_answer' => ''
-        // ]));
-
-
         $event = Event::findOrfail($request->event_id);
         $data = request()->validate([
             'poll_question_content' => 'required',
@@ -96,52 +52,10 @@ class PollQuestionController extends Controller
                 'votes' => 0
             ]);
         }
-        // return response()->json($request);
         return redirect("/admin/event/poll/".$event->event_code);
     }
 
-    // public function update_poll_question_content(Request $request){
-    //     $poll_question = Poll_Question::find($request->id);
-    //     $rules = array(
-    //         'poll_name' => 'required',
-    //         'poll_answer' => 'required',
-    //         'event_id' => 'required',
-    //     );
-    //     $validator = Validator::make ( Input::all(), $rules);
-    //     if($validator->fails()){
-    //         return Response::json(array('errors'=> $validator->getMessageBag()->toarray()));
-    //     }else{
-    //         $poll_question->poll_question_content = $request->poll_question_content;
-    //         $poll_question->mul_choice = $request->mul_choice;
-    //         $poll_question->one_choice = $request->one_choice;
-    //         $poll_question->status = $request->status;
-    //         $poll_question-save();
-    //         return response()->json($poll_question);
-    //     }
-    // }
-
     public function update(Poll_Question $poll){
-        // $ans = Poll_Answer::find($request->id);
-        
-        // edit old answer and add new answer 
-
-    //     return response()->json($request);
-
-    // }
-
-    // public function delete_poll_question(Request $request){
-    //     $answer = Poll_Answer::where('poll_question_id', '=', Poll_Question::find($request->id)->id)->delete();
-    //     $poll = Poll_Question::find($request->id)->delete();
-    //     $get_old_poll = Poll_Question::max('id');
-    //     $set_status = Poll_Question::find($get_old_poll)->firstOrFail();
-    //     $set_status->status = 1;
-    //     $set_status->save();
-    //     return response()->json($set_status);
-    // }
-
-    // public function static_poll_result(){
-        
-    // }
         $data = request()->validate([
             'poll_question_content' => 'required',
             'event_id' =>'',
@@ -163,7 +77,6 @@ class PollQuestionController extends Controller
         $newAnswers = request()->validate([
             'new_poll_answer' => '',
         ]);
-        // dd(array_keys($answers));
         $poll->update($data);
         $poll->update(['mul_choice'=>$mul_choice]);
         foreach (array_keys($answers) as $answer_id){
@@ -197,20 +110,23 @@ class PollQuestionController extends Controller
         }else{
             $poll->update(['status'=>0]);
         }
+
         //live
-        $pollGo = Poll_Question::where('status', 1)->first();
-        if($pollGo!=[])
-        {
-            $answerId = array();
-            $answerContent = array();
-            $mulChoice = $pollGo->mul_choice;
-            foreach($pollGo->answers as $answer)
-            {
-                array_push($answerId,$answer->id);
-                array_push($answerContent,$answer->poll_answer_content);
-            }
-            event(new PlayPoll($pollGo->id,$answerId,$answerContent, $mulChoice, $poll->poll_question_content));
-        }
+        event(new PlayPoll());
+
+        // $pollGo = Poll_Question::where('status', 1)->first();
+        // if($pollGo!=[])
+        // {
+        //     $answerId = array();
+        //     $answerContent = array();
+        //     $mulChoice = $pollGo->mul_choice;
+        //     foreach($pollGo->answers as $answer)
+        //     {
+        //         array_push($answerId,$answer->id);
+        //         array_push($answerContent,$answer->poll_answer_content);
+        //     }
+        //     event(new PlayPoll($pollGo->id,$answerId,$answerContent, $mulChoice, $poll->poll_question_content));
+        // }
 
 
         $event = Event::findOrfail($data['event_id']);

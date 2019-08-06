@@ -14,25 +14,14 @@ class PlayPoll implements ShouldBroadCast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $id;
-    public $answerId;
-    public $answerContent;
-    public $multiChoice;
-    public $pollContent;
-
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($id, $answerId, $answerContent, $multiChoice, $pollContent)
+    public function __construct()
     {
-        //
-        $this->id = $id;
-        $this->answerId = $answerId;
-        $this->answerContent = $answerContent;
-        $this->multiChoice = $multiChoice;
-        $this->pollContent = $pollContent;
+        
 
     }
 

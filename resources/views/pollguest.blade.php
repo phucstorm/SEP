@@ -12,16 +12,9 @@
             0 <i class="fa fa-user" aria-hidden="true"></i>
         </h1>
         <form action="" enctype="multipart/form-data" method="post" class="poll-form">
-
             <div class="poll-form-header">
                 There is no poll available at the moment!
             </div>
-            <div class="poll-form-body">
-                <div class="poll-answers">
-
-                </div>
-            </div>
-            <!-- <button id="submit-btn" class="submit-poll-btn poll-btn">Send</button> -->
         </form>
     @else
         <h1 class="h1-content total-answer">
@@ -29,27 +22,23 @@
         </h1>
         <form action="/room/poll/vote/{{$poll->id}}" enctype="multipart/form-data" method="post" class="poll-form">
         @csrf
-            @method('PATCH')
+        <input type="text" name="poll-id" value="{{$poll->id}}" hidden>
             <div class="poll-form-header">
                 {{$poll->poll_question_content}}
             </div>
             <div class="poll-form-body">
-                @if($errors->any())
-                    <ul>
-                    @foreach ($errors->all() as $error)
-                        <li class="text-danger">{{ $error }}</li>
-                    @endforeach
-                    </ul>
-                @endif
+            <span class="text-danger vote-error">Please vote for an answer!</span>
+
                 @if($poll->mul_choice == 0)
                     <!-- non-multiple choice thì hiển thị dạng radio button -->
                     <fieldset class='poll-answers'>
                         <legend hidden>id</legend>
                         @foreach($poll->answers as $answer)
                             <input id='talk-type-{{$answer->id}}'
-                                    name='poll_answer[]'
+                                    name='poll_answer'
                                     type='radio'
                                     value='{{$answer->id}}' 
+                                    class="check-answer"
                                     hidden/>
                             <label for='talk-type-{{$answer->id}}' class='radio-label poll-label'>
                                 <span class="styled-radio-btn"></span>
@@ -63,18 +52,19 @@
                         @foreach($poll->answers as $answer)
                             <label class='checkbox-label poll-label' for='available-{{$answer->id}}'>
                             <input id='available-{{$answer->id}}'
-                                    name='poll_answer[{{$answer->id}}]'
+                                    name='poll_answer[]'
                                     type='checkbox'
                                     value='{{$answer->id}}'
+                                    class="check-answer"
                                         hidden/>
                                         <span class="styled-checkbox"></span>
                                     {{$answer->poll_answer_content}}
                             </label>
                         @endforeach 
                     </div>
-                @endif            
+                @endif  
+                <button id="submit-btn-poll" class="submit-poll-btn poll-btn" value="{{$poll->id}}">Send</button>          
             </div> 
-            <button id="submit-btn-poll" class="submit-poll-btn poll-btn" value="{{$poll->id}}">Send</button>
         </form>
         <div class="poll-result">
         @php
@@ -109,13 +99,12 @@
             </div>
             @endforeach
         @endif
-
+        <div class="question-form__footer poll-form-footer">
+            <button type="button" id="edit-poll-btn" class="edit-poll-btn poll-btn">Edit Response</button>
+        </div>   
         </div> 
 
-        <div class="question-form__footer poll-form-footer">
-            <button type="button" id="submit-btn" class="submit-poll-btn poll-btn show-result">Show Result</button>
-            <button type="button" id="edit-btn" class="edit-poll-btn poll-btn">Edit Response</button>
-        </div>       
+    
     @endif
     </div>
 

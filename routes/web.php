@@ -47,6 +47,10 @@ Route::post('/room/reply', 'QuestionController@reply_question');
 Route::get('/room/like/{question_id}','QuestionController@like_question');
 Route::get('/room/unlike/{question_id}','QuestionController@unlike_question');
 
+//like and unlike for attendee
+Route::get('/room/guest/like/{question_id}','GuestController@like_question');
+Route::get('/room/guest/unlike/{question_id}','GuestController@unlike_question');
+
 Route::get('/admin/event/poll/{event_code}', 'PollQuestionController@index');
 
 //Poll 
@@ -57,7 +61,8 @@ Route::get('/room/poll/{event_code}', 'GuestController@poll_question');
 Route::patch('/admin/event/poll/status/{poll}', 'PollQuestionController@updateStatus');
 
 //vote for poll
-Route::get('/room/poll/vote/{poll}', 'GuestController@vote');
+Route::post('/room/poll/vote/', 'GuestController@vote');
+Route::post('/room/poll/revote/', 'GuestController@revote');
 
 
 //testing pusher

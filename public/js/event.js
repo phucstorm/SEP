@@ -285,7 +285,6 @@ $(document).on('click', '.question-item-accepted > div.accept > div.question-ite
     });
     loadLike = function(){
         var likedButton = $('.like-btn');
-        var likedButtonId = [];
         for(var i=0; i<likedButton.length; i++){
             if(localStorage.getItem('isliked'+likedButton[i].getAttribute('value'))=="true")
             {
@@ -409,11 +408,14 @@ channel.bind('form-submitted', function (data) {
 var votes = pusher.subscribe('vote-channel');
 votes.bind('vote-submitted', function (data){
     // $('.poll-result').html('');
-    for (i = 0; i < data.answerArray.length; i++) {
-        $( ".poll-result-bar").eq(i).attr("data-width",Math.round((data.answerArray[i]/data.sumVotes)*90)+"%");
-        $(".votes").eq(i).html('('+data.answerArray[i]+')');
-        $(".percent").eq(i).html(''+Math.round((data.answerArray[i]/data.sumVotes)*100)+'%');
+    if(data.sumVotes!=0){
+        for (i = 0; i < data.answerArray.length; i++) {
+            $( ".poll-result-bar").eq(i).attr("data-width",Math.round((data.answerArray[i]/data.sumVotes)*90)+"%");
+            $(".votes").eq(i).html('('+data.answerArray[i]+')');
+            $(".percent").eq(i).html(''+Math.round((data.answerArray[i]/data.sumVotes)*100)+'%');
+        }
     }
+
     $('.voted-person').html(''+data.votes+' <i class="fa fa-user" aria-hidden="true"></i>');
 
     
@@ -422,7 +424,7 @@ votes.bind('vote-submitted', function (data){
 var likes = pusher.subscribe('like-channel');
 likes.bind('like-question', function (data){
     // $('.like-btn').html(''+data.likes+'<i class="fa fa-thumbs-up"></i>');
-    $('#like-btn'+data.questionId).html(''+data.likes+' <i class="fa fa-thumbs-up"></i>');
+    $('.like-btn'+data.questionId).html(''+data.likes+' <i class="fa fa-thumbs-up"></i>');
 })
 var unlikes = pusher.subscribe('unlike-channel');
 unlikes.bind('unlike-question', function (data){

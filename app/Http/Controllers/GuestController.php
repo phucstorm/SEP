@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Events\FormSubmitted;
 use App\Events\VoteSubmitted;
+use App\Events\LikeQuestion;
 use App\Event;
 use App\Question;
 use App\Poll_Question;
@@ -66,24 +67,32 @@ class GuestController extends Controller
         return view('pollguest', compact('event','poll'));
     }
 
-    public function vote($poll_id)
+    public function vote()
     {
-        
+        $poll_id = $_POST['poll-id'];
+        $poll_answer = $_POST['poll_answer'];
         $poll = Poll_Question::find($poll_id);
-        $answers = request()->input([
-            'poll_answer'
-        ]);
-        return response()->json($poll);
-        if(!empty($_POST['poll_answer']))
-        {
-            
+
+        $votes = 0;
+        if($poll_answer!=[]){
             $votes=($poll->total_votes)+1;
-            foreach($answers as $id)
+            $poll->update(['total_votes'=>$votes]);
+
+            if(is_array($poll_answer))
             {
-                $answer = Poll_Answer::where('id', $id)->first();
+                foreach ($poll_answer as $id) {
+                    $answer = Poll_Answer::where('id', $id)->first();
+                    $voteAnswer = ($answer->votes)+1;
+                    $answer->update(['votes'=>$voteAnswer]); 
+                }
+            }else{
+                $answer = Poll_Answer::where('id', $poll_answer)->first();
                 $voteAnswer = ($answer->votes)+1;
-                $answer->update(['votes'=>$voteAnswer]);          
+                $answer->update(['votes'=>$voteAnswer]);
             }
+
+
+
             $answerArray = array();
             $answerContent = array();
             $sumVotes = 0;
@@ -93,15 +102,64 @@ class GuestController extends Controller
                 $sumVotes+=$answer->votes;
             }
             event(new VoteSubmitted($answerArray,$sumVotes,$votes,$answerContent));
-            $poll->update(['total_votes'=>$votes]);
-            
-        }else {
-            return back()->withErrors('Please vote for an answer!');
         }
-        return redirect()->back();
-        
+    }
+
+    public function revote()
+    {
+        $poll_id = $_POST['poll-id'];
+        $poll_answer = $_POST['poll_answer'];
+        $poll = Poll_Question::find($poll_id);
+
+        $votes = 0;
+        if($poll_answer!=[]){
+            $votes=($poll->total_votes)-1;
+            $poll->update(['total_votes'=>$votes]);
+
+            if(is_array($poll_answer))
+            {
+                foreach ($poll_answer as $id) {
+                    $answer = Poll_Answer::where('id', $id)->first();
+                    $voteAnswer = ($answer->votes)-1;
+                    $answer->update(['votes'=>$voteAnswer]); 
+                }
+            }else{
+                $answer = Poll_Answer::where('id', $poll_answer)->first();
+                $voteAnswer = ($answer->votes)-1;
+                $answer->update(['votes'=>$voteAnswer]);
+            }
 
 
+            $answerArray = array();
+            $answerContent = array();
+            $sumVotes = 0;
+            foreach($poll->answers as $answer){
+                array_push($answerArray,$answer->votes);
+                array_push($answerContent,$answer->poll_answer_content);
+                $sumVotes+=$answer->votes;
+            }
+            event(new VoteSubmitted($answerArray,$sumVotes,$votes,$answerContent));
+        }
+    }
+    public function like_question($question_id){
+        $ques = Question::find($question_id);
+        $ques->like += 1;
+        $ques->save();
+
+        $likes = $ques->like;
+        // return response()->json($likes);
+        event(new LikeQuestion($question_id, $likes));
+        // return redirect()->back();
+    }
+
+    public function unlike_question($question_id){
+        $ques = Question::find($question_id);
+        $ques->like -= 1;
+        $ques->save();
+        $likes = $ques->like;
+        // return response()->json($likes);
+        event(new LikeQuestion($question_id, $likes));
+        // return redirect()->back();
     }
     
 }

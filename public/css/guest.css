@@ -355,7 +355,6 @@ textarea::-webkit-scrollbar-thumb {
     background: #ffffff!important;
     color: #20b875!important;
     border: 1px solid #20b875!important;
-    display: none;
 }
 .edit-poll-btn:hover {
     background: #fefefe!important;
@@ -477,8 +476,7 @@ input[type=checkbox]:checked ~ .checkbox-label {
     cursor: pointer;
 }
 .poll-result {
-    padding: 20px 20px;
-    display: none;
+    padding: 0px 20px;
     background:#fff;
 }
 .poll-result-bar {
@@ -493,6 +491,16 @@ input[type=checkbox]:checked ~ .checkbox-label {
 }
 .votes {
     color:#20b875;
+}
+.like-btn.is-liked {
+    color: #20b875;
+    border: 1px solid #20b875;
+
+}
+.dislike-btn.is-disliked {
+    color: red;
+    border: 1px solid red;
+
 }
 @media only screen and (min-width:320px) {
     .navbar_info .container {

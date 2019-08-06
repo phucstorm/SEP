@@ -48,7 +48,7 @@
                 @if($value->status == 1)
                 <div class="question-item">
                     <div class="question-like">
-                        <button id="like-btn{{$value->id}}" class="like-btn is-not-liked" value="{{$value->id}}">{{$value->like}} <i class="fa fa-thumbs-up"></i></button>
+                        <button class="like-btn{{$value->id}} like-btn is-not-liked" value="{{$value->id}}">{{$value->like}} <i class="fa fa-thumbs-up"></i></button>
                     </div>
                     <div class="question-username"><i class="fa fa-user"></i> {{$value->user_name}} </div>
                     <div class="question-date">{{$value->created_at}}</div>

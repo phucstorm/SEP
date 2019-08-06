@@ -48,7 +48,7 @@
                     <div class="question-content">{{$value->content}}</div>
                 </div>
                 <div class="question-like">
-                    <button id="like-btn{{$value->id}}" class="like-btn is-not-liked" value="{{$value->id}}">{{$value->like}} <i class="fa fa-thumbs-up"></i></button>
+                    <button class="like-btn{{$value->id}} like-btn is-not-liked" value="{{$value->id}}">{{$value->like}} <i class="fa fa-thumbs-up"></i></button>
                 </div>
             </div>
         @endif
@@ -64,7 +64,7 @@
                     <div class="question-content">{{$question->content}}</div>
                 </div>
                 <div class="question-like">
-                    <button id="like-btn{{$question->id}}" class="like-btn is-not-liked" value="{{$question->id}}">{{$question->like}} <i class="fa fa-thumbs-up"></i></button>
+                    <button class="like-btn{{$question->id}} like-btn is-not-liked" value="{{$question->id}}">{{$question->like}} <i class="fa fa-thumbs-up"></i></button>
                 </div>            
             </div>
         @endif
