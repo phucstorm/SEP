@@ -15,14 +15,39 @@ $('.question-nav .live').click(function() {
     $('.question-nav .incoming').css('font-weight', '300');
 })
 
-setInterval(function() {
-    $('.delete-poll-answer-btn').click(function() {
+$('.plus-answer').click(function() {
+    var answer = '<div class="w-100 position-relative"><input id="poll_answer"' +
+    'type="text"'+ 
+    'class="form-control mt-2" '+
+    'name="poll_answer[]" '+
+    'value="" '+
+    'autocomplete="poll_answer" '+
+    'autofocus required>'+
+    '<button type="button" class="delete-poll-answer-btn"><i class="fa fa-trash"></i></button></div>'
+    $('.poll-answer').append(answer);
+});
+
+$('.plus-new-answer').click(function() {
+    var answer = '<div class="w-100 position-relative"><input id="poll_answer"' +
+    'type="text"'+ 
+    'class="form-control mt-2" '+
+    'name="new_poll_answer[]" '+
+    'value="" '+
+    'autocomplete="poll_answer" '+
+    'autofocus required>'+
+    '<button type="button" class="delete-poll-answer-btn"><i class="fa fa-trash"></i></button></div>'
+    $('.poll-answer').append(answer);
+});
+setInterval(function(){ 
+    $('.delete-poll-answer-btn').click(function(){
         $(this).parent().remove();
-    });
+    }); 
 }, 500);
 
-
-$('.plus-answer').click(function() {
-    var answer = '<div><input type="text" class="form-control" id="poll_answer" name="poll_answer" placeholder="Answer" required><button class="delete-poll-answer-btn"><i class="fa fa-trash"></i></button></div>'
-    $('.poll-answers').append(answer);
-})
+setInterval(function(){ 
+$(".poll-result-bar").each(function(){
+    $(this).animate({
+      width: $(this).attr("data-width")
+    },2500)
+  });
+}, 2500);

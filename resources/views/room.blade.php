@@ -25,12 +25,12 @@
             <div>
                 <ul class="content-nav-tabs">
                     <li role="presentation">
-                        <button class="content-nav-tabs-item popular-btn  is-selected">Popular</button>
+                        <button class="content-nav-tabs-item popular-btn  is-selected">Recent</button>
                     </li> 
                 </ul>
                 <ul class="content-nav-tabs">
                     <li role="presentation">
-                        <button class="content-nav-tabs-item recent-btn">Recent</button> 
+                        <button class="content-nav-tabs-item recent-btn">Popular</button> 
                     </li> 
                 </ul>
             </div>
@@ -39,7 +39,7 @@
             </h1>
         </div>
         <div class="question-list popular-question">
-        @foreach($question as $key => $value)
+        @foreach($question->sortByDesc('created_at') as $value)
         @if($value->status == 1)
             <div class="question-container">
                 <div class="question-info">
@@ -47,36 +47,28 @@
                     <div class="question-date">{{$value->created_at}}</div>
                     <div class="question-content">{{$value->content}}</div>
                 </div>
-                <div class="question-like"><button class="like-btn"><i class="fa fa-thumbs-up"></i></button></div>
+                <div class="question-like">
+                    <button class="like-btn{{$value->id}} like-btn is-not-liked" value="{{$value->id}}">{{$value->like}} <i class="fa fa-thumbs-up"></i></button>
+                </div>
             </div>
         @endif
         @endforeach
         </div>
         <div class="question-list recent-question">
+        @foreach($question->sortByDesc('like') as $question)
+        @if($question->status ==1)
             <div class="question-container">
                 <div class="question-info">
-                    <div class="question-username"><i class="fa fa-user"></i> Đây là các câu hỏi recent aaaaaaaaaaaaaaa</div>
-                    <div class="question-date">Date goes here...</div>
-                    <div class="question-content">Content goes here...</div>
+                    <div class="question-username"><i class="fa fa-user"></i> {{$question->user_name}}</div>
+                    <div class="question-date">{{$question->created_at}}</div>
+                    <div class="question-content">{{$question->content}}</div>
                 </div>
-                <div class="question-like"><button class="like-btn"><i class="fa fa-thumbs-up"></i></button></div>
+                <div class="question-like">
+                    <button class="like-btn{{$question->id}} like-btn is-not-liked" value="{{$question->id}}">{{$question->like}} <i class="fa fa-thumbs-up"></i></button>
+                </div>            
             </div>
-            <div class="question-container">
-                <div class="question-info">
-                    <div class="question-username"><i class="fa fa-user"></i> Name goes here...</div>
-                    <div class="question-date">Date goes here...</div>
-                    <div class="question-content">Content goes here...</div>
-                </div>
-                <div class="question-like"><button class="like-btn"><i class="fa fa-thumbs-up"></i></button></div>
-            </div>
-            <div class="question-container">
-                <div class="question-info">
-                    <div class="question-username"><i class="fa fa-user"></i> Name goes here...</div>
-                    <div class="question-date">Date goes here...</div>
-                    <div class="question-content">Content goes here...</div>
-                </div>
-                <div class="question-like"><button class="like-btn"><i class="fa fa-thumbs-up"></i></button></div>
-            </div>
+        @endif
+        @endforeach
         </div>
     </div>
 @endsection

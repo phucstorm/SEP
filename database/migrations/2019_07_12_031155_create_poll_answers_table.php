@@ -15,10 +15,12 @@ class CreatePollAnswersTable extends Migration
     {
         Schema::create('poll__answers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('poll_question_id');
+            $table->unsignedBigInteger('poll__question_id');
             $table->string('poll_answer_content');
             $table->integer('votes');
             $table->timestamps();
+
+            $table->index('poll__question_id');
         });
     }
 

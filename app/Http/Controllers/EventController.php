@@ -21,7 +21,8 @@ class EventController extends Controller
     }
 
     public function index(){
-        $event = Event::where('user_id', '=',Auth::user()->id)->get();
+        $event = User::findOrFail(auth()->user()->id);
+        // $event = Event::where('user_id', '=',Auth::user()->id)->get();
         return view('event.index',compact('event'));
     }
 
@@ -47,7 +48,7 @@ class EventController extends Controller
             $event->setting_join = 1;
             $event->setting_question = 1;
             $event->setting_reply = 1;
-            $event->setting_moderation = 1;
+            $event->setting_moderation = 0;
             $event->setting_anonymous = 1;
             $event->save();
             return response()->json($event);
@@ -100,7 +101,7 @@ class EventController extends Controller
     }
 
     public function search(Request $request){ 
-        $event = Event::where('event_name','like', '%'.$request->get('search').'%')->where('user_id', '=', Auth::user()->id)->get();
+        $event = Event::where('event_name','like', '%'.$request->get('search').'%')->where('user_id', '=', Auth::user()->id)->orderBy('created_at','DESC')->get();
         return view('event.index', compact('event', $event));
     }
 }

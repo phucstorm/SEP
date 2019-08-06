@@ -1,14 +1,14 @@
-window.onscroll = function() { scrollingFunction() };
+// window.onscroll = function() { scrollingFunction() };
 
-function scrollingFunction() {
-    var navbar = document.getElementById("attendee-navbar");
-    var fixtop = navbar.offsetTop;
-    if (window.pageYOffset > fixtop) {
-        navbar.classList.add("fixtop");
-    } else {
-        navbar.classList.remove("fixtop");
-    }
-}
+// function scrollingFunction() {
+//     var navbar = document.getElementById("attendee-navbar");
+//     var fixtop = navbar.offsetTop;
+//     if (window.pageYOffset > fixtop) {
+//         navbar.classList.add("fixtop");
+//     } else {
+//         navbar.classList.remove("fixtop");
+//     }
+// }
 
 $(function() { //run when the DOM is ready
     $(".content-nav-tabs-item").click(function() { //use a class, since your ID gets mangled
@@ -56,3 +56,37 @@ function updateCount() {
 }
 $('poll-btn').removeClass('is-active');
 $('.question-btn').addClass('is-active');
+
+//Like question
+$('.like-btn').on('click', function() {
+    if($(this).hasClass("is-not-liked")){
+        $.ajax({
+            url: "/room/guest/like/" + $(this).val(),
+        });
+        $(this).removeClass("is-not-liked")
+        $(this).addClass("is-liked");
+        localStorage.setItem('isliked'+$(this).val(), true);
+    }else{
+        $.ajax({
+            url: "/room/guest/unlike/" + $(this).val(),
+        });
+        $(this).addClass("is-not-liked");
+        $(this).removeClass("is-liked");
+        localStorage.setItem('isliked'+$(this).val(), false);
+    }
+});
+loadLike = function(){
+    var likedButton = $('.like-btn');
+    var likedButtonId = [];
+    for(var i=0; i<likedButton.length; i++){
+        if(localStorage.getItem('isliked'+likedButton[i].getAttribute('value'))=="true")
+        {
+            $(likedButton[i]).addClass("is-liked");
+            $(likedButton[i]).removeClass("is-not-liked");
+        };
+    }
+}
+$(document).ready(function() {
+    loadLike();
+});
+

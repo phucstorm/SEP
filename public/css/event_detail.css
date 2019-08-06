@@ -26,7 +26,16 @@ header {
 .user-role {
     text-align: right;
 }
+.like-btn.is-liked {
+    color: #20b875;
+    border: 1px solid #20b875;
 
+}
+.dislike-btn.is-disliked {
+    color: red;
+    border: 1px solid red;
+
+}
 .poll-btn,
 .question-btn {
     height: 32px;
@@ -406,7 +415,29 @@ div.content::-webkit-scrollbar-thumb {
 .question-nav div {
     margin-right: 10px;
 }
+.poll-container {
+    background: white;
+    box-shadow: 0 0 6px 1px #bebebe;
+    height: 600px;
+    overflow-y: scroll;
+    border-radius: 6px;
+}
+.poll-item {
+    border-bottom: 1px solid #dedede;
+}
 
+.poll-container::-webkit-scrollbar {
+    width: 3px;
+}
+
+.poll-container::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #ffffff
+}
+
+.poll-container::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
 .poll-item {
     display: flex;
     justify-content: space-between;
@@ -509,11 +540,33 @@ div.content::-webkit-scrollbar-thumb {
 .delete-poll-btn:hover {
     color: darkred;
 }
-
+.voted-person {
+    top:10px;
+    right:10px;
+    color:#555;
+    font-size: 1.1em;
+}
 .poll-action span {
     padding-right: 1em;
 }
-
+.poll-result-bar {
+    background: #20b875;
+    border-radius: 20px;
+    height: 10px;
+    width: 0;
+}
+.poll-title {
+    border-bottom: 1px solid #bebebe;
+    font-weight: 700;
+    font-size: 1.1em;
+}
+.percent {
+    color: #555;
+    font-size: .9em;
+}
+.votes {
+    color:#20b875;
+}
 
 /* Live CSS */
 
@@ -560,7 +613,7 @@ div.content::-webkit-scrollbar-thumb {
     align-items: center;
 }
 
-.plus-answer {
+.add-answer {
     background: transparent;
     color: #20b875;
     border: 2px solid #20b875;

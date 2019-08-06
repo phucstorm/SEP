@@ -1,14 +1,26 @@
-// Create Event 
-$('#add').click(function() {
+// Create Event
+$(".date-error-message").hide();
+$(".data-error-message").hide();
+$('.event-code-error-message').hide();
+$(".submit-form").submit(function(e){
+    e.preventDefault();
+});
+// $('.create-poll-form').submit(function(e)
+// {
+//     e.preventDefault();
+// });
+$('#add-new-event-btn').click(function() {
     if (
         $('input[name=event_name]').val() != "" &&
         $('input[name=event_description]').val() != "" &&
         $('input[name=start_date]').val() != "" &&
         $('input[name=end_date]').val() != ""
     ) {
-        if ($('input[name=start_date]').val() > $('input[name=end_date]').val()) {
-            alert("Ngày kết thúc phải lớn hơn ngày bắt đầu");
+        if ($('input[name=start_date]').val() >= $('input[name=end_date]').val()) {
+            $(".date-error-message").show();
+            $(".data-error-message").hide();
         } else {
+            
             $.ajax({
                 type: 'POST',
                 url: 'event/create',
@@ -20,24 +32,25 @@ $('#add').click(function() {
                     'end_date': $('input[name=end_date]').val()
                 },
                 success: function(data) {
-                    alert("Tạo event thành công");
+                    alert("You have created event successfully");
                     window.location.reload();
                     // console.log(data);
                 },
                 error: function(data) {
-                    alert("Yêu cầu kiểm tra lại các dữ liệu đã nhập");
-                    // console.log(data);
+                    $(".data-error-message").show();
+                    $(".date-error-message").hide();
                 }
             });
         }
 
-    } else {
-        alert("Bạn phải điền đầy đủ thông tin mới có thể tạo được event !");
     }
 });
 
 // Edit Event
 $(document).on('click', '.btn.btn-outline-success', function() {
+    $(".date-error-message").hide();
+    $(".data-error-message").hide();
+    $('.event-code-error-message').hide();
     var event_id = $(this).attr('data-id');
     $('#en').val($(this).attr('data-name'));
     $('#ec').val($(this).attr('data-code'));
@@ -79,8 +92,10 @@ $(document).on('click', '.btn.btn-outline-success', function() {
             $('input[name=sd]').val() != "" &&
             $('input[name=ed]').val() != ""
         ) {
-            if ($('input[name=sd]').val() > $('input[name=ed]').val()) {
-                alert("Ngày kết thúc phải lớn hơn ngày bắt đầu");
+            if ($('input[name=sd]').val() >= $('input[name=ed]').val()) {
+                $(".date-error-message").show();
+                $(".data-error-message").hide();
+                $('.event-code-error-message').hide();
             } else {
                 $.ajax({
                     type: 'POST',
@@ -101,20 +116,23 @@ $(document).on('click', '.btn.btn-outline-success', function() {
                     },
                     success: function(data) {
                         if (data == "Mã event đã tồn tại") {
-                            alert(data);
+                            $('.event-code-error-message').show();
+                            $(".date-error-message").hide();
+                            $(".data-error-message").hide();
                         } else {
-                            alert("Cập nhật thông tin event hoàn tất");
+                            alert("Your event have updated successfully");
                             window.location.reload();
                         }
                     },
                     error: function(data) {
-                        alert("Dữ liệu bạn nhập không đúng định dạng !");
+                        $(".data-error-message").show();
+                        $(".date-error-message").hide();
+                        $('.event-code-error-message').hide();
                     },
                 });
             }
         } else {
-            alert("Bạn phải nhập đầy đủ thông tin để hoàn tất việc chỉnh sửa event");
-
+            
         }
 
     });
@@ -122,6 +140,7 @@ $(document).on('click', '.btn.btn-outline-success', function() {
 
 // Delete Event
 $(document).on('click', '.btn.btn-outline-danger.desktop-btn', function() {
+    $('#delete_title').append($(this).attr('data-name'));
     var event_id = $(this).attr('data-id');
     $('#del').click(function() {
         $.ajax({
@@ -235,7 +254,7 @@ $(document).on('click', '.question-item-accepted > div.accept > div.question-ite
                 'content': $('#reply > div > div > div.footer > textarea').val(),
             },
             success: function(data) {
-                window.location.reload();
+                // window.location.reload();
                 console.log(data);
             },
             error: function(data) {
@@ -247,24 +266,39 @@ $(document).on('click', '.question-item-accepted > div.accept > div.question-ite
 });
 
 //Like question
-$(document).one('click', '.question-item > div.question-like > button.like-btn', function() {
-    $.ajax({
-        url: "/room/like/" + $(this).val(),
+    $('.like-btn').on('click', function() {
+        if($(this).hasClass("is-not-liked")){
+            $.ajax({
+                url: "/room/like/" + $(this).val(),
+            });
+            $(this).removeClass("is-not-liked")
+            $(this).addClass("is-liked");
+            localStorage.setItem('isliked'+$(this).val(), true);
+        }else{
+            $.ajax({
+                url: "/room/unlike/" + $(this).val(),
+            });
+            $(this).addClass("is-not-liked");
+            $(this).removeClass("is-liked");
+            localStorage.setItem('isliked'+$(this).val(), false);
+        }
     });
-    $(this).toggleClass("is-active");
-});
-
-//Unlike question
-$(document).one('click', '.question-item > div.question-like > button.dislike-btn', function() {
-    $.ajax({
-        url: "/room/unlike/" + $(this).val(),
+    loadLike = function(){
+        var likedButton = $('.like-btn');
+        for(var i=0; i<likedButton.length; i++){
+            if(localStorage.getItem('isliked'+likedButton[i].getAttribute('value'))=="true")
+            {
+                $(likedButton[i]).addClass("is-liked");
+                $(likedButton[i]).removeClass("is-not-liked");
+            };
+        }
+    }
+    $(document).ready(function() {
+        loadLike();
     });
-    $(this).toggleClass("is-active");
-});
-
 // Create Poll
-$('#add-poll').click(function() {
-    if ($('input[name=poll_name]').val() != '') {
+$('#create-poll').click(function() {
+    if ($('input[name=poll_question_content]').val() != '') {
         if ($('input[name=poll_answer]').val() != '') {
             $.ajax({
                 type: 'POST',
@@ -272,18 +306,18 @@ $('#add-poll').click(function() {
                 data: {
                     '_token': $('input[name=_token]').val(),
                     'event_id': $('input[name=event_id]').val(),
-                    'poll_name': $('input[name=poll_name]').val(),
-                    'poll_answer': $('input[name=poll_answer]').serializeArray(),
-                    'option': $('input[name=multiple-answer]').is(':checked') == true ? 1 : 0,
+                    // 'poll_question_content': $('input[name=poll_question_content]').val(),
+                    // 'poll_answer': $('input[name=poll_answer]').serializeArray(),
+                    // 'mul_choice': $('input[name=multiple-answer]').is(':checked') == true ? 1 : 0,
                 },
                 success: function(data) {
-                    alert('You have successfully create new poll');
-                    window.location.reload();
+                    // alert('You have successfully create new poll');
+                    // window.location.reload();
                     // console.log('success' + data);
                 },
                 error: function(data) {
                     // alert(data);
-                    console.log('error' + data);
+                    // alert('error' + data);
                     // window.location.reload();
                 },
             });
@@ -343,3 +377,57 @@ $('button[id=edit-poll]').click(function() {
     });
     console.log('this');
 });
+
+//listen channel live
+// Enable pusher logging - don't include this in production
+Pusher.logToConsole = true;
+
+var pusher = new Pusher('9ca3866fa2e26a25d235', {
+    cluster: 'ap1',
+    forceTLS: true
+});
+
+var channel = pusher.subscribe('my-channel');
+channel.bind('form-submitted', function (data) {
+    var date = moment.parseZone(data.created_at).format("YYYY-MM-DD HH:mm:ss");
+    $('.content').append(
+        "<div class='question-item'>" +
+            "<div class='question-username'>"+
+                "<i class=' fa fa-user'></i> "+ data.user_name+
+            "</div>"+
+            "<div class='question-date'>"+date+"</div>"+
+            "<div class='question-content'>"+data.question+"</div>"+
+        "<div class='check-question'>" +
+        "<a href='/room/question/accept/" + data.id + "'><i class='fa fa-check-circle-o text-success' aria-hidden='true'></i></a> " +
+        "<a href='/room/question/denied/" + data.id + "'><i class='fa fa-times-circle-o text-success' aria-hidden='true'></i></a>" +
+        "</div>"+
+        "</div>"
+    );
+});
+
+var votes = pusher.subscribe('vote-channel');
+votes.bind('vote-submitted', function (data){
+    // $('.poll-result').html('');
+    if(data.sumVotes!=0){
+        for (i = 0; i < data.answerArray.length; i++) {
+            $( ".poll-result-bar").eq(i).attr("data-width",Math.round((data.answerArray[i]/data.sumVotes)*90)+"%");
+            $(".votes").eq(i).html('('+data.answerArray[i]+')');
+            $(".percent").eq(i).html(''+Math.round((data.answerArray[i]/data.sumVotes)*100)+'%');
+        }
+    }
+
+    $('.voted-person').html(''+data.votes+' <i class="fa fa-user" aria-hidden="true"></i>');
+
+    
+});
+
+var likes = pusher.subscribe('like-channel');
+likes.bind('like-question', function (data){
+    // $('.like-btn').html(''+data.likes+'<i class="fa fa-thumbs-up"></i>');
+    $('.like-btn'+data.questionId).html(''+data.likes+' <i class="fa fa-thumbs-up"></i>');
+})
+var unlikes = pusher.subscribe('unlike-channel');
+unlikes.bind('unlike-question', function (data){
+    // $('.like-btn').html(''+data.likes+'<i class="fa fa-thumbs-up"></i>');
+    $('#dislike-btn'+data.questionId).html(''+data.unlikes+' <i class="fa fa-thumbs-down"></i>');
+})

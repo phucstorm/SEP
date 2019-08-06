@@ -24,7 +24,7 @@ Route::post('/user/edit/password', 'UserController@edit_user_password');
 
 Route::get('admin/home', 'HomeController@index')->name('home');
 // CRUD for Event Function
-Route::get('admin/event', 'EventController@index');
+// Route::get('admin/event', 'EventController@index');
 Route::post('admin/event/create', 'EventController@create');
 Route::post('/admin/event/delete', 'EventController@delete');
 Route::post('admin/event/edit', 'EventController@edit');
@@ -47,10 +47,26 @@ Route::post('/room/reply', 'QuestionController@reply_question');
 Route::get('/room/like/{question_id}','QuestionController@like_question');
 Route::get('/room/unlike/{question_id}','QuestionController@unlike_question');
 
-Route::get('/admin/event/poll/{event_id}', 'PollQuestionController@index');
+//like and unlike for attendee
+Route::get('/room/guest/like/{question_id}','GuestController@like_question');
+Route::get('/room/guest/unlike/{question_id}','GuestController@unlike_question');
+
+Route::get('/admin/event/poll/{event_code}', 'PollQuestionController@index');
 
 //Poll 
 Route::post('/admin/event/poll/create' , 'PollQuestionController@create');
-Route::post('/admin/event/poll/delete', 'PollQuestionController@delete_poll_question');
-Route::post('/admin/event/poll/edit', 'PollQuestionController@update_poll');
+Route::patch('/admin/event/poll/delete/{poll}', 'PollQuestionController@delete');
+Route::patch('/admin/event/poll/edit/{poll}', 'PollQuestionController@update');
 Route::get('/room/poll/{event_code}', 'GuestController@poll_question');
+Route::patch('/admin/event/poll/status/{poll}', 'PollQuestionController@updateStatus');
+
+//vote for poll
+Route::post('/room/poll/vote/', 'GuestController@vote');
+Route::post('/room/poll/revote/', 'GuestController@revote');
+
+
+//testing pusher
+// gọi ra trang view demo-pusher.blade.php
+Route::get('demo-pusher','FrontEndController@getPusher');
+// Truyển message lên server Pusher
+ Route::get('fire-event','FrontEndController@fireEvent');

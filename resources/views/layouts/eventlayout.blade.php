@@ -16,31 +16,10 @@
     <script src="{{ asset('js/event.js') }}" defer></script>
     @stack('head')
     <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
     <script>
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
 
-        var pusher = new Pusher('8e870dcd45ee9590faac', {
-            cluster: 'ap1',
-            forceTLS: true
-        });
-
-        var channel = pusher.subscribe('my-channel');
-        channel.bind('form-submitted', function (data) {
-            $('.content').append(
-                "<div class='question-item'>" +
-                    "<div class='question-username'>"+
-                        "<i class=' fa fa-user'></i>"+ data.user_name+
-                    "</div>"+
-                    "<div class='question-date'>"+data.created_at+"</div>"+
-                    "<div class='question-content'>"+data.question+"</div>"+
-                "<div class='check-question'>" +
-                "<a href='/room/question/accept/" + data.id + "'><i class='fa fa-check-circle-o text-success' aria-hidden='true'></i></a>" +
-                "<a href='/room/question/denied/" + data.id + "'><i class='fa fa-times-circle-o text-success' aria-hidden='true'></i></a>" +
-                "</div>"+
-                "</div>"
-            );
-        });
 
     </script>
     <!-- Fonts -->
@@ -192,7 +171,7 @@
                     <!-- <button class="is-active"><a href="/admin/event/{{$event->event_code}}">Question</a></button>
                     <button>Poll</button> -->
                     <button class="question-btn" onclick="window.location.href='/admin/event/{{$event->event_code}}'">QUESTIONS</button>
-                    <button class="poll-btn" onclick="window.location.href='/admin/event/poll/{{$event->id}}'">POLLS</button>
+                    <button class="poll-btn" onclick="window.location.href='/admin/event/poll/{{$event->event_code}}'">POLLS</button>
                 </div>
             </div>
         </div>

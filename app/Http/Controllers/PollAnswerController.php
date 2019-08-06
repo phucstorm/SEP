@@ -16,7 +16,7 @@ class PollAnswerController extends Controller
         if($event->setting_join == 1){
             return view('pollguest', compact('event' ,$event)); 
         }else{
-            return "You don't have a permission to join this room";
+            return "This room is not available to join now. Please come back later.";
         }
     }
 
