@@ -161,5 +161,20 @@ class GuestController extends Controller
         event(new LikeQuestion($question_id, $likes));
         // return redirect()->back();
     }
+    public function reply_question(){
+        $question_id = $_POST['question-id'];
+        $reply = $_POST['reply'];
+        $question = Question::find($question_id);
+        $username = $_POST['username'];
+        if($username==""){
+            $username = "Anonymous";
+        }
+        $question->replies()->create([
+            'question_id' => $question_id,
+            'rep_content' => $reply,
+            'user_name' => $username
+        ]);
+        return redirect()->back();
+    }
     
 }

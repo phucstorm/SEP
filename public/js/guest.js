@@ -90,3 +90,68 @@ $(document).ready(function() {
     loadLike();
 });
 
+$('.reply-form').submit(function(e){
+    e.preventDefault();
+})
+////Reply question
+$('.send-reply-btn').on('click',function(){
+    var button = $(this).parents('.footer').children('div').children('.input-answer');
+    var answer = $(this).parents().children('.modal-body');
+    var content = $(this).parents('.footer').children('div').children('.input-answer').val();
+    var d = new Date($.now());
+    var time = (d.getFullYear()+"-"+(d.getMonth() + 1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
+    var username = $(this).parents('.footer').children('div').children('input[name=username]').val();
+    if(username==""){
+        username="Anonymous";
+    }
+    $.ajax({
+        type:'POST',
+        url: "/guest/reply/",
+        data:
+        $(this).parents().parents().serialize(),
+        success: function(data) {
+            alert('Your reply has been sent successfully');
+            console.log(answer);
+            answer.append(
+            '<div class="reply-item">'+
+                '<div class="user"><i class="fa fa-user"></i> '+username+'</div>'+
+                '<div class="reply-date">'+time+'</div>'+
+
+                '<div class="">'+content+'</div>'+
+
+            '</div>'
+            );
+            button.val('');
+        },
+        error: function(data) {
+            alert('fail');
+        }
+    })
+})
+
+Pusher.logToConsole = true;
+
+var pusher = new Pusher('9ca3866fa2e26a25d235', {
+    cluster: 'ap1',
+    forceTLS: true
+});
+var channel = pusher.subscribe('my-channel');
+channel.bind('form-submitted', function (data) {
+    var date = moment.parseZone(data.created_at).format("YYYY-MM-DD HH:mm:ss");
+    $('.question-list.popular-question').append(
+        "<div class='question-container'>"+
+        "<div class='question-info'>"+
+            "<div class='question-username'><i class='fa fa-user'></i> "+data.user_name+"</div>"+
+            "<div class='question-date'>"+date+"</div>"+
+            "<div class='question-content'>"+data.question+"</div>"+
+        "</div>"+
+        "<div class='question-like'><button class='like-btn'><i class='fa fa-thumbs-up'></i></button></div>"+
+    "</div>"
+    );
+});
+
+var likes = pusher.subscribe('like-channel');
+likes.bind('like-question', function (data){
+    // $('.like-btn').html(''+data.likes+'<i class="fa fa-thumbs-up"></i>');
+    $('.like-btn'+data.questionId).html(''+data.likes+' <i class="fa fa-thumbs-up"></i>');
+})

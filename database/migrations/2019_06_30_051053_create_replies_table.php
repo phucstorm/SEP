@@ -18,7 +18,7 @@ class CreateRepliesTable extends Migration
             $table->unsignedBigInteger('question_id');
             $table->text('rep_content');
             $table->string('user_name')->nullable();
-            $table->string('user_id');
+            $table->string('user_id')->nullable();
             $table->timestamps();
 
             $table->index('question_id');

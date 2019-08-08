@@ -60,8 +60,8 @@
                         <div style="float:right; display: flex">
                             <div style="margin-right:1em">
                                 <button class="reply-btn" type="button" data-id="{{$value->id}}"
-                                    data-content="{{$value->content}}" data-toggle="modal" data-target="#reply"><i
-                                        class="fa fa-reply" aria-hidden="true"></i>Reply</button>
+                                    data-content="{{$value->content}}" data-toggle="modal" data-target="#reply{{$value->id}}"><i
+                                        class="fa fa-reply" aria-hidden="true"></i> Reply</button>
                             </div>
 
                         </div>
@@ -71,6 +71,44 @@
                             data-id="{{$value->id}}">
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </button>
+                    </div>
+                </div>
+                <!-- Modal For Reply Quest -->
+                <div class="modal fade reply-modal" id="reply{{$value->id}}" tabindex="-1" role="dialog" aria-labelledby="reply"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form action="/room/reply/{{$value->id}}" class="reply-form" enctype="multipart/form-data" method="post">
+                            @csrf
+                            <input type="text" name="question-id" value="{{$value->id}}" hidden>
+
+                            <input type="text" name="username" value="{{ Auth::user()->name }} - Host" hidden>
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="title">{{$value->content}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    @foreach($value->replies as $reply)
+                                    <div class="reply-item">
+                                        <div class="user"><i class="fa fa-user"></i> {{$reply->user_name}}</div>
+                                        <div class="reply-date">{{$reply->created_at}}</div>
+
+                                        <div class="">{{$reply->rep_content}}</div>
+
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <div class="footer">
+                                        <textarea placeholder="Type your answer here..." name="reply" class="input-answer"
+                                        type="text" required></textarea>
+
+                                        <button class="reply-btn send-reply-btn" type="submit"><i class="fa fa-paper-plane"
+                                        aria-hidden="true"></i></button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 @endif
@@ -93,42 +131,6 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                                 <button type="button" class="btn btn-danger" id="del_ques">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Modal For Reply Quest -->
-                <div class="modal fade" id="reply" tabindex="-1" role="dialog" aria-labelledby="reply"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="title"></h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="">
-                                @foreach($result as $key => $item)
-                                <div class="reply-item">
-                                    <div class="user"><i class="fa fa-user"></i> {{Auth::user()->email}}</div>
-                                    <div>{{$item->rep_content}}</div>
-                                    <div class="delete-question-btn">
-                                        <button class="item-action delete-item delete-answer" data-toggle="modal"
-                                            data-target="#deleteQuestion">
-                                            <i class="fa fa-times" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                @endforeach
-                            </div>
-                            <div class="footer">
-                                <textarea placeholder="Type your answer here..." class="input-answer"
-                                    type="text"></textarea>
-
-                                <button class="reply-btn send-reply-btn" type="submit"><i class="fa fa-paper-plane"
-                                        aria-hidden="true"></i></button>
                             </div>
                         </div>
                     </div>

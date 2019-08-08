@@ -238,32 +238,41 @@ $(document).on('click', '.item-action.delete-item', function() {
     });
 });
 
-
+$('.reply-form').submit(function(e){
+    e.preventDefault();
+})
 //Reply question
-$(document).on('click', '.question-item-accepted > div.accept > div.question-item > div:nth-child(5) > div:nth-child(2) > div > button', function() {
-    var question_id = $(this).attr('data-id');
-    var content = $(this).attr('data-content');
-    $("#reply > div > div > div.modal-header > .modal-title").text(content);
-    $('#reply > div > div > div.footer > button').click(function() {
-        $.ajax({
-            type: 'POST',
-            url: '/room/reply',
-            data: {
-                '_token': $('input[name=_token]').val(),
-                'question_id': question_id,
-                'content': $('#reply > div > div > div.footer > textarea').val(),
-            },
-            success: function(data) {
-                // window.location.reload();
-                console.log(data);
-            },
-            error: function(data) {
-                // alert(data);
-                console.log(data);
-            },
-        });
-    });
-});
+$('.send-reply-btn').on('click',function(){
+    var button = $(this).parents('.footer').children('.input-answer');
+    var answer = $(this).parents().children('.modal-body');
+    var content = $(this).parents().children('.input-answer').val();
+    var d = new Date($.now());
+    var time = (d.getFullYear()+"-"+(d.getMonth() + 1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
+    var username = $('input[name=username]').val();
+    $.ajax({
+        type:'POST',
+        url: "/room/reply/",
+        data:
+        $(this).parents().parents().serialize(),
+        success: function(data) {
+            alert('Your reply has been sent successfully');
+            console.log(answer);
+            answer.append(
+            '<div class="reply-item">'+
+                '<div class="user"><i class="fa fa-user"></i> '+username+'</div>'+
+                '<div class="reply-date">'+time+'</div>'+
+
+                '<div class="">'+content+'</div>'+
+
+            '</div>'
+            );
+            button.val('');
+        },
+        error: function(data) {
+            alert('fail');
+        }
+    })
+})
 
 //Like question
     $('.like-btn').on('click', function() {

@@ -188,7 +188,7 @@
             <div class="row" style="text-align:center;">
                 <div class="col-md-6">
                     <div class="form_container">
-                        <h1>Log in</h1>
+                        <h1>{{ trans('message.login') }}</h1>
                         <div class="input_placed">
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
@@ -305,6 +305,15 @@
                             <span class="fa fa-youtube-play"></span>
                         </a>
                 </div>
+                <div class="change-language">
+               <a href="/lang/en" class="">
+                   <img src="{{ asset('img/united-states.png')}}" alt="">
+                   English
+                       <a href="/lang/vi" class="">
+                       <img src="{{ asset('img/vietnam.jpg')}}" alt="">
+                           VietNamese
+                       </a>
+               </div>
             </div>
         </div>
     </div>

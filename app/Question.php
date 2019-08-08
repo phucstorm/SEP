@@ -12,4 +12,8 @@ class Question extends Model
     {
         return $this->belongsTo(Event::class);
     }
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
 }

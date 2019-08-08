@@ -335,7 +335,14 @@ footer {
     ;
     color: white;
 }
-
+.change-language {
+    margin: 40px;
+ }
+ .change-language a{
+    margin: 0 0 0 30px;
+    text-decoration: none;
+    color: #fff
+ }
 
 /* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
 
