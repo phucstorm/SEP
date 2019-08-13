@@ -179,7 +179,7 @@ body {
 }
 
 .reply-item {
-    padding: 12px 16px 12px 24px;
+    padding: 5px;
     border-bottom: 1px solid rgba(0, 0, 0, .1);
     background-color: #fff;
     -webkit-transition: background-color .1s;
@@ -414,6 +414,14 @@ div.content::-webkit-scrollbar-thumb {
 
 .question-nav div {
     margin-right: 10px;
+}
+.reply-date{
+    font-size: 0.9em;
+    color: #999;
+}
+.reply-modal .modal-body {
+    max-height: 350px;
+    overflow-y: scroll;
 }
 .poll-container {
     background: white;
@@ -653,7 +661,7 @@ div.content::-webkit-scrollbar-thumb {
         margin: 0 auto;
     }
     .modal-dialog {
-        max-width: 300px;
+        width: 95%;
     }
     .modal-header h4 {
         color: #000;
@@ -703,6 +711,9 @@ div.content::-webkit-scrollbar-thumb {
     .modal-dialog {
         max-width: 620px;
     }
+    .reply-modal .modal-body {
+        max-height: 450px;
+    }
 }
 
 @media only screen and (min-width:1024px) {
@@ -725,6 +736,9 @@ div.content::-webkit-scrollbar-thumb {
     .question-item-reviewing .title-part,
     .question-item-reviewing .flex-item {
         display: initial;
+    }
+    .reply-modal .modal-body {
+        max-height: 500px;
     }
 }
 

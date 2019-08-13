@@ -152,9 +152,3 @@ var play = pusher.subscribe('play-poll-channel');
 play.bind('play-poll', function (data){
   window.location.reload();
 })
-
-var likes = pusher.subscribe('like-channel');
-likes.bind('like-question', function (data){
-    // $('.like-btn').html(''+data.likes+'<i class="fa fa-thumbs-up"></i>');
-    $('.like-btn'+data.questionId).html(''+data.likes+' <i class="fa fa-thumbs-up"></i>');
-})

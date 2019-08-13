@@ -16,11 +16,10 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('event_id');
-            $table->text('content');
-            $table->string('user_name');
+            $table->string('content', 300);
+            $table->string('user_name', 30);
             $table->boolean('status');
             $table->integer('like');
-            $table->integer('unlike');
             $table->timestamps();
 
             $table->index('event_id');

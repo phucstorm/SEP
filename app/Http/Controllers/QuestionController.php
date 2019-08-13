@@ -35,19 +35,18 @@ class QuestionController extends Controller
         return redirect()->back();
     }
 
-    public function reply_question(Request $request){
-        $rep = Question::find($request->question_id);
-        if( isset($rep)){
-            $reply = new Reply;
-            $reply->question_id = $request->question_id;
-            $reply->rep_content = $request->content;
-            $reply->user_name = NULL;
-            $reply->user_id = Auth::user()->id;
-            $reply->save();
-            return response()->json($reply);
-        }else{
-            return Response::json(array('errors'=> $validator->getMessageBag()->toarray()));
-        }
+    public function reply_question(){
+
+        $question_id = $_POST['question-id'];
+        $reply = $_POST['reply'];
+        $question = Question::find($question_id);
+        $username = $_POST['username'];
+        $question->replies()->create([
+            'question_id' => $question_id,
+            'rep_content' => $reply,
+            'user_name' => $username
+        ]);
+        return redirect()->back();
     }
 
     public function like_question($question_id){

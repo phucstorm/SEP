@@ -16,7 +16,7 @@ class CreatePollQuestionsTable extends Migration
         Schema::create('poll__questions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('event_id');
-            $table->string('poll_question_content');
+            $table->string('poll_question_content', 200);
             $table->integer('total_votes');
             $table->boolean('mul_choice');
             $table->boolean('status');

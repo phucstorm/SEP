@@ -2,14 +2,15 @@
 $(".date-error-message").hide();
 $(".data-error-message").hide();
 $('.event-code-error-message').hide();
+$(".startdate-error-message").hide();
+
 $(".submit-form").submit(function(e){
     e.preventDefault();
 });
-// $('.create-poll-form').submit(function(e)
-// {
-//     e.preventDefault();
-// });
+
 $('#add-new-event-btn').click(function() {
+    var startdate = new Date($('.create-start-date').val());
+    var dateNow = new Date();
     if (
         $('input[name=event_name]').val() != "" &&
         $('input[name=event_description]').val() != "" &&
@@ -18,7 +19,11 @@ $('#add-new-event-btn').click(function() {
     ) {
         if ($('input[name=start_date]').val() >= $('input[name=end_date]').val()) {
             $(".date-error-message").show();
-            $(".data-error-message").hide();
+            $(".startdate-error-message").hide();
+        } else if(startdate<dateNow){
+            $(".startdate-error-message").show();
+            $(".date-error-message").hide();
+
         } else {
             
             $.ajax({
@@ -162,6 +167,9 @@ $(document).on('click', '.btn.btn-outline-danger.desktop-btn', function() {
 });
 
 //Edit User
+$(".edit-info-form").submit(function(e){
+    e.preventDefault();
+});
 $(document).on('click', '.edit_user_info-btn', function() {
     var id = $(this).attr('data-id');
     $('#un').val($(this).attr('data-name'));
@@ -178,20 +186,20 @@ $(document).on('click', '.edit_user_info-btn', function() {
                     // 'email': $('input[name=em]').val(),
                 },
                 success: function(data) {
-                    alert("Cập nhật thông tin người dùng hoàn tất");
+                    alert("Your name have been updated successfully");
+                    $(".name-error").hide();
                     window.location.reload();
                 },
                 error: function(data) {
-                    alert("Email này đã có người sử dụng");
+                    $(".name-error").show();
                 },
             });
         } else {
-            alert("Bạn cần điền tên để hoàn tất cập nhật thông tin");
         }
     });
 });
 
-$(document).on('click', '.edit_user_pass-btn', function() {
+$(document).on('click', '#edit_pass', function() {
     var id = $(this).attr('data-id');
     $('#edit_pass').click(function() {
         if ($('input[name=cpw]').val() != "") {
@@ -212,7 +220,7 @@ $(document).on('click', '.edit_user_pass-btn', function() {
                                 window.location.reload();
                             },
                             error: function(data) {
-                                alert(data);
+                                alert('data');
                             },
                         });
                     } else {
@@ -238,32 +246,40 @@ $(document).on('click', '.item-action.delete-item', function() {
     });
 });
 
-
+$('.reply-form').submit(function(e){
+    e.preventDefault();
+})
 //Reply question
-$(document).on('click', '.question-item-accepted > div.accept > div.question-item > div:nth-child(5) > div:nth-child(2) > div > button', function() {
-    var question_id = $(this).attr('data-id');
-    var content = $(this).attr('data-content');
-    $("#reply > div > div > div.modal-header > .modal-title").text(content);
-    $('#reply > div > div > div.footer > button').click(function() {
-        $.ajax({
-            type: 'POST',
-            url: '/room/reply',
-            data: {
-                '_token': $('input[name=_token]').val(),
-                'question_id': question_id,
-                'content': $('#reply > div > div > div.footer > textarea').val(),
-            },
-            success: function(data) {
-                // window.location.reload();
-                console.log(data);
-            },
-            error: function(data) {
-                // alert(data);
-                console.log(data);
-            },
-        });
-    });
-});
+$('.send-reply-btn').on('click',function(){
+    var button = $(this).parents('.footer').children('.input-answer');
+    var answer = $(this).parents().children('.modal-body');
+    var content = $(this).parents().children('.input-answer').val();
+    var d = new Date($.now());
+    var time = (d.getFullYear()+"-"+(d.getMonth() + 1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
+    var username = $('input[name=username]').val();
+    $.ajax({
+        type:'POST',
+        url: "/room/reply/",
+        data:
+        $(this).parents().parents().serialize(),
+        success: function(data) {
+            console.log(answer);
+            answer.append(
+            '<div class="reply-item">'+
+                '<div class="user"><i class="fa fa-user"></i> '+username+'</div>'+
+                '<div class="reply-date">'+time+'</div>'+
+
+                '<div class="">'+content+'</div>'+
+
+            '</div>'
+            );
+            button.val('');
+        },
+        error: function(data) {
+            alert('fail');
+        }
+    })
+})
 
 //Like question
     $('.like-btn').on('click', function() {

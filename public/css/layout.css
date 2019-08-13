@@ -278,10 +278,6 @@ a:hover {
     padding: 5%;
 }
 
-.navbar_info .container {
-    max-width: 900px;
-}
-
 .navbar_select .container {
     max-width: 900px;
 }
@@ -520,12 +516,9 @@ input:-webkit-autofill-selected {
     background: #ffffff;
     padding: 0;
     border-radius: 6px;
-    position: absolute;
     box-shadow: 0 0 8px 1px #999;
-    z-index: 10;
     display: none;
-    top: 30px;
-    right: 0;
+    z-index: 100;
 }
 
 .user-setting-menu li {
@@ -541,9 +534,20 @@ input:-webkit-autofill-selected {
 }
 
 .toggle-user-setting {
-    display: initial;
+    display: inline-block;
 }
-
+.change-language a{
+    text-decoration: none;
+    color: #fff
+ }
+ .change-language a:hover{
+    text-decoration: none;
+    color: #fff
+ }
+ .change-language img {
+     width: 25px;
+     height: 16px;
+ }
 @media only screen and (min-width:320px) {
     .modal.fade svg {
         width: 280px;
@@ -649,6 +653,11 @@ input:-webkit-autofill-selected {
         text-align: center;
     }
 }
+.setting-cog {
+    color: #ffffff;
+    outline: none;
+    border: none;
+}
 
 @media only screen and (min-width:480px) {
     .modal.fade svg {
@@ -667,6 +676,12 @@ input:-webkit-autofill-selected {
     }
     .event-namecode {
         flex-direction: row;
+    }
+    .modal-dialog {
+        max-width: 620px;
+    }
+    .change-language{
+        order: 2;
     }
 }
 

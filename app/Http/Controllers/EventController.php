@@ -85,6 +85,9 @@ class EventController extends Controller
     public function show(Request $request){
         
         $event = Event::where('event_code', '=', $request->event_code)->firstOrFail();
+        $question = Question::where('event_id','=',$event->id)->get();
+        $count = $question->where('status', 1)->count();
+
         if($event->setting_join == 1 ){
             $question = Question::where('event_id', '=' , $event->id)->get();
 
@@ -94,7 +97,7 @@ class EventController extends Controller
                         ->rightjoin('replies', 'questions.id', '=', 'replies.question_id')
                         ->get();
             // return response()->json($result);
-            return view('event.detail', compact('question',$question,'event' ,$event,'result', $result));    
+            return view('event.detail', compact('question',$question,'event' ,$event,'result', $result, 'count', $count));    
         }else{
             return "Bạn đã khóa event này";
         }
