@@ -110,7 +110,6 @@ $('.send-reply-btn').on('click',function(){
         data:
         $(this).parents().parents().serialize(),
         success: function(data) {
-            alert('Your reply has been sent successfully');
             console.log(answer);
             answer.append(
             '<div class="reply-item">'+

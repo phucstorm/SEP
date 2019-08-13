@@ -2,14 +2,15 @@
 $(".date-error-message").hide();
 $(".data-error-message").hide();
 $('.event-code-error-message').hide();
+$(".startdate-error-message").hide();
+
 $(".submit-form").submit(function(e){
     e.preventDefault();
 });
-// $('.create-poll-form').submit(function(e)
-// {
-//     e.preventDefault();
-// });
+
 $('#add-new-event-btn').click(function() {
+    var startdate = new Date($('.create-start-date').val());
+    var dateNow = new Date();
     if (
         $('input[name=event_name]').val() != "" &&
         $('input[name=event_description]').val() != "" &&
@@ -18,7 +19,11 @@ $('#add-new-event-btn').click(function() {
     ) {
         if ($('input[name=start_date]').val() >= $('input[name=end_date]').val()) {
             $(".date-error-message").show();
-            $(".data-error-message").hide();
+            $(".startdate-error-message").hide();
+        } else if(startdate<dateNow){
+            $(".startdate-error-message").show();
+            $(".date-error-message").hide();
+
         } else {
             
             $.ajax({
@@ -162,6 +167,9 @@ $(document).on('click', '.btn.btn-outline-danger.desktop-btn', function() {
 });
 
 //Edit User
+$(".edit-info-form").submit(function(e){
+    e.preventDefault();
+});
 $(document).on('click', '.edit_user_info-btn', function() {
     var id = $(this).attr('data-id');
     $('#un').val($(this).attr('data-name'));
@@ -178,20 +186,20 @@ $(document).on('click', '.edit_user_info-btn', function() {
                     // 'email': $('input[name=em]').val(),
                 },
                 success: function(data) {
-                    alert("Cập nhật thông tin người dùng hoàn tất");
+                    alert("Your name have been updated successfully");
+                    $(".name-error").hide();
                     window.location.reload();
                 },
                 error: function(data) {
-                    alert("Email này đã có người sử dụng");
+                    $(".name-error").show();
                 },
             });
         } else {
-            alert("Bạn cần điền tên để hoàn tất cập nhật thông tin");
         }
     });
 });
 
-$(document).on('click', '.edit_user_pass-btn', function() {
+$(document).on('click', '#edit_pass', function() {
     var id = $(this).attr('data-id');
     $('#edit_pass').click(function() {
         if ($('input[name=cpw]').val() != "") {
@@ -212,7 +220,7 @@ $(document).on('click', '.edit_user_pass-btn', function() {
                                 window.location.reload();
                             },
                             error: function(data) {
-                                alert(data);
+                                alert('data');
                             },
                         });
                     } else {
@@ -255,7 +263,6 @@ $('.send-reply-btn').on('click',function(){
         data:
         $(this).parents().parents().serialize(),
         success: function(data) {
-            alert('Your reply has been sent successfully');
             console.log(answer);
             answer.append(
             '<div class="reply-item">'+

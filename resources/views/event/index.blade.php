@@ -6,12 +6,12 @@
         <div class="create-event-btn">
             <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#createEvent"
                 id="create-event-btn">
-                Create Event
+                {{ trans('message.create-event') }}
             </button>
         </div>
         {{ csrf_field() }}
         @if($event == '[]' && isset($_GET['search']))
-        <div>No result found</div>
+        <div>{{ trans('message.noresult-found') }}</div>
         @else
         @foreach($event as $value)
         <!-- dẫn link event-container vô room -->
@@ -34,8 +34,7 @@
             <div class="event-action">
                 <i class="fa fa-ellipsis-v toggle-action"></i>
                 <ul class="event-action-mobile">
-                    <li><button class="btn btn-outline-info qr-btn-mobile" data-toggle="modal" data-target=".qrcode">QR
-                            Code</button></li>
+                    <li><button class="btn btn-outline-info qr-btn-mobile" data-toggle="modal" data-target=".qrcode">{{ trans('message.qrcode') }}</button></li>
                     <li><button class="btn btn-outline-success" data-id="{{$value->id}}"
                             data-code="{{$value->event_code}}" 
                             data-name="{{$value->event_name}}"
@@ -49,11 +48,11 @@
                             data-reply="{{$value->setting_reply}}"
                             data-anonymous="{{$value->setting_anonymous}}" 
                             data-toggle="modal"
-                            data-target="#edit">Edit</button></li>
+                            data-target="#edit">{{ trans('message.edit') }}</button></li>
                     <li><button type="button" class="btn btn-outline-danger" 
                         data-id="{{$value->id}}"
                         data-name="{{$value->event_name}}"
-                            data-toggle="modal" data-target="#delete">Delete</button></li>
+                            data-toggle="modal" data-target="#delete">{{ trans('message.delete-btn') }}</button></li>
                 </ul>
                 <button type="button" class="btn btn-outline-success desktop-btn" data-id="{{$value->id}}"
                     data-code="{{$value->event_code}}" 
@@ -104,52 +103,54 @@
             <div class="modal-content">
                 <form role="form" method="post" class="submit-form">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="title">Create Event</h5>
+                    <h5 class="modal-title" id="title">{{ trans('message.create-event') }}</h5>
 
                 </div>
                 <div class="modal-body">
                     
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Event Name</label>
+                            <label class="col-sm-3 col-form-label">{{ trans('message.event-name') }}</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="event_name" name="event_name"
+                                <input type="text" class="form-control" id="event_name" name="event_name" maxlength="100"
                                     placeholder="Event Name" required>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Description</label>
+                            <label class="col-sm-3 col-form-label">{{ trans('message.description') }}</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="event_description" name="event_description"
+                                <input type="text" class="form-control" id="event_description" name="event_description" maxlength="200"
                                     placeholder="Write desciption here" required>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Start Date</label>
+                            <label class="col-sm-3 col-form-label">{{ trans('message.start-date') }}</label>
                             <div class="col-sm-8">
-                                <input type="datetime-local" class="form-control" id="start_date" name="start_date" required
-                                value="{{Carbon\Carbon::parse(date('Y-m-d'))->format('Y-m-d\TH:i')}}">
+                                <input type="datetime-local" class="form-control create-start-date" id="start_date" name="start_date" required
+                                value="{{Carbon\Carbon::parse(date('Y-m-d\TH:i', time() + 3600))->setTimezone('Asia/Phnom_Penh')->format('Y-m-d\TH:i')}}"
+                                >
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">End Date</label>
+                            <label class="col-sm-3 col-form-label">{{ trans('message.end-date') }}</label>
                             <div class="col-sm-8">
                                 <input type="datetime-local" class="form-control" id="end_date" name="end_date" required
-                                value="{{Carbon\Carbon::parse(date('Y-m-d', time() + 86400))->format('Y-m-d\TH:i')}}">
+                                value="{{Carbon\Carbon::parse(date('Y-m-d\TH:i', time() + 90000))->setTimezone('Asia/Phnom_Penh')->format('Y-m-d\TH:i')}}"
+                                >
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-12  text-center date-error-message">
-                                <span class="text-danger">The end time must be greater than the start time</span>
+                                <span class="text-danger">{{ trans('message.error-end-date') }}</span>
                             </div>
-                            <div class="col-sm-12  text-center data-error-message">
-                                <span class="text-danger">Please check the information you have entered, we do not accept incorrect dates</span>
+                            <div class="col-sm-12  text-center startdate-error-message">
+                                <span class="text-danger">{{ trans('message.error-start-date') }}</span>
                             </div>
                         </div>
                     
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success" id="add-new-event-btn">Save</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">{{ trans('message.cancel-btn') }}</button>
+                    <button type="submit" class="btn btn-success" id="add-new-event-btn">{{ trans('message.save-btn') }}</button>
                 </div>
                 </form>
             </div>
@@ -162,7 +163,7 @@
             <div class="modal-content">
             <form role="form" method="post" id="edit_form" class="submit-form">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="title">Edit Event</h5>
+                    <h5 class="modal-title" id="title">{{ trans('message.edit-event') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -172,13 +173,13 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Event Name</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="en" name="en" required>
+                                <input type="text" class="form-control" id="en" name="en" maxlength="100" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Event Code</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="ec" name="ec" required>
+                                <input type="text" class="form-control" id="ec" name="ec" maxlength="5" required>
                             </div>
                             <div class="col-sm-12  text-center event-code-error-message">
                                 <span class="text-danger">This event code have already existed. Please enter another one.</span>
@@ -187,7 +188,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Description</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="ds" name="ds" required>
+                                <input type="text" class="form-control" id="ds" name="ds" maxlength="200" required>
                             </div>
                         </div>
                         <div class="form-group row">

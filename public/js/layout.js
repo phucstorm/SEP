@@ -1,3 +1,4 @@
+$(".name-error").hide();
 $(".user_info .fa-cog").click(function(){
     $(".user-setting-menu").toggleClass('toggle-user-setting');
 })

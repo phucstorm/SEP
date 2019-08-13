@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="question-item-accepted">
-            <div class="title-part">Live</div>
+            <div class="title-part">Live -  {{$count}} questions</div>
             <div class="accept">
             
                 @foreach($question as $key => $value)
