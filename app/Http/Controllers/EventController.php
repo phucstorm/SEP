@@ -62,6 +62,7 @@ class EventController extends Controller
 
     public function edit(Request $request){
         $event = Event::find($request->id); 
+        return response()->json($request->id);
         $ifExist = Event::where('event_code', '=', $request->event_code)->get();
         if(count($ifExist) > 0 && $ifExist[0]->id != $event->id){
             return "Mã event đã tồn tại";
@@ -78,7 +79,7 @@ class EventController extends Controller
             $event->setting_moderation = $request->moderation;
             $event->setting_anonymous = $request->anonymous;
             $event->save();
-            return response()->json($event);
+            
         }
     }
 

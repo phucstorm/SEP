@@ -138,9 +138,9 @@
                                 @if($event->setting_reply==1)
                                 <div class="footer">
                                     <div>
-                                        <textarea placeholder="Type your answer here..." name="reply" class="input-answer"
+                                        <textarea placeholder="{{ trans('message.type-your-answer') }}" name="reply" class="input-answer"
                                         type="text" required></textarea>
-                                        <input type="text" name="username" class="input-username" placeholder="Your name...">
+                                        <input type="text" name="username" class="input-username" placeholder="{{ trans('message.name-attendee') }}">
                                     </div>
                                         <button class="btn send-reply-btn" type="submit"><i class="fa fa-paper-plane"
                                         aria-hidden="true"></i></button>

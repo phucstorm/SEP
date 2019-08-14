@@ -35,7 +35,7 @@
                 <i class="fa fa-ellipsis-v toggle-action"></i>
                 <ul class="event-action-mobile">
                     <li><button class="btn btn-outline-info qr-btn-mobile" data-toggle="modal" data-target=".qrcode">{{ trans('message.qrcode') }}</button></li>
-                    <li><button class="btn btn-outline-success" data-id="{{$value->id}}"
+                    <li><button class="btn btn-outline-success edit-event-btn" data-id="{{$value->id}}"
                             data-code="{{$value->event_code}}" 
                             data-name="{{$value->event_name}}"
                             data-description="{{$value->event_description}}" 
@@ -54,7 +54,7 @@
                         data-name="{{$value->event_name}}"
                             data-toggle="modal" data-target="#delete">{{ trans('message.delete-btn') }}</button></li>
                 </ul>
-                <button type="button" class="btn btn-outline-success desktop-btn" data-id="{{$value->id}}"
+                <button type="button" class="btn btn-outline-success desktop-btn edit-event-btn" data-id="{{$value->id}}"
                     data-code="{{$value->event_code}}" 
                     data-name="{{$value->event_name}}"
                     data-description="{{$value->event_description}}" 
@@ -140,10 +140,10 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-12  text-center date-error-message">
-                                <span class="text-danger">{{ trans('message.error-end-date') }}</span>
+                                <span class="text-danger">{{ trans('message.error-end-time') }}</span>
                             </div>
                             <div class="col-sm-12  text-center startdate-error-message">
-                                <span class="text-danger">{{ trans('message.error-start-date') }}</span>
+                                <span class="text-danger">{{ trans('message.error-start-time') }}</span>
                             </div>
                         </div>
                     
@@ -224,13 +224,13 @@
                                 </label>
                             </div>
                             <div class="form-group row">
-                                <label for="rl" class="checkbox-label">
+                                <label for="md" class="checkbox-label">
                                     <input type="checkbox" class="form-control" id="md" name="md">
                                     <span> {{ trans('message.moderation-check') }}</span>
                                 </label>
                             </div>
                             <div class="form-group row">
-                                <label for="rl" class="checkbox-label">
+                                <label for="an" class="checkbox-label">
                                     <input type="checkbox" class="form-control" id="an" name="an">
                                     <span> {{ trans('message.anonymous-check') }}</span>
                                 </label>
@@ -244,7 +244,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-12  text-center date-error-message">
-                                <span class="text-danger">{{ trans('message.error-end-date') }}</span>
+                                <span class="text-danger">{{ trans('message.error-end-time') }}</span>
                             </div>
                             <div class="col-sm-12  text-center data-error-message">
                                 <span class="text-danger">Please check the information you have entered, we do not accept incorrect dates</span>

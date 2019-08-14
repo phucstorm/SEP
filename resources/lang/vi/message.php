@@ -37,7 +37,7 @@ return [
     'event-name' => 'Tên sự kiện',
     'event-code' => 'Mã sự kiện',
     'description' =>'Mô tả',
-    'start-date' => 'Ngày bắt đàu',
+    'start-date' => 'Ngày bắt đầu',
     'end-date' => 'Ngày kết thúc',
     'error-end-time' => 'Ngày giờ kết thúc phải lớn hơn ngày giờ bắt đầu',
     'error-start-time' => 'Ngày giờ bắt đầu phải lớn hơn thời điểm hiện tại',

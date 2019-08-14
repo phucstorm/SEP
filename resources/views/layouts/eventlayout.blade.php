@@ -105,7 +105,23 @@
                                         </a>
                                     </div>
                                     <div class="flex_content">
-                                        <div class="event_info_name">{{ $event->event_name}}
+                                        <div class="event_info_name">{{ $event->event_name}}                 
+                                        <button type="button" style="color:white" class="btn edit-event-btn" data-id="{{$event->id}}"
+                                            data-code="{{$event->event_code}}" 
+                                            data-name="{{$event->event_name}}"
+                                            data-description="{{$event->event_description}}" 
+                                            data-link="{{$event->event_link}}"
+                                            data-mod="{{$event->setting_moderation}}" 
+                                            data-start="{{Carbon\Carbon::parse($event->start_date)->format('Y-m-d\TH:i')}}"
+                                            data-end="{{Carbon\Carbon::parse($event->end_date)->format('Y-m-d\TH:i')}}"  
+                                            data-join="{{$event->setting_join}}"
+                                            data-question="{{$event->setting_question}}" 
+                                            data-reply="{{$event->setting_reply}}"
+                                            data-anonymous="{{$event->setting_anonymous}}" 
+                                            data-toggle="modal" 
+                                            data-target="#edit"><i
+                                                class="fa fa-edit"></i>
+                                        </button>
 
                                         </div>
                                         <div class="event_info_date">
@@ -206,6 +222,109 @@
                     <button type="button" class="btn btn-light" data-dismiss="modal">{{ trans('message.cancel-btn') }}</button>
                     <button type="submit" class="btn btn-success" id="edit_info">{{ trans('message.save-btn') }}</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal For Edit Event -->
+        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <form role="form" method="post" id="edit_form" class="submit-form">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="title">{{ trans('message.edit-event') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ trans('message.event-name') }}</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="en" name="en" maxlength="100" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ trans('message.event-code') }}</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="ec" name="ec" maxlength="5" required>
+                            </div>
+                            <div class="col-sm-12  text-center event-code-error-message">
+                                <span class="text-danger">{{ trans('message.eventcode-error') }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ trans('message.description') }}</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="ds" name="ds" maxlength="200" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ trans('message.start-date') }}</label>
+                            <div class="col-sm-8">
+                                <input type="datetime-local" class="form-control" id="sd" name="sd" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ trans('message.end-date') }}</label>
+                            <div class="col-sm-8">
+                                <input type="datetime-local" class="form-control" id="ed" name="ed" required>
+                            </div>
+                        </div>
+                        <div class="form-event-optional">
+                            <label class="col-form-label">{{ trans('message.options') }}: </label>
+                            <div class="form-group row">
+                                <label for="ji" class="checkbox-label">
+                                    <input type="checkbox" class="form-control" id="ji" name="ji">
+                                    <span> {{ trans('message.join-check') }}</span>
+                                </label>
+                            </div>
+                            <div class="form-group row">
+                                <label for="qt" class="checkbox-label">
+                                    <input type="checkbox" class="form-control" id="qt" name="qt">
+                                    <span> {{ trans('message.ask-check') }}</span>
+                                </label>
+                            </div>
+                            <div class="form-group row">
+                                <label for="rl" class="checkbox-label">
+                                    <input type="checkbox" class="form-control" id="rl" name="rl">
+                                    <span> {{ trans('message.reply-check') }}</span>
+                                </label>
+                            </div>
+                            <div class="form-group row">
+                                <label for="md" class="checkbox-label">
+                                    <input type="checkbox" class="form-control" id="md" name="md">
+                                    <span> {{ trans('message.moderation-check') }}</span>
+                                </label>
+                            </div>
+                            <div class="form-group row">
+                                <label for="an" class="checkbox-label">
+                                    <input type="checkbox" class="form-control" id="an" name="an">
+                                    <span> {{ trans('message.anonymous-check') }}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Link</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="li" name="li" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12  text-center date-error-message">
+                                <span class="text-danger">{{ trans('message.error-end-date') }}</span>
+                            </div>
+                            <div class="col-sm-12  text-center data-error-message">
+                                <span class="text-danger">Please check the information you have entered, we do not accept incorrect dates</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">{{ trans('message.cancel-btn') }}</button>
+                        <button type="submit" class="btn btn-success" id="update">{{ trans('message.save-btn') }}</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

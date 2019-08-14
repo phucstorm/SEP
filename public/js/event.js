@@ -52,7 +52,7 @@ $('#add-new-event-btn').click(function() {
 });
 
 // Edit Event
-$(document).on('click', '.btn.btn-outline-success', function() {
+$(document).on('click', '.edit-event-btn', function() {
     $(".date-error-message").hide();
     $(".data-error-message").hide();
     $('.event-code-error-message').hide();
@@ -130,6 +130,7 @@ $(document).on('click', '.btn.btn-outline-success', function() {
                         }
                     },
                     error: function(data) {
+                        alert(data)
                         $(".data-error-message").show();
                         $(".date-error-message").hide();
                         $('.event-code-error-message').hide();
