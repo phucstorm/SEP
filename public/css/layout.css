@@ -5,7 +5,10 @@ body {
     padding-bottom: 6rem;
     min-height: 100%;
 }
-
+.row {
+    margin: 0!important;
+    padding: 0!important;
+}
 html {
     height: 100%;
 }
@@ -671,9 +674,6 @@ input:-webkit-autofill-selected {
         width: 600px;
         height: 600px;
     }
-    .form-event-optional {
-        flex-direction: row;
-    }
     .event-namecode {
         flex-direction: row;
     }
@@ -682,6 +682,9 @@ input:-webkit-autofill-selected {
     }
     .change-language{
         order: 2;
+    }
+    .form-event-optional .form-group{
+        margin-left: 150px;
     }
 }
 

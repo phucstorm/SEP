@@ -13,7 +13,7 @@
         </h1>
         <form action="" enctype="multipart/form-data" method="post" class="poll-form">
             <div class="poll-form-header">
-                There is no poll available at the moment!
+            {{ trans('message.no-poll-available') }}
             </div>
         </form>
     @else
@@ -27,7 +27,7 @@
                 {{$poll->poll_question_content}}
             </div>
             <div class="poll-form-body">
-            <span class="text-danger vote-error">Please vote for an answer!</span>
+            <span class="text-danger vote-error">{{ trans('message.vote-error') }}</span>
 
                 @if($poll->mul_choice == 0)
                     <!-- non-multiple choice thì hiển thị dạng radio button -->
@@ -63,7 +63,7 @@
                         @endforeach 
                     </div>
                 @endif  
-                <button id="submit-btn-poll" class="submit-poll-btn poll-btn" value="{{$poll->id}}">Send</button>          
+                <button id="submit-btn-poll" class="submit-poll-btn poll-btn" value="{{$poll->id}}">{{ trans('message.send-btn') }}</button>          
             </div> 
         </form>
         <div class="poll-result">
@@ -100,7 +100,7 @@
             @endforeach
         @endif
         <div class="question-form__footer poll-form-footer">
-            <button type="button" id="edit-poll-btn" class="edit-poll-btn poll-btn">Edit Response</button>
+            <button type="button" id="edit-poll-btn" class="edit-poll-btn poll-btn">{{ trans('message.edit-response') }}</button>
         </div>   
         </div> 
 

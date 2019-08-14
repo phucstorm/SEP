@@ -46,16 +46,16 @@
                         <div class="event-code">#{{$event->event_code}}</div>
                     </div>      
                 </div>
-                <div class="switch-event">
+                <div class="switch-event" onclick="window.location.href='/'">
                     <button>
-                        <i class="fa fa-exchange"></i> Switch event
+                        <i class="fa fa-exchange"></i> {{ trans('message.switch-event') }}
                     </button>
                 </div>
             </div>
             <div class="navbar_select">
                 <div class="container">
-                    <button class="question-btn" onclick="window.location.href='/room?room={{$event->event_code}}'">QUESTIONS</button>
-                    <button class="poll-btn" onclick="window.location.href='/room/poll/{{$event->event_code}}'">POLLS</button>
+                    <button class="question-btn" onclick="window.location.href='/room?room={{$event->event_code}}'">{{ trans('message.question-tab') }}</button>
+                    <button class="poll-btn" onclick="window.location.href='/room/poll/{{$event->event_code}}'">{{ trans('message.poll-tab') }}</button>
                 </div>
             </div>
         </header>
@@ -68,7 +68,7 @@
             </div>
             <ul class="sidebar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" class="nav-item-link" href="" style="color: white;"><i class="fa fa-exchange"></i> Switch event</a>
+                    <a class="nav-link" class="nav-item-link" href="/" style="color: white;"><i class="fa fa-exchange"></i> {{ trans('message.switch-event') }}</a>
                 </li>
             </ul>
         </nav>
@@ -76,10 +76,66 @@
             @yield('content')
         </main>   
         <footer>
-        <div class="top-footer">
-            <div class="wrapper-title">VLask | Designed by 5Bs</div>
+        <div class="footer_pd row_pd">
+            <div class="row align-items-center" style="text-align:center">
+                <div class="change-language col-12 col-md-4">
+                    <a href="/lang/en" class="">
+                        <img src="{{ asset('img/united-states.png')}}" alt="">
+                        English
+                    </a>
+                    <span>|</span>
+                    <a href="/lang/vi" class="">
+                        <img src="{{ asset('img/vietnam.jpg')}}" alt="">
+                            Tiếng Việt
+                    </a>
+                </div>
+                <div class="ul-flex-decoration col-12 col-md-8">
+                    VLask | Designed by 5Bs
+                </div>
+
+            </div>
         </div>
     </footer>      
+    <script>
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('9ca3866fa2e26a25d235', {
+            cluster: 'ap1',
+            forceTLS: true
+        });
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('form-submitted', function (data) {
+            // if(data.event_id==<?php echo ($event->id); ?>){
+            var date = moment.parseZone(data.created_at).format("YYYY-MM-DD HH:mm:ss");
+            $('.question-list.popular-question').prepend(
+                "<div class='question-container'>"+
+                "<div class='question-info'>"+
+                    "<div class='question-username'><i class='fa fa-user'></i> "+data.user_name+"</div>"+
+                    "<div class='question-date'>"+date+"</div>"+
+                    "<div class='question-content'>"+data.question+"</div>"+
+                "</div>"+
+                "<div class='question-like'>"+
+                    "<button class='like-btn"+data.id+" like-btn is-not-liked' value='"+data.id+"'>0 <i class='fa fa-thumbs-up'></i></button>"+
+                "</div>"+
+                "<button class='btn reply-btn' type='button' data-toggle='modal' data-target='#replyQuestion' data-id="+data.id+" data-name="+data.question+">"+
+                    "<i class='fa fa-reply' aria-hidden='true'></i> <?php echo e(trans('message.reply')); ?></button>"+
+            "</div>"
+            );
+            likeQuestion();
+            getReplies();
+
+        });
+        alert('event'+<?php echo ($event->id); ?>);
+        alert('data'+data.event_id);
+        // }
+
+        //like
+        var likes = pusher.subscribe('like-channel');
+        likes.bind('like-question', function (data){
+            // $('.like-btn').html(''+data.likes+'<i class="fa fa-thumbs-up"></i>');
+            $('.like-btn'+data.questionId).html(''+data.likes+' <i class="fa fa-thumbs-up"></i>');
+        })
+    </script>
 </body>
 
 </html>

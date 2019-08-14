@@ -43,15 +43,22 @@ class GuestController extends Controller
             }else{
                 $user_name = "Anonymous";
             }
+            $event = Event::find(request()->event_id);
             $qt = new Question;
             $qt->event_id = request()->event_id;
             $qt->content = $question;
             $qt->user_name = $user_name;
-            $qt->status = 0;
+            if($event->setting_moderation==0){
+                $qt->status = 1;
+            }else{
+                $qt->status = 0;
+            }
             $qt->like = 0;
-            $qt->unlike = 0;
             $qt->save();
+            if($event->setting_moderation==1){
+            }
             event(new FormSubmitted($qt->id,$qt->content, $user_name, request()->event_id, $qt->created_at));
+
             return redirect()->back();
         } 
     }
@@ -161,6 +168,25 @@ class GuestController extends Controller
         event(new LikeQuestion($question_id, $likes));
         // return redirect()->back();
     }
+    public function showReplies($question_id){
+        // $questionId = $request->question_id;
+        $question = Question::find($question_id);
+        $data = array();
+        $i=0;
+        foreach($question->replies as $reply){
+            $data[$i] = [
+                'name' => $reply->user_name,
+                'date' => $reply->created_at,
+                'host' => $reply->user_id,
+                'content' => $reply->rep_content
+            ];
+            $i += 1;
+        };
+        $content = $question->content;
+        return response()->json($data);
+
+    }
+
     public function reply_question(){
         $question_id = $_POST['question-id'];
         $reply = $_POST['reply'];
@@ -174,6 +200,7 @@ class GuestController extends Controller
             'rep_content' => $reply,
             'user_name' => $username
         ]);
+        return response()->json($question_id);
         return redirect()->back();
     }
     

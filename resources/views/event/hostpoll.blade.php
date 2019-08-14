@@ -8,23 +8,23 @@
 @section('content')
 <div class="container">
     <div class="create-poll mt-3 mb-3">
-        <button class="btn btn-success create-poll-btn" data-toggle="modal" data-target="#createPollModal">Create Poll</button>
+        <button class="btn btn-success create-poll-btn" data-toggle="modal" data-target="#createPollModal">{{ trans('message.create-poll') }}</button>
     </div>
     <div class="row">
         <div class="poll-section col-md-6 col-sm-12">
-            <span>Poll list</span>
+            <span>{{ trans('message.poll-list') }}</span>
             <div class="poll-container">
                 @foreach ($event->polls as $poll)
                     <div class="poll-item p-3 d-flex justify-content-between">
                         <div class="poll-detail">
                             <div style="opacity: 0.5">
                                 @if($poll->mul_choice == 1)    
-                                    Multiple Choice
+                                    {{ trans('message.multiplechoice') }}
                                 @else
-                                    Single Choice
+                                    {{ trans('message.singlechoice') }}
                                 @endif
                             </div>
-                            <div class="poll-votes">Votes: {{ $poll->total_votes }}</div>
+                            <div class="poll-votes">{{ trans('message.votes') }}: {{ $poll->total_votes }}</div>
                             <div class="poll-content">{{ $poll->poll_question_content }}</div>
                         </div>
                         <div class="poll-action">
@@ -69,12 +69,11 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    Are you sure that you want to delete this poll?
-
+                                    {{ trans('message.message-del-poll') }}
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                                    <button class="btn btn-danger" id="del">Delete</button>
+                                    <button type="button" class="btn btn-light" data-dismiss="modal">{{ trans('message.cancel-btn') }}</button>
+                                    <button class="btn btn-danger" id="del">{{ trans('message.delete-btn') }}</button>
                                 </div>
                                 </form>
                             </div>
@@ -92,7 +91,7 @@
                             @csrf
                             @method('PATCH')
                             <div class="modal-header">
-                            <h4 class="modal-title">Edit Poll</h4>
+                            <h4 class="modal-title">{{ trans('message.edit-poll') }}</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             
                             </div>
@@ -102,7 +101,7 @@
                                         <div class="col-10 offset-1">     
                                             <input type="text" name="event_id" value="{{ $event->id }}" hidden>                  
                                             <div class="form-group row">
-                                                <label for="poll_question_content">Poll Content</label>
+                                                <label for="poll_question_content">{{ trans('message.poll-content') }}</label>
                                                 <input id="poll_question_content" 
                                                     type="text" 
                                                     class="form-control @error('poll_question_content') is-invalid @enderror" 
@@ -117,7 +116,7 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group row poll-answer">
-                                                <label for="poll_answer">Poll Answer</label>
+                                                <label for="poll_answer">{{ trans('message.poll-answer') }}</label>
                                                 @foreach ($poll->answers as $answer)
                                                 <div class="w-100 position-relative">
                                                 <input id="poll_answer" 
@@ -134,7 +133,7 @@
                                             <div class="form-group-row">
                                                 <label class="col-sm-3 col-form-label"></label>
                                                 <button type="button" class="btn plus-new-answer w-100 add-answer">
-                                                    <i class="fa fa-plus" aria-hidden="true"></i> Answer
+                                                    <i class="fa fa-plus" aria-hidden="true"></i> {{ trans('message.answer-btn') }}
                                                 </button>
                                             </div>
                                             <div class="form-group row">
@@ -144,7 +143,7 @@
                                                     checked
                                                     @endif
                                                     />
-                                                    Multiple Answers
+                                                    {{ trans('message.multiple-answer-check') }}
                                                 </label>
                                             </div>
 
@@ -154,8 +153,8 @@
                                 
                                 </div>
                                 <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button class="btn btn-success">Save</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('message.cancel-btn') }}</button>
+                                <button class="btn btn-success">{{ trans('message.save-btn') }}</button>
                                 </div>
                                 </form>
                             </div>
@@ -166,7 +165,7 @@
             </div>
         </div>
         <div class="poll-section col-md-6 col-sm-12">
-            <span>Live</span>
+            <span>{{ trans('message.live') }}</span>
             <div class="poll-container poll-live position-relative p-3">
                 
                 @if($event->polls()->where('status',1)->first()!=[])
@@ -211,7 +210,7 @@
                     @endif
                     </div>
                 @else
-                    There is no poll running now!
+                    {{ trans('message.no-poll-running') }}
                 @endif
             </div>
         </div>
@@ -226,7 +225,7 @@
             <form action="/admin/event/poll/create" class="create-poll-form" enctype="multipart/form-data" method="post">
                 @csrf
                 <div class="modal-header">
-                <h4 class="modal-title">Create Poll</h4>
+                <h4 class="modal-title">{{ trans('message.create-poll') }}</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 
                 </div>
@@ -235,7 +234,7 @@
                             <div class="col-10 offset-1">     
                                 <input type="text" name="event_id" value="{{ $event->id }}" hidden>                  
                                 <div class="form-group row">
-                                    <label for="poll_question_content">Poll Content</label>
+                                    <label for="poll_question_content">{{ trans('message.poll-content') }}</label>
                                     <input id="poll_question_content" 
                                         type="text" 
                                         class="form-control @error('poll_question_content') is-invalid @enderror" 
@@ -250,7 +249,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group row poll-answer">
-                                    <label for="poll_answer">Poll Answer</label>
+                                    <label for="poll_answer">{{ trans('message.poll-answer') }}</label>
                                     <input id="poll_answer" 
                                         type="text" 
                                         class="form-control @error('poll_answer') is-invalid @enderror" 
@@ -279,21 +278,21 @@
                                 <div class="form-group-row">
                                     <label class="col-sm-3 col-form-label"></label>
                                     <button type="button" class="btn plus-answer w-100 add-answer">
-                                        <i class="fa fa-plus" aria-hidden="true"></i> Answer
+                                        <i class="fa fa-plus" aria-hidden="true"></i> {{ trans('message.answer-btn') }}
                                     </button>
                                 </div>
                                 <div class="form-group row">
                                     <label class='multiple-answer-label' for='multiple-answer'>
                                         <input id='multiple-answer' name='mul_choice' type='checkbox' value='1' />
-                                        Multiple Answers
+                                        {{ trans('message.multiple-answer-check') }}
                                     </label>
                                 </div>
                             </div>
                         </div>          
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button id="create-poll" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('message.cancel-btn') }}</button>
+                        <button id="create-poll" class="btn btn-success">{{ trans('message.save-btn') }}</button>
                     </div>
                 </form>
             </div>   

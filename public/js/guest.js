@@ -42,7 +42,7 @@ document.querySelector('.sidebar-toggle')
     .addEventListener('click', classToggle);
 
 $('#input-question').focus(function () {
-    $(this).animate({ height: "220px" }, 500);
+    $(this).animate({ height: "150px" }, 500);
     $('#characters').css('display', 'initial');
 });
 $('#input-question').blur(function () {
@@ -58,26 +58,27 @@ $('poll-btn').removeClass('is-active');
 $('.question-btn').addClass('is-active');
 
 //Like question
-$('.like-btn').on('click', function() {
-    if($(this).hasClass("is-not-liked")){
-        $.ajax({
-            url: "/room/guest/like/" + $(this).val(),
-        });
-        $(this).removeClass("is-not-liked")
-        $(this).addClass("is-liked");
-        localStorage.setItem('isliked'+$(this).val(), true);
-    }else{
-        $.ajax({
-            url: "/room/guest/unlike/" + $(this).val(),
-        });
-        $(this).addClass("is-not-liked");
-        $(this).removeClass("is-liked");
-        localStorage.setItem('isliked'+$(this).val(), false);
-    }
-});
+likeQuestion = function(){
+    $('.like-btn').on('click', function() {
+        if($(this).hasClass("is-not-liked")){
+            $.ajax({
+                url: "/room/guest/like/" + $(this).val(),
+            });
+            $(this).removeClass("is-not-liked")
+            $(this).addClass("is-liked");
+            localStorage.setItem('isliked'+$(this).val(), true);
+        }else{
+            $.ajax({
+                url: "/room/guest/unlike/" + $(this).val(),
+            });
+            $(this).addClass("is-not-liked");
+            $(this).removeClass("is-liked");
+            localStorage.setItem('isliked'+$(this).val(), false);
+        }
+    });
+}
 loadLike = function(){
     var likedButton = $('.like-btn');
-    var likedButtonId = [];
     for(var i=0; i<likedButton.length; i++){
         if(localStorage.getItem('isliked'+likedButton[i].getAttribute('value'))=="true")
         {
@@ -86,8 +87,48 @@ loadLike = function(){
         };
     }
 }
+
+//get replies
+getReplies = function(){
+    $('.reply-btn').on('click', function(){
+        $('.modal-reply').html('');
+        $('#questionIdInput').attr('value',$(this).attr('data-id'));
+        $('.question-reply-title').html($(this).attr('data-name'));
+        $.ajax({
+            url: 'room/showreply/'+$(this).attr('data-id'),
+            success: function(data) {
+                for (var i=0; i<data.length; i++){
+                    var date = moment.parseZone(data[i].date).format("YYYY-MM-DD HH:mm:ss");
+                    if(data[i].host!=null){
+                        $('.modal-reply').append(
+                            '<div class="reply-item">'+
+                                '<div class="user" style="color: #20b875"><i class="fa fa-user"></i> '+data[i].name+' - Host</div>'+
+                                '<div class="reply-date">'+date+'</div>'+
+                                '<div>'+data[i].content+'</div>'+
+                            '</div>'
+                        )
+                    }else{
+                        $('.modal-reply').append(
+                            '<div class="reply-item">'+
+                                '<div class="user"><i class="fa fa-user"></i> '+data[i].name+'</div>'+
+                                '<div class="reply-date">'+date+'</div>'+
+                                '<div>'+data[i].content+'</div>'+
+                            '</div>'
+                        )
+                    }
+                }
+            },
+            error: function(data) {
+                alert('fail'+ data[1].id);
+            }
+        })
+    })
+}
+
 $(document).ready(function() {
     loadLike();
+    likeQuestion();
+    getReplies();
 });
 
 $('.reply-form').submit(function(e){
@@ -134,23 +175,23 @@ var pusher = new Pusher('9ca3866fa2e26a25d235', {
     cluster: 'ap1',
     forceTLS: true
 });
-var channel = pusher.subscribe('my-channel');
-channel.bind('form-submitted', function (data) {
-    var date = moment.parseZone(data.created_at).format("YYYY-MM-DD HH:mm:ss");
-    $('.question-list.popular-question').append(
-        "<div class='question-container'>"+
-        "<div class='question-info'>"+
-            "<div class='question-username'><i class='fa fa-user'></i> "+data.user_name+"</div>"+
-            "<div class='question-date'>"+date+"</div>"+
-            "<div class='question-content'>"+data.question+"</div>"+
-        "</div>"+
-        "<div class='question-like'><button class='like-btn'><i class='fa fa-thumbs-up'></i></button></div>"+
-    "</div>"
-    );
-});
+// var channel = pusher.subscribe('my-channel');
+// channel.bind('form-submitted', function (data) {
+//     var date = moment.parseZone(data.created_at).format("YYYY-MM-DD HH:mm:ss");
+//     $('.question-list.popular-question').prepend(
+//         "<div class='question-container'>"+
+//         "<div class='question-info'>"+
+//             "<div class='question-username'><i class='fa fa-user'></i> "+data.user_name+"</div>"+
+//             "<div class='question-date'>"+date+"</div>"+
+//             "<div class='question-content'>"+data.question+"</div>"+
+//         "</div>"+
+//         "<div class='question-like'>"+
+//             "<button class='like-btn"+data.id+" like-btn is-not-liked' value='"+data.id+"'>0 <i class='fa fa-thumbs-up'></i></button>"+
+//         "</div>"+
+//         "<button class='btn reply-btn' type='button' data-toggle='modal' data-target=''>"+
+//             "<i class='fa fa-reply' aria-hidden='true'></i> <?php echo e(trans('message.reply')); ?></button>"+
+//     "</div>"
+//     );
+//     likeQuestion();
+// });
 
-var likes = pusher.subscribe('like-channel');
-likes.bind('like-question', function (data){
-    // $('.like-btn').html(''+data.likes+'<i class="fa fa-thumbs-up"></i>');
-    $('.like-btn'+data.questionId).html(''+data.likes+' <i class="fa fa-thumbs-up"></i>');
-})

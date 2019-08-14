@@ -261,12 +261,12 @@ $('.send-reply-btn').on('click',function(){
         type:'POST',
         url: "/room/reply/",
         data:
-        $(this).parents().parents().serialize(),
+        $(this).parents('.reply-form').serialize(),
         success: function(data) {
             console.log(answer);
             answer.append(
             '<div class="reply-item">'+
-                '<div class="user"><i class="fa fa-user"></i> '+username+'</div>'+
+                '<div class="user" style="color: #20b875"><i class="fa fa-user"></i> '+username+' - Host</div>'+
                 '<div class="reply-date">'+time+'</div>'+
 
                 '<div class="">'+content+'</div>'+
@@ -276,7 +276,6 @@ $('.send-reply-btn').on('click',function(){
             button.val('');
         },
         error: function(data) {
-            alert('fail');
         }
     })
 })

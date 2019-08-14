@@ -161,8 +161,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ trans('message.name') }}</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="un" name="un"required>
-                                <span class="text-danger name-error">Name must be less than 30 characters</span>
+                                <input type="text" class="form-control" id="un" name="un"required maxlength="30">
                             </div>
                             
                         </div>
@@ -185,24 +184,24 @@
 
     <footer>
     <div class="footer_pd row_pd">
-            <div class="row align-items-center" style="text-align:center">
-                <div class="change-language col-12 col-md-4">
-                    <a href="/lang/en" class="">
-                        <img src="{{ asset('img/united-states.png')}}" alt="">
-                        English
-                    </a>
-                    <span>|</span>
-                    <a href="/lang/vi" class="">
-                        <img src="{{ asset('img/vietnam.jpg')}}" alt="">
-                            Tiếng Việt
-                    </a>
-                </div>
-                <div class="ul-flex-decoration col-12 col-md-8">
-                    VLask | Designed by 5Bs
-                </div>
-
+        <div class="row align-items-center" style="text-align:center">
+            <div class="change-language col-12 col-md-4">
+                <a href="/lang/en" class="">
+                    <img src="{{ asset('img/united-states.png')}}" alt="">
+                    English
+                </a>
+                <span>|</span>
+                <a href="/lang/vi" class="">
+                    <img src="{{ asset('img/vietnam.jpg')}}" alt="">
+                        Tiếng Việt
+                </a>
             </div>
+            <div class="ul-flex-decoration col-12 col-md-8">
+                VLask | Designed by 5Bs
+            </div>
+
         </div>
+    </div>
     </footer>
 </body>
 

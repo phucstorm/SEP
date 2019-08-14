@@ -14,6 +14,10 @@
 .event-sidebar-info div {
     color: #ffffff!important;
 }
+.row {
+    margin: 0!important;
+    padding: 0!important;
+}
 .event-name {
     font-size: 1.4em;
     color: #ffffff;

@@ -6,17 +6,17 @@
 @section('content')
 <div class="container">
     <div class="question-nav">
-        <div class="title-part live">Live</div>
-        <div class="title-part incoming">Incoming</div>
+        <div class="title-part live">{{ trans('message.live') }}</div>
+        <div class="title-part incoming">{{ trans('message.incoming') }}</div>
     </div>
     <div class="row question">
         <div class="question-item-reviewing">
             <div class="moderation-title">
                 <div class="title-part">
-                    Incoming
+                {{ trans('message.incoming') }}
                 </div>
                 <div class="flex-item">
-                    Moderation
+                {{ trans('message.moderation-mode') }}
                 </div>
             </div>
             <div class="content">
@@ -41,10 +41,13 @@
             </div>
         </div>
         <div class="question-item-accepted">
-            <div class="title-part">Live -  {{$count}} questions</div>
+            <div class="title-part d-flex justify-content-between">
+                <div>{{ trans('message.live') }}</div>
+                <div>{{$count}} {{ trans('message.questions') }}</div>
+            </div>
             <div class="accept">
             
-                @foreach($question as $key => $value)
+                @foreach($question->sortByDesc('created_at') as $key => $value)
                 @if($value->status == 1)
                 <div class="question-item">
                     <div class="question-like">
@@ -61,14 +64,14 @@
                             <div style="margin-right:1em">
                                 <button class="reply-btn" type="button" data-id="{{$value->id}}"
                                     data-content="{{$value->content}}" data-toggle="modal" data-target="#reply{{$value->id}}"><i
-                                        class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+                                        class="fa fa-reply" aria-hidden="true"></i> {{ trans('message.reply') }}</button>
                             </div>
 
                         </div>
                     </div>
                     <div class="delete-question-btn">
                         <button class="item-action delete-item" data-toggle="modal" data-target="#delete_question"
-                            data-id="{{$value->id}}">
+                            data-id="{{$value->id}}" data-name="{{$value->content}}">
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -79,10 +82,11 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <form action="/room/reply/{{$value->id}}" class="reply-form" enctype="multipart/form-data" method="post">
-                            @csrf
-                            <input type="text" name="question-id" value="{{$value->id}}" hidden>
+                                @csrf
+                                <input type="text" name="question-id" value="{{$value->id}}" hidden>
 
-                            <input type="text" name="username" value="{{ Auth::user()->name }} - Host" hidden>
+                                <input type="text" name="username" value="{{ Auth::user()->name }}" hidden>
+                                <input type="text" name="userid" value="{{ Auth::user()->id }}" hidden>
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="title">{{$value->content}}</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -92,7 +96,11 @@
                                 <div class="modal-body">
                                     @foreach($value->replies as $reply)
                                     <div class="reply-item">
-                                        <div class="user"><i class="fa fa-user"></i> {{$reply->user_name}}</div>
+                                        @if($reply->user_id !="")
+                                            <div class="user" style="color: #20b875"><i class="fa fa-user"></i> {{$reply->user_name}} - Host</div>
+                                        @else
+                                            <div class="user"><i class="fa fa-user"></i> {{$reply->user_name}}</div>
+                                        @endif
                                         <div class="reply-date">{{$reply->created_at}}</div>
 
                                         <div class="">{{$reply->rep_content}}</div>
@@ -101,9 +109,8 @@
                                     @endforeach
                                 </div>
                                 <div class="footer">
-                                        <textarea placeholder="Type your answer here..." name="reply" class="input-answer"
+                                        <textarea placeholder="{{ trans('message.type-your-answer') }}" name="reply" class="input-answer"
                                         type="text" required></textarea>
-
                                         <button class="reply-btn send-reply-btn" type="submit"><i class="fa fa-paper-plane"
                                         aria-hidden="true"></i></button>
                                 </div>
@@ -126,11 +133,11 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                Would you like to permanently delete this question?
+                            {{ trans('message.message-del-question') }}
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-danger" id="del_ques">Delete</button>
+                                <button type="button" class="btn btn-light" data-dismiss="modal">{{ trans('message.cancel-btn') }}</button>
+                                <button type="button" class="btn btn-danger" id="del_ques">{{ trans('message.delete-btn') }}</button>
                             </div>
                         </div>
                     </div>

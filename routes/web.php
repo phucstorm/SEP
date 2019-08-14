@@ -54,6 +54,7 @@ Route::get('/room/like/{question_id}','QuestionController@like_question');
 Route::get('/room/unlike/{question_id}','QuestionController@unlike_question');
 
 //like and unlike for attendee
+Route::get('/room/showreply/{question_id}', 'GuestController@showReplies');
 Route::get('/room/guest/like/{question_id}','GuestController@like_question');
 Route::get('/room/guest/unlike/{question_id}','GuestController@unlike_question');
 

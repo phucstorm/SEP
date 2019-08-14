@@ -41,11 +41,15 @@ class QuestionController extends Controller
         $reply = $_POST['reply'];
         $question = Question::find($question_id);
         $username = $_POST['username'];
+        $userid = $_POST['userid'];
         $question->replies()->create([
             'question_id' => $question_id,
             'rep_content' => $reply,
-            'user_name' => $username
+            'user_name' => $username,
+            'user_id' => $userid
         ]);
+
+        
         return redirect()->back();
     }
 
