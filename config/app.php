@@ -162,6 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        Metrogistics\AzureSocialite\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -227,6 +228,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'Pusher' => Pusher\Pusher::class,
+        'AzureUser' => Metrogistics\AzureSocialite\AzureUserFacade::class,
     ],
 
 ];

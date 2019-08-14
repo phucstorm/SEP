@@ -34,7 +34,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item scrollto-btn"">
+                        <li class="nav-item scrollto-btn">
                             <button class="nav-link scrollto-btn">{{ trans('message.login') }}</button>
                         </li>
                         <li class="nav-item scrollto-btn">
@@ -56,7 +56,7 @@
                 <div class="description_content">
                     <div class="row_content">
                         <p style="text-align: center;">
-                            <span>{{ trans('message.slogan') }}</span>
+                            <span>{{ trans('message.slogan') }} </span>
                         </p>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Response, Validator;
@@ -22,8 +22,9 @@ class EventController extends Controller
 
     public function index(){
         $event = User::findOrFail(auth()->user()->id);
+        $viewData = $this->loadViewData();
         // $event = Event::where('user_id', '=',Auth::user()->id)->get();
-        return view('event.index',compact('event'));
+        return view('event.index',compact('event', 'viewData'));
     }
 
     public function create(Request $request){
@@ -104,7 +105,12 @@ class EventController extends Controller
     }
 
     public function search(Request $request){ 
-        $event = Event::where('event_name','like', '%'.$request->get('search').'%')->where('user_id', '=', Auth::user()->id)->orderBy('created_at','DESC')->get();
-        return view('event.index', compact('event', $event));
+        // if(session('userName')){
+        //     return view('event.index');
+        // }else{
+            $event = Event::where('event_name','like', '%'.$request->get('search').'%')->where('user_id', '=', Auth::user()->id)->orderBy('created_at','DESC')->get();
+            return view('event.index', compact('event', $event));
+        // }
+
     }
 }

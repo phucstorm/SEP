@@ -15,6 +15,7 @@ use App\Events\FormSubmitted;
 Route::get('/', ['middleware' =>'guest', function(){
     return view('index');
   }]);
+
 Auth::routes();
 
 // User Function
@@ -70,3 +71,8 @@ Route::post('/room/poll/revote/', 'GuestController@revote');
 Route::get('demo-pusher','FrontEndController@getPusher');
 // Truyển message lên server Pusher
  Route::get('fire-event','FrontEndController@fireEvent');
+
+
+Route::get('/signin', 'AuthController@signin');
+Route::get('/callback', 'AuthController@callback');
+Route::get('/signout', 'AuthController@signout');
