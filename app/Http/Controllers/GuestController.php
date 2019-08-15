@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Events\FormSubmitted;
 use App\Events\VoteSubmitted;
 use App\Events\LikeQuestion;
+use App\Events\SubmitQuestion;
 use App\Event;
 use App\Question;
 use App\Poll_Question;
@@ -29,38 +30,81 @@ class GuestController extends Controller
             return "You don't have a permission to join this room";
         }     
     }
-
+    public function getQuestion($event_id){
+        $event = Event::find($event_id);
+        $data = array();
+        $i = 0;
+        foreach($event->questions as $question){
+            if($question->status == 1){
+                $data[$i] = [
+                    'name' => $question->user_name,
+                    'date' => $question->created_at,
+                    'content' => $question->content,
+                    'like' => $question->like,
+                    'id' => $question->id
+                ];
+                $i += 1;
+            }
+        }
+        return response()->json($data);
+    }
     //Attendee input question and submit
-    public function postQuestion(Request $request)
+    public function postQuestion()
     {
-        $question = request()->question;
-        if($question == ""){
-            return redirect()->back()->with('alert','You must type question'); 
-            
+        $eventId = $_POST['event_id'];
+        $event = Event::find($eventId);
+        $content = $_POST['question'];
+        $name = $_POST['user_name'];
+        if($event->setting_anonymous == 0 && $name == ""){
+            return 'error anonymous';
+        }else if($content==""){
+            return 'empty';
         }else{
-            if(request()->user_name != ""){
-                $user_name = request()->user_name;
-            }else{
-                $user_name = "Anonymous";
+            if($name == ""){
+                $name = 'Anonymous';
             }
-            $event = Event::find(request()->event_id);
-            $qt = new Question;
-            $qt->event_id = request()->event_id;
-            $qt->content = $question;
-            $qt->user_name = $user_name;
             if($event->setting_moderation==0){
-                $qt->status = 1;
+                $status = 1;
             }else{
-                $qt->status = 0;
+                $status = 0;
             }
-            $qt->like = 0;
-            $qt->save();
-            if($event->setting_moderation==1){
-            }
-            event(new FormSubmitted($qt->id,$qt->content, $user_name, request()->event_id, $qt->created_at));
+            $event->questions()->create([
+                'event_id' => $eventId,
+                'content' => $content,
+                'user_name' => $name,
+                'like' => 0,
+                'status' => $status
+            ]);
+            event(new FormSubmitted());
+        }
+        // return '1234';
+        // $question = request()->question;
+        // if($question == ""){
+        //     return redirect()->back()->with('alert','You must type question'); 
+            
+        // }else{
+        //     if(request()->user_name != ""){
+        //         $user_name = request()->user_name;
+        //     }else{
+        //         $user_name = "Anonymous";
+        //     }
+        //     $event = Event::find(request()->event_id);
+        //     $qt = new Question;
+        //     $qt->event_id = request()->event_id;
+        //     $qt->content = $question;
+        //     $qt->user_name = $user_name;
+        //     if($event->setting_moderation==0){
+        //         $qt->status = 1;
+        //     }else{
+        //         $qt->status = 0;
+        //     }
+        //     $qt->like = 0;
+        //     $qt->save();
 
-            return redirect()->back();
-        } 
+           
+
+        //     return redirect()->back();
+        // } 
     }
 
     public function poll_question($event){
@@ -154,9 +198,8 @@ class GuestController extends Controller
         $ques->save();
 
         $likes = $ques->like;
-        // return response()->json($likes);
         event(new LikeQuestion($question_id, $likes));
-        // return redirect()->back();
+        return response()->json($question_id);
     }
 
     public function unlike_question($question_id){
@@ -164,9 +207,7 @@ class GuestController extends Controller
         $ques->like -= 1;
         $ques->save();
         $likes = $ques->like;
-        // return response()->json($likes);
         event(new LikeQuestion($question_id, $likes));
-        // return redirect()->back();
     }
     public function showReplies($question_id){
         // $questionId = $request->question_id;
@@ -192,15 +233,22 @@ class GuestController extends Controller
         $reply = $_POST['reply'];
         $question = Question::find($question_id);
         $username = $_POST['username'];
-        if($username==""){
-            $username = "Anonymous";
+        $event = $question->event;
+        if($event->setting_anonymous==0 && $username==""){
+            return "error anonymous";
+        }else if($reply==""){
+            return "empty";
+        }else{
+            if($username==""){
+                $username = "Anonymous";
+            }
+            $question->replies()->create([
+                'question_id' => $question_id,
+                'rep_content' => $reply,
+                'user_name' => $username
+            ]);
         }
-        $question->replies()->create([
-            'question_id' => $question_id,
-            'rep_content' => $reply,
-            'user_name' => $username
-        ]);
-        return response()->json($question_id);
+        return response()->json($event->id);
         return redirect()->back();
     }
     

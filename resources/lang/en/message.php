@@ -93,6 +93,9 @@ return [
     'votes' => 'Votes',
     'incoming' => 'Incoming',
     'moderation-mode' => 'Moderation',
+    'not-allow-ask' => 'You are not allow to ask right now!',
+    'moderation-on' => 'Moderation: On',
+    'moderation-off' => 'Moderation: Off'
 
     
 

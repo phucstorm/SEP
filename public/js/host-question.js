@@ -13,3 +13,37 @@ $('.question-nav .live').click(function(){
     $('.question-nav .live').css('font-weight', '700');
     $('.question-nav .incoming').css('font-weight', '300');
 })
+
+// /room/question/accept/" + data[i].id
+// accept
+acceptQuestion = function(){
+    $('.accept-btn').on('click', function(){
+        $.ajax({
+            url: "/room/question/accept/"+ $(this).attr('data-id'),
+            success: function(data){
+
+            },
+            error: function(data){
+
+            }
+            
+        })
+    })
+}
+denyQuestion = function(){
+    $('.deny-btn').on('click', function(){
+        $.ajax({
+            url: "/room/question/denied/"+ $(this).attr('data-id'),
+            success: function(data){
+
+            },
+            error: function(data){
+
+            }
+            
+        })
+    })
+}
+$(document).ready(function() {
+    getQuestion();
+});

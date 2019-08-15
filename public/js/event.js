@@ -8,6 +8,7 @@ $(".submit-form").submit(function(e){
     e.preventDefault();
 });
 
+
 $('#add-new-event-btn').click(function() {
     var startdate = new Date($('.create-start-date').val());
     var dateNow = new Date();
@@ -280,25 +281,62 @@ $('.send-reply-btn').on('click',function(){
         }
     })
 })
-
+//get replies
+getReplies = function(){
+    $('.reply-button').on('click', function(){
+        $('.modal-reply').html('');
+        $('#questionIdInput').attr('value',$(this).attr('data-id'));
+        $('.question-reply-title').html($(this).attr('data-name'));
+        $.ajax({
+            url: '/room/host/showreply/'+$(this).attr('data-id'),
+            success: function(data) {
+                for (var i=0; i<data.length; i++){
+                    var date = moment.parseZone(data[i].date).format("YYYY-MM-DD HH:mm:ss");
+                    if(data[i].host!=null){
+                        $('.modal-reply').append(
+                            '<div class="reply-item">'+
+                                '<div class="user" style="color: #20b875"><i class="fa fa-user"></i> '+data[i].name+' - Host</div>'+
+                                '<div class="reply-date">'+date+'</div>'+
+                                '<div>'+data[i].content+'</div>'+
+                            '</div>'
+                        )
+                    }else{
+                        $('.modal-reply').append(
+                            '<div class="reply-item">'+
+                                '<div class="user"><i class="fa fa-user"></i> '+data[i].name+'</div>'+
+                                '<div class="reply-date">'+date+'</div>'+
+                                '<div>'+data[i].content+'</div>'+
+                            '</div>'
+                        )
+                    }
+                }
+            },
+            error: function(data) {
+                alert('fail'+ data[1].id);
+            }
+        })
+    })
+}
 //Like question
-    $('.like-btn').on('click', function() {
-        if($(this).hasClass("is-not-liked")){
-            $.ajax({
-                url: "/room/like/" + $(this).val(),
-            });
-            $(this).removeClass("is-not-liked")
-            $(this).addClass("is-liked");
-            localStorage.setItem('isliked'+$(this).val(), true);
-        }else{
-            $.ajax({
-                url: "/room/unlike/" + $(this).val(),
-            });
-            $(this).addClass("is-not-liked");
-            $(this).removeClass("is-liked");
-            localStorage.setItem('isliked'+$(this).val(), false);
-        }
-    });
+    likeQuestion = function(){
+        $('.like-btn').on('click', function() {
+            if($(this).hasClass("is-not-liked")){
+                $.ajax({
+                    url: "/room/like/" + $(this).val(),
+                });
+                $(this).removeClass("is-not-liked")
+                $(this).addClass("is-liked");
+                localStorage.setItem('isliked'+$(this).val(), true);
+            }else{
+                $.ajax({
+                    url: "/room/unlike/" + $(this).val(),
+                });
+                $(this).addClass("is-not-liked");
+                $(this).removeClass("is-liked");
+                localStorage.setItem('isliked'+$(this).val(), false);
+            }
+        });
+    }
     loadLike = function(){
         var likedButton = $('.like-btn');
         for(var i=0; i<likedButton.length; i++){
@@ -311,6 +349,8 @@ $('.send-reply-btn').on('click',function(){
     }
     $(document).ready(function() {
         loadLike();
+        getReplies();
+        likeQuestion();
     });
 // Create Poll
 $('#create-poll').click(function() {
@@ -394,6 +434,8 @@ $('button[id=edit-poll]').click(function() {
     console.log('this');
 });
 
+
+
 //listen channel live
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
@@ -401,24 +443,6 @@ Pusher.logToConsole = true;
 var pusher = new Pusher('9ca3866fa2e26a25d235', {
     cluster: 'ap1',
     forceTLS: true
-});
-
-var channel = pusher.subscribe('my-channel');
-channel.bind('form-submitted', function (data) {
-    var date = moment.parseZone(data.created_at).format("YYYY-MM-DD HH:mm:ss");
-    $('.content').append(
-        "<div class='question-item'>" +
-            "<div class='question-username'>"+
-                "<i class=' fa fa-user'></i> "+ data.user_name+
-            "</div>"+
-            "<div class='question-date'>"+date+"</div>"+
-            "<div class='question-content'>"+data.question+"</div>"+
-        "<div class='check-question'>" +
-        "<a href='/room/question/accept/" + data.id + "'><i class='fa fa-check-circle-o text-success' aria-hidden='true'></i></a> " +
-        "<a href='/room/question/denied/" + data.id + "'><i class='fa fa-times-circle-o text-success' aria-hidden='true'></i></a>" +
-        "</div>"+
-        "</div>"
-    );
 });
 
 var votes = pusher.subscribe('vote-channel');

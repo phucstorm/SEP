@@ -41,7 +41,7 @@ class SubmitQuestion
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('question-channel');
+        return new Channel('question-channel');
     }
 
     public function broadcastAs(){

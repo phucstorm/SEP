@@ -32,6 +32,7 @@
 
 <body>
         <header>
+        <input id="this-event-id" value="{{$event->id}}" hidden>
             <div class='navbar_info'>
                 <div class="sidebar-toggle">
                     <i class="fa fa-bars" ></i>
@@ -97,6 +98,41 @@
         </div>
     </footer>      
     <script>
+
+        getQuestion = function(){
+            $.ajax({
+                url: '/room/getquestion/'+$('#this-event-id').val(),
+                success: function(data){
+                    $('.popular-question').html('');
+                    $('.accept').html('');
+                    for (var i=0; i<data.length; i++){
+                        var date = moment.parseZone(data[i].date).format("YYYY-MM-DD HH:mm:ss");
+                            $('.popular-question').append(
+                                '<div class="question-container">'+
+                                    '<div class="question-info">'+
+                                        '<div class="question-username"><i class="fa fa-user"></i> '+data[i].name+'</div>'+
+                                        '<div class="question-date">'+date+'</div>'+
+                                        '<div class="question-content">'+data[i].content+'</div>'+
+                                    '</div>'+
+                                    '<div class="question-like">'+
+                                        '<button class="like-btn'+data[i].id+' like-btn is-not-liked" value="'+data[i].id+'">'+data[i].like+' <i class="fa fa-thumbs-up"></i></button>'+
+                                    '</div>'+
+                                    '<button class="btn reply-btn" type="button" data-id="'+data[i].id+'" data-name="'+data[i].content+'" data-toggle="modal" data-target="#replyQuestion">'+
+                                    '<i class="fa fa-reply" aria-hidden="true"></i> <?php echo e(trans('message.reply')); ?></button>'+
+                                '</div>'
+                            );
+                    }
+                    likeQuestion();
+                    getReplies();
+                    loadLike();
+
+                },
+                error: function(data){
+                    alert('fail'+data);
+                }
+            })
+
+        }
         Pusher.logToConsole = true;
 
         var pusher = new Pusher('9ca3866fa2e26a25d235', {
@@ -105,28 +141,8 @@
         });
         var channel = pusher.subscribe('my-channel');
         channel.bind('form-submitted', function (data) {
-            // if(data.event_id==<?php echo ($event->id); ?>){
-            var date = moment.parseZone(data.created_at).format("YYYY-MM-DD HH:mm:ss");
-            $('.question-list.popular-question').prepend(
-                "<div class='question-container'>"+
-                "<div class='question-info'>"+
-                    "<div class='question-username'><i class='fa fa-user'></i> "+data.user_name+"</div>"+
-                    "<div class='question-date'>"+date+"</div>"+
-                    "<div class='question-content'>"+data.question+"</div>"+
-                "</div>"+
-                "<div class='question-like'>"+
-                    "<button class='like-btn"+data.id+" like-btn is-not-liked' value='"+data.id+"'>0 <i class='fa fa-thumbs-up'></i></button>"+
-                "</div>"+
-                "<button class='btn reply-btn' type='button' data-toggle='modal' data-target='#replyQuestion' data-id="+data.id+" data-name="+data.question+">"+
-                    "<i class='fa fa-reply' aria-hidden='true'></i> <?php echo e(trans('message.reply')); ?></button>"+
-            "</div>"
-            );
-            likeQuestion();
-            getReplies();
-
+            getQuestion();
         });
-        alert('event'+<?php echo ($event->id); ?>);
-        alert('data'+data.event_id);
         // }
 
         //like
@@ -135,6 +151,7 @@
             // $('.like-btn').html(''+data.likes+'<i class="fa fa-thumbs-up"></i>');
             $('.like-btn'+data.questionId).html(''+data.likes+' <i class="fa fa-thumbs-up"></i>');
         })
+
     </script>
 </body>
 

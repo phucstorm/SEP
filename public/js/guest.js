@@ -57,6 +57,35 @@ function updateCount() {
 $('poll-btn').removeClass('is-active');
 $('.question-btn').addClass('is-active');
 
+// send question
+$('.error-anonymous').hide();
+$('.error-empty').hide();
+var sendQuestion = function(){
+    $('.send-question-btn').on('click', function(){
+        $.ajax({
+            type: 'POST',
+            url: "/room",
+            data: $('.question-form').serialize(),
+            success: function(data){
+                if(data == "error anonymous"){
+                    $('.error-anonymous').show();
+                    $('.error-empty').hide();
+                }else if(data == "empty"){
+                    $('.error-anonymous').hide();
+                    $('.error-empty').show();
+                }else{
+                    $('.input-question').val('');
+                    $('.error-anonymous').hide();
+                    $('.error-empty').hide();
+                }
+            },
+            error: function(data){
+                alert('fail')
+            }
+        })
+    })
+}
+
 //Like question
 likeQuestion = function(){
     $('.like-btn').on('click', function() {
@@ -97,6 +126,7 @@ getReplies = function(){
         $.ajax({
             url: 'room/showreply/'+$(this).attr('data-id'),
             success: function(data) {
+
                 for (var i=0; i<data.length; i++){
                     var date = moment.parseZone(data[i].date).format("YYYY-MM-DD HH:mm:ss");
                     if(data[i].host!=null){
@@ -129,12 +159,16 @@ $(document).ready(function() {
     loadLike();
     likeQuestion();
     getReplies();
+    getQuestion();
+    sendQuestion();
 });
 
 $('.reply-form').submit(function(e){
     e.preventDefault();
 })
 ////Reply question
+$('.error-ans-anonymous').hide();
+$('.error-ans-empty').hide();
 $('.send-reply-btn').on('click',function(){
     var button = $(this).parents('.footer').children('div').children('.input-answer');
     var answer = $(this).parents().children('.modal-body');
@@ -151,17 +185,27 @@ $('.send-reply-btn').on('click',function(){
         data:
         $(this).parents().parents().serialize(),
         success: function(data) {
-            console.log(answer);
-            answer.append(
-            '<div class="reply-item">'+
-                '<div class="user"><i class="fa fa-user"></i> '+username+'</div>'+
-                '<div class="reply-date">'+time+'</div>'+
+            if(data=="error anonymous"){
+                $('.error-ans-anonymous').show();
+                $('.error-ans-empty').hide();
+            }else if(data=="empty"){
+                $('.error-ans-anonymous').hide();
+                $('.error-ans-empty').show();
+            }else{
+                answer.append(
+                    '<div class="reply-item">'+
+                        '<div class="user"><i class="fa fa-user"></i> '+username+'</div>'+
+                        '<div class="reply-date">'+time+'</div>'+
+        
+                        '<div class="">'+content+'</div>'+
+        
+                    '</div>'
+                    );
+                    button.val('');
+                    $('.error-ans-anonymous').hide();
+                    $('.error-ans-empty').hide();
+            }
 
-                '<div class="">'+content+'</div>'+
-
-            '</div>'
-            );
-            button.val('');
         },
         error: function(data) {
             alert('fail');
@@ -175,23 +219,6 @@ var pusher = new Pusher('9ca3866fa2e26a25d235', {
     cluster: 'ap1',
     forceTLS: true
 });
-// var channel = pusher.subscribe('my-channel');
-// channel.bind('form-submitted', function (data) {
-//     var date = moment.parseZone(data.created_at).format("YYYY-MM-DD HH:mm:ss");
-//     $('.question-list.popular-question').prepend(
-//         "<div class='question-container'>"+
-//         "<div class='question-info'>"+
-//             "<div class='question-username'><i class='fa fa-user'></i> "+data.user_name+"</div>"+
-//             "<div class='question-date'>"+date+"</div>"+
-//             "<div class='question-content'>"+data.question+"</div>"+
-//         "</div>"+
-//         "<div class='question-like'>"+
-//             "<button class='like-btn"+data.id+" like-btn is-not-liked' value='"+data.id+"'>0 <i class='fa fa-thumbs-up'></i></button>"+
-//         "</div>"+
-//         "<button class='btn reply-btn' type='button' data-toggle='modal' data-target=''>"+
-//             "<i class='fa fa-reply' aria-hidden='true'></i> <?php echo e(trans('message.reply')); ?></button>"+
-//     "</div>"
-//     );
-//     likeQuestion();
-// });
+
+
 

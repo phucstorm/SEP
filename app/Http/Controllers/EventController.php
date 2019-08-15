@@ -62,7 +62,7 @@ class EventController extends Controller
 
     public function edit(Request $request){
         $event = Event::find($request->id); 
-        return response()->json($request->id);
+
         $ifExist = Event::where('event_code', '=', $request->event_code)->get();
         if(count($ifExist) > 0 && $ifExist[0]->id != $event->id){
             return "Mã event đã tồn tại";
@@ -83,13 +83,11 @@ class EventController extends Controller
         }
     }
 
-    public function show(Request $request){
-        
+    public function show(Request $request){      
         $event = Event::where('event_code', '=', $request->event_code)->firstOrFail();
         $question = Question::where('event_id','=',$event->id)->get();
         $count = $question->where('status', 1)->count();
 
-        if($event->setting_join == 1 ){
             $question = Question::where('event_id', '=' , $event->id)->get();
 
             $reply = Reply::all();
@@ -98,10 +96,25 @@ class EventController extends Controller
                         ->rightjoin('replies', 'questions.id', '=', 'replies.question_id')
                         ->get();
             // return response()->json($result);
-            return view('event.detail', compact('question',$question,'event' ,$event,'result', $result, 'count', $count));    
-        }else{
-            return "Bạn đã khóa event này";
+            return view('event.detail', compact('question',$question,'event' ,$event,'result', $result, 'count', $count));       
+    }
+
+    public function getQuestion($event_id){
+        $event = Event::find($event_id);
+        $data = array();
+        $i = 0;
+        foreach($event->questions as $question){
+            $data[$i] = [
+                'name' => $question->user_name,
+                'date' => $question->created_at,
+                'content' => $question->content,
+                'status' => $question->status,
+                'like' => $question->like,
+                'id' => $question->id
+            ];
+            $i += 1;
         }
+        return response()->json($data);
     }
 
     public function search(Request $request){ 

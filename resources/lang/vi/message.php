@@ -4,7 +4,7 @@ return [
     'login' => 'ĐĂNG NHẬP',
     'logout' => 'Đăng xuất',
     'signup' => 'ĐĂNG KÝ',
-    'slogan' => 'Một Nền Tảng Nổi Bật Hỗ Trợ Đặt Câu Hỏi và Bình Chọn cho Mọi Cuộc Họp và Sự Kiện',
+    'slogan' => 'Một Nền Tảng Nổi Bật hỗ trợ việc Đặt Câu Hỏi và Khảo Sát dành cho Mọi Cuộc Họp và Sự Kiện',
     'join-textbox' => 'Mã sự kiện',
     'join-btn' => 'THAM GIA',
     'title-question' => 'Đăt câu hỏi ẩn danh và dễ dàng kiểm soát câu hỏi',
@@ -54,9 +54,9 @@ return [
     'moderation-check' => 'Duyệt câu hỏi',
     'anonymous-check' => 'Ẩn danh',
     'saveChange-btn' => 'Lưu thay đỏi',
-    'message-del' => 'Bạn có chắc xóa sự kiện này?',
-    'message-del-poll' => 'Bạn có chắc xóa cuộc bình chọn này?',
-    'message-del-question' => 'Bạn có chắc xóa câu hỏi này?',
+    'message-del' => 'Bạn có chắc chắn xóa sự kiện này?',
+    'message-del-poll' => 'Bạn có chắc chắn xóa cuộc bình chọn này?',
+    'message-del-question' => 'Bạn có chắc chắn xóa câu hỏi này?',
     'delete-btn' => 'Xóa',
     'qrcode' => 'Mã QR',
     'question-tab' => 'CÂU HỎI',
@@ -91,6 +91,10 @@ return [
     'votes' => 'Tổng số phiếu',
     'incoming' => 'Câu hỏi đang chờ',
     'moderation-mode' => 'Chế độ kiểm duyệt',
+    'not-allow-ask' => 'Bạn không được phép đặt câu hỏi ngay lúc này!',
+    'moderation-on' => 'Kiểm duyệt câu hỏi: Đang bật',
+    'moderation-off' => 'Kiểm duyệt câu hỏi: Đã tắt'
+
     
 
 

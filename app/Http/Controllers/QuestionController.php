@@ -26,13 +26,37 @@ class QuestionController extends Controller
         $qt = Question::find($id);
         $qt->status = 1;
         $qt->save();
-        event(new FormSubmitted($qt->id,$qt->content, $qt->user_name, $qt->event_id,$qt->created_at));
+        event(new FormSubmitted());
         return redirect()->back();
     }
 
     public function denied($id){
         $qt = Question::find($id)->delete();
+        event(new FormSubmitted());
         return redirect()->back();
+    }
+
+    public function getQuestion(){
+        
+    }
+
+    public function showReplies($question_id){
+        // $questionId = $request->question_id;
+        $question = Question::find($question_id);
+        $data = array();
+        $i=0;
+        foreach($question->replies as $reply){
+            $data[$i] = [
+                'name' => $reply->user_name,
+                'date' => $reply->created_at,
+                'host' => $reply->user_id,
+                'content' => $reply->rep_content
+            ];
+            $i += 1;
+        };
+        $content = $question->content;
+        return response()->json($data);
+
     }
 
     public function reply_question(){

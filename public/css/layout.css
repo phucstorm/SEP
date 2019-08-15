@@ -684,7 +684,7 @@ input:-webkit-autofill-selected {
         order: 2;
     }
     .form-event-optional .form-group{
-        margin-left: 150px;
+        margin-left: 150px!important;
     }
 }
 

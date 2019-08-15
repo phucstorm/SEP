@@ -34,6 +34,7 @@ Route::post('admin/event/create', 'EventController@create');
 Route::post('/admin/event/delete', 'EventController@delete');
 Route::post('admin/event/edit', 'EventController@edit');
 Route::get('admin/event/{event_code}', 'EventController@show');
+Route::get('admin/getquestion/{event_id}', 'EventController@getQuestion');
 
 //Search Event Room : /room for guest , /admin/event for host
 Route::get('/admin/event' , 'EventController@search');
@@ -47,7 +48,8 @@ Route::get('/room/question/denied/{id}' , 'QuestionController@denied');
  
 Route::get('/room/poll/{event_code}' , 'PollAnswerController@index');
 
-
+Route::get('/room/getquestion/{event_id}', 'GuestController@getQuestion');
+Route::get('/room/host/showreply/{question_id}', 'QuestionController@showReplies');
 Route::post('/room/reply/', 'QuestionController@reply_question');
 Route::post('/guest/reply/', 'GuestController@reply_question');
 Route::get('/room/like/{question_id}','QuestionController@like_question');
