@@ -27,6 +27,7 @@
 </head>
 
 <body>
+    @auth
     <div class="opacity_menu"></div>
     <nav class="sidebar-navigation">
         <div class='host-info'>
@@ -50,7 +51,7 @@
             </li>
         </ul>
     </nav>
-
+    @endauth
     <header>
         @auth
         <div class='navbar_info'>

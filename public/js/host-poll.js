@@ -22,7 +22,7 @@ $('.plus-answer').click(function() {
     'name="poll_answer[]" '+
     'value="" '+
     'autocomplete="poll_answer" '+
-    'autofocus required>'+
+    'autofocus required maxlength="160">'+
     '<button type="button" class="delete-poll-answer-btn"><i class="fa fa-trash"></i></button></div>'
     $('.poll-answer').append(answer);
 });
@@ -34,7 +34,7 @@ $('.plus-new-answer').click(function() {
     'name="new_poll_answer[]" '+
     'value="" '+
     'autocomplete="poll_answer" '+
-    'autofocus required>'+
+    'autofocus required maxlength="160">'+
     '<button type="button" class="delete-poll-answer-btn"><i class="fa fa-trash"></i></button></div>'
     $('.poll-answer').append(answer);
 });

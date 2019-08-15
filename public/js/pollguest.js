@@ -150,5 +150,7 @@ votes.bind('vote-submitted', function (data){
 
 var play = pusher.subscribe('play-poll-channel');
 play.bind('play-poll', function (data){
-  window.location.reload();
+  if($('#this-event-id').val()==data.id){
+    window.location.reload();
+  }
 })

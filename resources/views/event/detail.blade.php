@@ -33,6 +33,10 @@
         <div class="question-item-accepted">
             <div class="title-part d-flex justify-content-between">
                 <div>{{ trans('message.live') }}</div>
+                <div class="d-flex justify-content-center">
+                    <div class="sort-item is-selected recent-btn mr-3">Recent</div>
+                    <div class="sort-item popular-btn">Popular</div>
+                </div>
                 <div>{{$count}} {{ trans('message.questions') }}</div>
             </div>
             <div class="accept">
@@ -87,7 +91,7 @@
                                                 </div>
                                                 <div class="footer">
                                                         <textarea placeholder="{{ trans('message.type-your-answer') }}" name="reply" class="input-answer"
-                                                        type="text" required></textarea>
+                                                        type="text" required maxlength="300"></textarea>
                                                         <button class="reply-btn send-reply-btn" type="submit"><i class="fa fa-paper-plane"
                                                         aria-hidden="true"></i></button>
                                                 </div>

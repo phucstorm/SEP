@@ -360,7 +360,12 @@
 
     var channel = pusher.subscribe('my-channel');
     channel.bind('form-submitted', function (data) {
-        getQuestion();
+        if ($(".popular-btn").hasClass("is-selected")) {
+            getPopularQuestion();
+        }
+        if ($(".recent-btn").hasClass("is-selected")) {
+            getQuestion();
+        }
     });
     //get question
 getQuestion = function(){
@@ -369,6 +374,82 @@ getQuestion = function(){
         success: function(data){
             $('.content').html('');
             $('.accept').html('');
+            for (var i=0; i<data.length; i++){
+                var date = moment.parseZone(data[i].date).format("YYYY-MM-DD HH:mm:ss");
+                if(data[i].status==0){
+                    $('.content').append(
+                        "<div class='question-item'>" +
+                            "<div class='question-username'>"+
+                                "<i class=' fa fa-user'></i> "+ data[i].name+
+                            "</div>"+
+                            "<div class='question-date'>"+date+"</div>"+
+                            "<div class='question-content'>"+data[i].content+"</div>"+
+                        "<div class='check-question'>" +
+                        "<button class='btn accept-btn' style='font-size: 1em;padding:0' data-id='"+data[i].id+"'><i class='fa fa-check-circle-o text-success' aria-hidden='true'></i></button> " +
+                        "<button class='btn deny-btn' style='font-size: 1em;padding:0' data-id='"+data[i].id+"'><i class='fa fa-times-circle-o text-success' aria-hidden='true'></i></a>" +
+                        "</div>"+
+                        "</div>"
+                    )
+                }else{
+                    $('.accept').append(
+                        '<div class="question-item">'+
+                            '<div class="question-like">'+
+                                '<button class="like-btn'+data[i].id+' like-btn is-not-liked" value="'+data[i].id+'">'+data[i].like+' <i class="fa fa-thumbs-up"></i></button>'+
+                            '</div>'+
+                            '<div class="question-username"><i class="fa fa-user"></i> '+data[i].name+' </div>'+
+                            '<div class="question-date">'+date+'</div>'+
+                            '<div class="question-content">'+data[i].content+'</div>'+
+                            '<div style="display: flex; justify-content: space-between;">'+
+                                '<div class="left-action">'+
+        
+                                '</div>'+
+                                '<div style="float:right; display: flex">'+
+                                    '<div style="margin-right:1em">'+
+                                        '<button class="reply-btn reply-button" type="button" data-id="'+data[i].id+'"'+
+                                            'data-name="'+data[i].content+'" data-toggle="modal" data-target="#replyQuestion">'+
+                                                '<i class="fa fa-reply" aria-hidden="true"></i> <?php echo e(trans('message.reply')); ?></button>'+
+                                    '</div>'+
+        
+                                '</div>'+
+                            '</div>'+
+                            '<div class="delete-question-btn">'+
+                                '<button class="item-action delete-item" data-toggle="modal" data-target="#delete_question"'+
+                                    'data-id="'+data[i].id+'" data-name="'+data[i].content+'">'+
+                                    '<i class="fa fa-times" aria-hidden="true"></i>'+
+                                '</button>'+
+                            '</div>'+
+                        '</div>'
+                    );
+                }
+            }
+            likeQuestion();
+            getReplies();
+            loadLike();
+            acceptQuestion();
+            denyQuestion();
+        },
+        error: function(data){
+            alert('fail'+data);
+        }
+    })
+
+}
+
+getPopularQuestion = function(){
+    $.ajax({
+        url: '/admin/getquestion/'+$('#this-event-id').val(),
+        success: function(data){
+            $('.content').html('');
+            $('.accept').html('');
+            for (var i=0; i<data.length; i++){
+                        for(let j = i + 1; j < data.length; j++){
+                            if(data[j].like > data[i].like){
+                                let t = data[i];
+                                data[i] = data[j];
+                                data[j] = t;
+                            }
+                        }
+                    }
             for (var i=0; i<data.length; i++){
                 var date = moment.parseZone(data[i].date).format("YYYY-MM-DD HH:mm:ss");
                 if(data[i].status==0){

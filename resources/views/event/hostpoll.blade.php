@@ -125,7 +125,7 @@
                                                     name="poll_answer[{{$answer->id}}]" 
                                                     value="{{$answer -> poll_answer_content}}" 
                                                     autocomplete="poll_answer" 
-                                                    autofocus required>
+                                                    autofocus required maxlength="160">
                                                     <button type="button" class="delete-poll-answer-btn"><i class="fa fa-trash"></i></button>
                                                 </div>
                                                 @endforeach
@@ -241,7 +241,7 @@
                                         name="poll_question_content" 
                                         value="{{ old('poll_question_content') }}" 
                                         autocomplete="poll_question_content" 
-                                        autofocus required>
+                                        autofocus required maxlength="200">
                                     @error('poll_question_content')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -256,7 +256,7 @@
                                         name="poll_answer[]" 
                                         value="{{ old('poll_answer') }}" 
                                         autocomplete="poll_answer" 
-                                        autofocus required>
+                                        autofocus required maxlength="160">
                                     @error('poll_answer')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -268,7 +268,7 @@
                                         name="poll_answer[]" 
                                         value="{{ old('poll_answer') }}" 
                                         autocomplete="poll_answer" 
-                                        autofocus required>
+                                        autofocus required maxlength="160">
                                     @error('poll_answer')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

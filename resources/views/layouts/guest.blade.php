@@ -133,6 +133,50 @@
             })
 
         }
+        getPopularQuestion = function(){
+            $.ajax({
+                url: '/room/getquestion/'+$('#this-event-id').val(),
+                success: function(data){
+                    $('.popular-question').html('');
+                    $('.accept').html('');
+                    for (var i=0; i<data.length; i++){
+                        for(let j = i + 1; j < data.length; j++){
+                            if(data[j].like > data[i].like){
+                                let t = data[i];
+                                data[i] = data[j];
+                                data[j] = t;
+                            }
+                        }
+                    }
+                    for (var i=0; i<data.length; i++){
+                        var date = moment.parseZone(data[i].date).format("YYYY-MM-DD HH:mm:ss");
+                            $('.popular-question').append(
+                                '<div class="question-container">'+
+                                    '<div class="question-info">'+
+                                        '<div class="question-username"><i class="fa fa-user"></i> '+data[i].name+'</div>'+
+                                        '<div class="question-date">'+date+'</div>'+
+                                        '<div class="question-content">'+data[i].content+'</div>'+
+                                    '</div>'+
+                                    '<div class="question-like">'+
+                                        '<button class="like-btn'+data[i].id+' like-btn is-not-liked" value="'+data[i].id+'">'+data[i].like+' <i class="fa fa-thumbs-up"></i></button>'+
+                                    '</div>'+
+                                    '<button class="btn reply-btn" type="button" data-id="'+data[i].id+'" data-name="'+data[i].content+'" data-toggle="modal" data-target="#replyQuestion">'+
+                                    '<i class="fa fa-reply" aria-hidden="true"></i> <?php echo e(trans('message.reply')); ?></button>'+
+                                '</div>'
+                            );
+                        }
+
+                    likeQuestion();
+                    getReplies();
+                    loadLike();
+
+                },
+                error: function(data){
+                    alert('fail'+data);
+                }
+            })
+
+        }
         Pusher.logToConsole = true;
 
         var pusher = new Pusher('9ca3866fa2e26a25d235', {
@@ -141,7 +185,12 @@
         });
         var channel = pusher.subscribe('my-channel');
         channel.bind('form-submitted', function (data) {
+            if ($(".popular-btn").hasClass("is-selected")) {
             getQuestion();
+            }
+            if ($(".recent-btn").hasClass("is-selected")) {
+                getPopularQuestion();
+            }
         });
         // }
 

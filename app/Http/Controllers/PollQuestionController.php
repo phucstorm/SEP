@@ -103,16 +103,18 @@ class PollQuestionController extends Controller
             'status-poll' => '',
             'event_id' =>''
         ]);
-        if($data['status-poll']=='play')
+        $event = $poll->event;
+
+        if($data['status-poll']=='play' )
         {
-            Poll_Question::where('status', 1)->update(['status'=>0]);
+            $event->polls()->where('status', 1)->update(['status'=>0]);
             $poll->update(['status'=>1]);         
         }else{
             $poll->update(['status'=>0]);
         }
 
         //live
-        event(new PlayPoll());
+        event(new PlayPoll($event->id));
 
         // $pollGo = Poll_Question::where('status', 1)->first();
         // if($pollGo!=[])

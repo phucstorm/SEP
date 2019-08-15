@@ -44,6 +44,18 @@ denyQuestion = function(){
         })
     })
 }
+$(function() { //run when the DOM is ready
+    $(".sort-item").click(function() {
+        $(".sort-item").removeClass("is-selected");
+        $(this).addClass("is-selected"); //add the class to the clicked element  
+        if ($(".popular-btn").hasClass("is-selected")) {
+            getPopularQuestion();
+        }
+        if ($(".recent-btn").hasClass("is-selected")) {
+            getQuestion();
+        }
+    });
+});
 $(document).ready(function() {
     getQuestion();
 });

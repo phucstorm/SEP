@@ -15,12 +15,10 @@ $(function() { //run when the DOM is ready
         $(".content-nav-tabs-item").removeClass("is-selected");
         $(this).addClass("is-selected"); //add the class to the clicked element  
         if ($(".popular-btn").hasClass("is-selected")) {
-            $(".popular-question").removeClass("display-none");
-            $(".recent-question").addClass("display-none");
+            getQuestion();
         }
         if ($(".recent-btn").hasClass("is-selected")) {
-            $(".popular-question").addClass("display-none");
-            $(".recent-question").removeClass("display-none");
+            getPopularQuestion();
         }
     });
 });

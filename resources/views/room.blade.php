@@ -92,9 +92,9 @@
                                         <div class="text-danger error-ans-empty text-center">You must enter your reply!</div>
                                 <div class="footer">
                                     <div>
-                                        <textarea placeholder="{{ trans('message.type-your-answer') }}" name="reply" class="input-answer"
+                                        <textarea maxlength="300" placeholder="{{ trans('message.type-your-answer') }}" name="reply" class="input-answer"
                                         type="text" required></textarea>
-                                        <input type="text" name="username" class="input-username" placeholder="{{ trans('message.name-attendee') }}">
+                                        <input type="text" name="username" class="input-username" maxlength="30" placeholder="{{ trans('message.name-attendee') }}">
                                     </div>
                                         <button class="btn send-reply-btn" type="submit"><i class="fa fa-paper-plane"
                                         aria-hidden="true"></i></button>

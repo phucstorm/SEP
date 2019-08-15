@@ -78,4 +78,10 @@ Route::post('/room/poll/revote/', 'GuestController@revote');
 // gọi ra trang view demo-pusher.blade.php
 Route::get('demo-pusher','FrontEndController@getPusher');
 // Truyển message lên server Pusher
- Route::get('fire-event','FrontEndController@fireEvent');
+Route::get('fire-event','FrontEndController@fireEvent');
+
+
+ //
+Route::get('/signin', 'AuthController@signin');
+Route::get('/callback', 'AuthController@callback');
+Route::get('/signout', 'AuthController@signout');

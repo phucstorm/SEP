@@ -105,7 +105,7 @@ $(document).on('click', '.edit-event-btn', function() {
             } else {
                 $.ajax({
                     type: 'POST',
-                    url: 'event/edit',
+                    url: '/admin/event/edit',
                     data: {
                         '_token': $('input[name=_token]').val(),
                         'id': event_id,
