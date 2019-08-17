@@ -13,7 +13,7 @@ class EventTableSeeder extends Seeder
     {
         DB::table('events')->insert([
             'event_name' => "Demo01",
-            'event_code' => "code01",
+            'event_code' => "TPPST",
             'event_description' => "This is event for demo",
             'event_link' => "http://localhost:8000/room?room=code01",
             'user_id' => "1",

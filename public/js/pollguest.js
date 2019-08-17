@@ -1,8 +1,8 @@
 $('question-btn').removeClass('is-active');
 $('.poll-btn').addClass('is-active');
-$('.vote-error').hide();
-$('.poll-result').hide();
-$('#resubmit-btn-poll').hide();
+// $('.vote-error').hide();
+// $('.poll-result').hide();
+// $('#resubmit-btn-poll').hide();
 
 $(document).ready(function(){
     $('input[type="checkbox"]'). click(function(){
@@ -35,66 +35,71 @@ $(".poll-form").submit(function(e){
 })
 //Vote poll function
 
-$('#submit-btn-poll').on('click', function(){
-  var answerChecked = $('.check-answer:checked');
-  $.ajax({
-    type: 'POST',
-    url: "/room/poll/vote/",
-    data: 
-      $('.poll-form').serialize()
-    ,
-    success: function(data) {
-      $('.vote-error').hide();
-      $('.poll-form-body').hide();
-      $('.poll-result').show();
-      localStorage.setItem('isvoted'+$('input[name=poll-id]').val(), true);
-    
-      $.each($(".check-answer:checked"), function(){            
-        console.log($(this).val());
-        localStorage.setItem('answerisvoted'+$(this).val(), true);
-      });
-      $.each($(".check-answer:not(:checked)"), function(){            
-        localStorage.setItem('answerisvoted'+$(this).val(), false);
-      });
-            window.location.reload();
-    },
-    error: function(data) {
-      $('.vote-error').show();
-    },
-  });
-})
+votePoll = function(){
+  $('#submit-btn-poll').on('click', function(){
+    var answerChecked = $('.check-answer:checked');
+    $.ajax({
+      type: 'POST',
+      url: "/room/poll/vote/",
+      data: 
+        $('.poll-form').serialize()
+      ,
+      success: function(data) {
+        if (data=="emptyvote"){
+          $('.vote-error').html('Please vote for an answer!')
+        }else{
+          $('.vote-error').html('')
+          localStorage.setItem('isvoted'+$('input[name=poll-id]').val(), true);
+          $.each($(".check-answer:checked"), function(){            
+            // console.log($(this).val());
+            localStorage.setItem('answerisvoted'+$(this).val(), true);
+          });
+          $.each($(".check-answer:not(:checked)"), function(){            
+            localStorage.setItem('answerisvoted'+$(this).val(), false);
+          });
+          isVoted();
+        }
+
+      },
+      error: function(data) {
+        alert('fail '+data)
+      },
+    });
+  })
+}
 
 //revote a poll
-$('#edit-poll-btn').click(function(){
-  $('.poll-form-body').show();
-  $('.poll-result').hide();
-  $.ajax({
-    type: 'POST',
-    url: "/room/poll/revote/",
-    data: 
-      $('.poll-form').serialize()
-    ,
-    success: function(data) {
-      $('.vote-error').hide();
-      $('.poll-form-body').show();
-      $('.poll-result').hide();
-      localStorage.setItem('isvoted'+$('input[name=poll-id]').val(), true);
-    },
-    error: function(data) {
-      $('.vote-error').show();
-    },
-  });
-})
+reVote = function(){
+  $('#edit-poll-btn').click(function(){
+    // $('.poll-form-body').show();
+    // $('.poll-result').hide();
+    $.ajax({
+      type: 'POST',
+      url: "/room/poll/revote/",
+      data: 
+        $('.poll-form').serialize()
+      ,
+      success: function(data) {
+        localStorage.setItem('isvoted'+$('input[name=poll-id]').val(), false);
+        isVoted();
+      },
+      error: function(data) {
+        $('.vote-error').show();
+      },
+    });
+  })
+}
 
 //check if user voted this poll
 isVoted = function(){
   var poll = $('input[name=poll-id]').val();
   console.log('isvoted'+poll);
   if(localStorage.getItem('isvoted'+poll)=="true"){
-    $('.poll-form-body').hide();
+    $('.poll-form').hide();
     $('.poll-result').show();
   }else{
-
+    $('.poll-form').show();
+    $('.poll-result').hide();
   }
 }
 answerIsVoted = function(){
@@ -107,8 +112,8 @@ answerIsVoted = function(){
   }
 }
 $(document).ready(function() {
-  isVoted();
-  answerIsVoted();
+  getRunningPoll();
+  getResultRunningPoll();
 });
 
 //go live event
@@ -144,11 +149,14 @@ votes.bind('vote-submitted', function (data){
         $(".percent").eq(i).html(''+Math.round((data.answerArray[i]/data.sumVotes)*100)+'%');
       }
     }
-    
     $('.total-answer').html(''+data.votes+' <i class="fa fa-user" aria-hidden="true"></i>');         
 })
 
 var play = pusher.subscribe('play-poll-channel');
 play.bind('play-poll', function (data){
-  window.location.reload();
+  if($('#this-event-id').val()==data.id){
+    // window.location.reload();
+    getRunningPoll()
+    getResultRunningPoll()
+  }
 })

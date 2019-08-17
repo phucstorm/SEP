@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="{{ asset('css/app.css')}}">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
@@ -56,7 +55,7 @@
                 <div class="description_content">
                     <div class="row_content">
                         <p style="text-align: center;">
-                            <span>{{ trans('message.slogan') }} </span>
+                            <span>{{ trans('message.slogan') }}</span>
                         </p>
                     </div>
                 </div>
@@ -182,6 +181,9 @@
                         <div class="input_placed">
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
+                                <div><button type="button" class="vanlang-btn" onclick="window.location.href='/signin'">
+                                <span class="microsoft-logo"><i class="fa fa-windows" aria-hidden="true"></i></span> {{ trans('message.login-microsoft') }} 
+                                    </button></div>
                                 <input id="email" placeholder="Email" type="email"
                                     class="form-control @error('email') is-invalid @enderror" name="email"
                                     value="{{ old('email') }}" required autocomplete="email">
@@ -201,13 +203,15 @@
                                 <div class="form-footer">
                                     @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
+                                    {{ trans('message.forgot-password') }}
                                     </a>
                                     <button type="submit" class="btn-form getstart-btn">
                                     {{ trans('message.login') }}
                                     </button>
+                                    @endif
                                 </div>
-                                @endif
+
+                                
                             </form>
                         </div>
                     </div>
@@ -221,7 +225,7 @@
 
                                 <input id="name" placeholder="{{ trans('message.name') }}" maxlength="30" type="text" 
                                     class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    name="name" value="{{ old('name') }}" required autocomplete="name">
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -320,6 +324,7 @@
         </div>
     </footer>
     <script>
+
     $('.scrollto-btn').click(function(){
         const element = document.getElementById('login-section');
         element.scrollIntoView({ block: 'end',  behavior: 'smooth' });

@@ -35,7 +35,7 @@
                 <i class="fa fa-ellipsis-v toggle-action"></i>
                 <ul class="event-action-mobile">
                     <li><button class="btn btn-outline-info qr-btn-mobile" data-toggle="modal" data-target=".qrcode">{{ trans('message.qrcode') }}</button></li>
-                    <li><button class="btn btn-outline-success" data-id="{{$value->id}}"
+                    <li><button class="btn btn-outline-success edit-event-btn" data-id="{{$value->id}}"
                             data-code="{{$value->event_code}}" 
                             data-name="{{$value->event_name}}"
                             data-description="{{$value->event_description}}" 
@@ -49,12 +49,11 @@
                             data-anonymous="{{$value->setting_anonymous}}" 
                             data-toggle="modal"
                             data-target="#edit">{{ trans('message.edit') }}</button></li>
-                    <li><button type="button" class="btn btn-outline-danger" 
-                        data-id="{{$value->id}}"
-                        data-name="{{$value->event_name}}"
+                    <li><button type="button" class="btn btn-outline-danger delete-event" 
+                        data-id="{{$value->id}}"  data-name="{{$value->event_name}}"
                             data-toggle="modal" data-target="#delete">{{ trans('message.delete-btn') }}</button></li>
                 </ul>
-                <button type="button" class="btn btn-outline-success desktop-btn" data-id="{{$value->id}}"
+                <button type="button" class="btn btn-outline-success desktop-btn edit-event-btn" data-id="{{$value->id}}"
                     data-code="{{$value->event_code}}" 
                     data-name="{{$value->event_name}}"
                     data-description="{{$value->event_description}}" 
@@ -89,7 +88,7 @@
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-outline-danger desktop-btn" data-id="{{$value->id}}"  data-name="{{$value->event_name}}"
+                <button type="button" class="btn btn-outline-danger delete-event desktop-btn" data-id="{{$value->id}}"  data-name="{{$value->event_name}}"
                     data-toggle="modal" data-target="#delete"><i class="fa fa-trash"></i></button>
             </div>
         </div>
@@ -140,10 +139,10 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-12  text-center date-error-message">
-                                <span class="text-danger">{{ trans('message.error-end-date') }}</span>
+                                <span class="text-danger">{{ trans('message.error-end-time') }}</span>
                             </div>
                             <div class="col-sm-12  text-center startdate-error-message">
-                                <span class="text-danger">{{ trans('message.error-start-date') }}</span>
+                                <span class="text-danger">{{ trans('message.error-start-time') }}</span>
                             </div>
                         </div>
                     
@@ -171,68 +170,68 @@
                 <div class="modal-body">
 
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Event Name</label>
+                            <label class="col-sm-3 col-form-label">{{ trans('message.event-name') }}</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="en" name="en" maxlength="100" required>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Event Code</label>
+                            <label class="col-sm-3 col-form-label">{{ trans('message.event-code') }}</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="ec" name="ec" maxlength="5" required>
                             </div>
                             <div class="col-sm-12  text-center event-code-error-message">
-                                <span class="text-danger">This event code have already existed. Please enter another one.</span>
+                                <span class="text-danger">{{ trans('message.eventcode-error') }}</span>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Description</label>
+                            <label class="col-sm-3 col-form-label">{{ trans('message.description') }}</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="ds" name="ds" maxlength="200" required>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Start Date</label>
+                            <label class="col-sm-3 col-form-label">{{ trans('message.start-date') }}</label>
                             <div class="col-sm-8">
                                 <input type="datetime-local" class="form-control" id="sd" name="sd" required>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">End Date</label>
+                            <label class="col-sm-3 col-form-label">{{ trans('message.end-date') }}</label>
                             <div class="col-sm-8">
                                 <input type="datetime-local" class="form-control" id="ed" name="ed" required>
                             </div>
                         </div>
                         <div class="form-event-optional">
-                            <label class="col-form-label">Options: </label>
+                            <label class="col-form-label">{{ trans('message.options') }}: </label>
                             <div class="form-group row">
                                 <label for="ji" class="checkbox-label">
                                     <input type="checkbox" class="form-control" id="ji" name="ji">
-                                    <span> Join</span>
+                                    <span> {{ trans('message.join-check') }}</span>
                                 </label>
                             </div>
                             <div class="form-group row">
                                 <label for="qt" class="checkbox-label">
                                     <input type="checkbox" class="form-control" id="qt" name="qt">
-                                    <span> Ask</span>
+                                    <span> {{ trans('message.ask-check') }}</span>
                                 </label>
                             </div>
                             <div class="form-group row">
                                 <label for="rl" class="checkbox-label">
                                     <input type="checkbox" class="form-control" id="rl" name="rl">
-                                    <span> Reply</span>
+                                    <span> {{ trans('message.reply-check') }}</span>
                                 </label>
                             </div>
                             <div class="form-group row">
-                                <label for="rl" class="checkbox-label">
+                                <label for="md" class="checkbox-label">
                                     <input type="checkbox" class="form-control" id="md" name="md">
-                                    <span> Moderation</span>
+                                    <span> {{ trans('message.moderation-check') }}</span>
                                 </label>
                             </div>
                             <div class="form-group row">
-                                <label for="rl" class="checkbox-label">
+                                <label for="an" class="checkbox-label">
                                     <input type="checkbox" class="form-control" id="an" name="an">
-                                    <span> Anonymous</span>
+                                    <span> {{ trans('message.anonymous-check') }}</span>
                                 </label>
                             </div>
                         </div>
@@ -244,7 +243,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-12  text-center date-error-message">
-                                <span class="text-danger">The end time must be greater than the start time</span>
+                                <span class="text-danger">{{ trans('message.error-end-time') }}</span>
                             </div>
                             <div class="col-sm-12  text-center data-error-message">
                                 <span class="text-danger">Please check the information you have entered, we do not accept incorrect dates</span>
@@ -252,8 +251,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success" id="update">Save changes</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">{{ trans('message.cancel-btn') }}</button>
+                        <button type="submit" class="btn btn-success" id="update">{{ trans('message.save-btn') }}</button>
                     </div>
                 </form>
             </div>
@@ -271,12 +270,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Are you sure that you want to delete this event?
+                {{ trans('message.message-del') }}
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger" id="del">Delete</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">{{ trans('message.cancel-btn') }}</button>
+                    <button type="submit" class="btn btn-danger" id="del">{{ trans('message.delete-btn') }}</button>
                 </div>
             </div>
         </div>

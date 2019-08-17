@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>VLask</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -36,11 +36,13 @@
 </head>
 
 <body>
+<input id="this-event-id" value="{{$event->id}}" hidden>
+
     <div class="opacity_menu"></div>
     <nav class="sidebar-navigation">
         <div class="event-sidebar-info">
         <div><i class="fa fa-user"></i>
-                {{Auth::user()->email}}</div>
+                {{Auth::user()->name}}</div>
             <div class="event-name">{{$event->event_name}}</div>
             <div class="event-code">#{{$event->event_code}}</div>
             <div class="event-code">{{$event->start_date}}</div>
@@ -48,17 +50,36 @@
         <ul class="sidebar-nav">
             <li class="nav-item">
                 <span><a class="nav-link" class="nav-item-link" href="/admin/event" style="color: white;"><i class="fa fa-caret-square-o-left" aria-hidden="true"></i>
-                 Back to event list</a></span>
+                {{ trans('message.backeventlist') }}</a></span>
+            </li>
+            <li class="nav-item">
+                <span><a class="nav-link"><button type="button" style="color:#444444; display:block; font-size:16px; padding:0" class="btn edit-event-btn" data-id="{{$event->id}}"
+                                            data-code="{{$event->event_code}}" 
+                                            data-name="{{$event->event_name}}"
+                                            data-description="{{$event->event_description}}" 
+                                            data-link="{{$event->event_link}}"
+                                            data-mod="{{$event->setting_moderation}}" 
+                                            data-start="{{Carbon\Carbon::parse($event->start_date)->format('Y-m-d\TH:i')}}"
+                                            data-end="{{Carbon\Carbon::parse($event->end_date)->format('Y-m-d\TH:i')}}"  
+                                            data-join="{{$event->setting_join}}"
+                                            data-question="{{$event->setting_question}}" 
+                                            data-reply="{{$event->setting_reply}}"
+                                            data-anonymous="{{$event->setting_anonymous}}" 
+                                            data-toggle="modal" 
+                                            data-target="#edit"><i
+                                                class="fa fa-edit"></i> {{ trans('message.edit-event') }}
+                                        </button></a>
+                </span>
             </li>
             <li class="nav-item">
                 <span><a class="nav-link" class="nav-item-link" href="/user" style="color: white;"><i
-                            class="fa fa-edit"></i> Edit account</a></span>
+                            class="fa fa-edit"></i> {{ trans('message.edit-account') }}</a></span>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" class="nav-item-link" href="{{ route('logout') }}" style="color: white;"
                     onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                    <i class="fa fa-sign-out"></i> {{ __('Logout') }}</a>
+                    <i class="fa fa-sign-out"></i> {{ trans('message.logout') }}</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
@@ -105,7 +126,23 @@
                                         </a>
                                     </div>
                                     <div class="flex_content">
-                                        <div class="event_info_name">{{ $event->event_name}}
+                                        <div class="event_info_name">{{ $event->event_name}}                 
+                                        <button type="button" style="color:white" class="btn edit-event-btn" data-id="{{$event->id}}"
+                                            data-code="{{$event->event_code}}" 
+                                            data-name="{{$event->event_name}}"
+                                            data-description="{{$event->event_description}}" 
+                                            data-link="{{$event->event_link}}"
+                                            data-mod="{{$event->setting_moderation}}" 
+                                            data-start="{{Carbon\Carbon::parse($event->start_date)->format('Y-m-d\TH:i')}}"
+                                            data-end="{{Carbon\Carbon::parse($event->end_date)->format('Y-m-d\TH:i')}}"  
+                                            data-join="{{$event->setting_join}}"
+                                            data-question="{{$event->setting_question}}" 
+                                            data-reply="{{$event->setting_reply}}"
+                                            data-anonymous="{{$event->setting_anonymous}}" 
+                                            data-toggle="modal" 
+                                            data-target="#edit"><i
+                                                class="fa fa-edit"></i>
+                                        </button>
 
                                         </div>
                                         <div class="event_info_date">
@@ -140,7 +177,7 @@
                         <div class=user_header_info>
                             <div class="user_info">
                                 <i class="fa fa-user"></i>
-                                {{Auth::user()->email}} <i class="fa fa-cog"></i>
+                                {{Auth::user()->name}} <i class="fa fa-cog"></i>
                             </div>
                             <div class="user_role">
                                 Host
@@ -149,10 +186,10 @@
                         <div class="user_setting">      
                             <ul class="user-setting-menu">
                                 <li class="dropdown-item edit_user_info-btn" data-name="{{Auth::user()->name}}" data-email="{{Auth::user()->email}}"
-                                data-id="{{Auth::user()->id}}" data-toggle="modal" data-target="#editInfo"><a class="dropdown-item"><i class="fa fa-edit"></i>Edit</a></li>
+                                data-id="{{Auth::user()->id}}" data-toggle="modal" data-target="#editInfo"><a class="dropdown-item"><i class="fa fa-edit"></i> {{ trans('message.edit') }}</a></li>
                                 <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    <i class="fa fa-sign-out"></i>{{ __('Logout') }}
+                                    <i class="fa fa-sign-out"></i> {{ trans('message.logout') }}
                                 </a></li>
                             </ul>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -170,8 +207,8 @@
                 <div class="container event_option">
                     <!-- <button class="is-active"><a href="/admin/event/{{$event->event_code}}">Question</a></button>
                     <button>Poll</button> -->
-                    <button class="question-btn" onclick="window.location.href='/admin/event/{{$event->event_code}}'">QUESTIONS</button>
-                    <button class="poll-btn" onclick="window.location.href='/admin/event/poll/{{$event->event_code}}'">POLLS</button>
+                    <button class="question-btn" onclick="window.location.href='/admin/event/{{$event->event_code}}'">{{ trans('message.question-tab') }}</button>
+                    <button class="poll-btn" onclick="window.location.href='/admin/event/poll/{{$event->event_code}}'">{{ trans('message.poll-tab') }}</button>
                 </div>
             </div>
         </div>
@@ -181,7 +218,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="title">Edit User Information</h5>
+                    <h5 class="modal-title" id="title">{{ trans('message.edit-user') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -189,9 +226,9 @@
                 <div class="modal-body">
                     <form role="form" method="post">
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Name</label>
+                            <label class="col-sm-3 col-form-label">{{ trans('message.name') }}</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="un" name="un"required>
+                                <input type="text" class="form-control" id="un" name="un"required maxlength="30">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -203,18 +240,138 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success" id="edit_info">Save changes</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">{{ trans('message.cancel-btn') }}</button>
+                    <button type="submit" class="btn btn-success" id="edit_info">{{ trans('message.save-btn') }}</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal For Edit Event -->
+        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <form role="form" method="post" id="edit_form" class="submit-form">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="title">{{ trans('message.edit-event') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ trans('message.event-name') }}</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="en" name="en" maxlength="100" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ trans('message.event-code') }}</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="ec" name="ec" maxlength="5" required>
+                            </div>
+                            <div class="col-sm-12  text-center event-code-error-message">
+                                <span class="text-danger">{{ trans('message.eventcode-error') }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ trans('message.description') }}</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="ds" name="ds" maxlength="200" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ trans('message.start-date') }}</label>
+                            <div class="col-sm-8">
+                                <input type="datetime-local" class="form-control" id="sd" name="sd" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ trans('message.end-date') }}</label>
+                            <div class="col-sm-8">
+                                <input type="datetime-local" class="form-control" id="ed" name="ed" required>
+                            </div>
+                        </div>
+                        <div class="form-event-optional">
+                            <label class="col-form-label">{{ trans('message.options') }}: </label>
+                            <div class="form-group row">
+                                <label for="ji" class="checkbox-label">
+                                    <input type="checkbox" class="form-control" id="ji" name="ji">
+                                    <span> {{ trans('message.join-check') }}</span>
+                                </label>
+                            </div>
+                            <div class="form-group row">
+                                <label for="qt" class="checkbox-label">
+                                    <input type="checkbox" class="form-control" id="qt" name="qt">
+                                    <span> {{ trans('message.ask-check') }}</span>
+                                </label>
+                            </div>
+                            <div class="form-group row">
+                                <label for="rl" class="checkbox-label">
+                                    <input type="checkbox" class="form-control" id="rl" name="rl">
+                                    <span> {{ trans('message.reply-check') }}</span>
+                                </label>
+                            </div>
+                            <div class="form-group row">
+                                <label for="md" class="checkbox-label">
+                                    <input type="checkbox" class="form-control" id="md" name="md">
+                                    <span> {{ trans('message.moderation-check') }}</span>
+                                </label>
+                            </div>
+                            <div class="form-group row">
+                                <label for="an" class="checkbox-label">
+                                    <input type="checkbox" class="form-control" id="an" name="an">
+                                    <span> {{ trans('message.anonymous-check') }}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Link</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="li" name="li" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12  text-center date-error-message">
+                                <span class="text-danger">{{ trans('message.error-end-time') }}</span>
+                            </div>
+                            <div class="col-sm-12  text-center data-error-message">
+                                <span class="text-danger">Please check the information you have entered, we do not accept incorrect dates</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">{{ trans('message.cancel-btn') }}</button>
+                        <button type="submit" class="btn btn-success" id="update">{{ trans('message.save-btn') }}</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
     @yield('content')
     <footer>
-        <div class="top-footer">
-            <div class="wrapper-title">VLask | Designed by 5Bs</div>
+        <div class="footer_pd row_pd">
+            <div class="row align-items-center" style="text-align:center">
+                <div class="change-language col-12 col-md-4">
+                    <a href="/lang/en" class="">
+                        <img src="{{ asset('img/united-states.png')}}" alt="">
+                        English
+                    </a>
+                    <span>|</span>
+                    <a href="/lang/vi" class="">
+                        <img src="{{ asset('img/vietnam.jpg')}}" alt="">
+                            Tiếng Việt
+                    </a>
+                </div>
+                <div class="ul-flex-decoration col-12 col-md-8">
+                    VLask | Designed by 5Bs
+                </div>
+
+            </div>
         </div>
     </footer>
+
 </body>
 
 </html>

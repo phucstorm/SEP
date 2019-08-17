@@ -8,6 +8,7 @@ $(".submit-form").submit(function(e){
     e.preventDefault();
 });
 
+
 $('#add-new-event-btn').click(function() {
     var startdate = new Date($('.create-start-date').val());
     var dateNow = new Date();
@@ -52,7 +53,7 @@ $('#add-new-event-btn').click(function() {
 });
 
 // Edit Event
-$(document).on('click', '.btn.btn-outline-success', function() {
+$(document).on('click', '.edit-event-btn', function() {
     $(".date-error-message").hide();
     $(".data-error-message").hide();
     $('.event-code-error-message').hide();
@@ -104,7 +105,7 @@ $(document).on('click', '.btn.btn-outline-success', function() {
             } else {
                 $.ajax({
                     type: 'POST',
-                    url: 'event/edit',
+                    url: '/admin/event/edit',
                     data: {
                         '_token': $('input[name=_token]').val(),
                         'id': event_id,
@@ -130,6 +131,7 @@ $(document).on('click', '.btn.btn-outline-success', function() {
                         }
                     },
                     error: function(data) {
+                        alert(data)
                         $(".data-error-message").show();
                         $(".date-error-message").hide();
                         $('.event-code-error-message').hide();
@@ -144,7 +146,7 @@ $(document).on('click', '.btn.btn-outline-success', function() {
 });
 
 // Delete Event
-$(document).on('click', '.btn.btn-outline-danger.desktop-btn', function() {
+$(document).on('click', '.delete-event', function() {
     $('#delete_title').append($(this).attr('data-name'));
     var event_id = $(this).attr('data-id');
     $('#del').click(function() {
@@ -156,7 +158,6 @@ $(document).on('click', '.btn.btn-outline-danger.desktop-btn', function() {
                 'id': event_id
             },
             success: function(data) {
-                alert("Xóa event thành công");
                 window.location.reload();
             },
             error: function(data) {
@@ -239,12 +240,13 @@ $(document).on('click', '#edit_pass', function() {
 });
 
 //Delete question
-$(document).on('click', '.item-action.delete-item', function() {
-    var question_id = $(this).attr('data-id');
-    $('#del_ques').click(function() {
-        window.location.href = "/room/question/denied/" + question_id;
-    });
-});
+// $(document).on('click', '.item-action.delete-item', function() {
+//     var question_id = $(this).attr('data-id');
+//     $('#delete_title').html($(this).attr('data-name'));
+//     $('#del_ques').click(function() {
+//         window.location.href = "/room/question/denied/" + question_id;
+//     });
+// });
 
 $('.reply-form').submit(function(e){
     e.preventDefault();
@@ -261,12 +263,12 @@ $('.send-reply-btn').on('click',function(){
         type:'POST',
         url: "/room/reply/",
         data:
-        $(this).parents().parents().serialize(),
+        $(this).parents('.reply-form').serialize(),
         success: function(data) {
             console.log(answer);
             answer.append(
             '<div class="reply-item">'+
-                '<div class="user"><i class="fa fa-user"></i> '+username+'</div>'+
+                '<div class="user" style="color: #20b875"><i class="fa fa-user"></i> '+username+' - Host</div>'+
                 '<div class="reply-date">'+time+'</div>'+
 
                 '<div class="">'+content+'</div>'+
@@ -276,29 +278,65 @@ $('.send-reply-btn').on('click',function(){
             button.val('');
         },
         error: function(data) {
-            alert('fail');
         }
     })
 })
-
+//get replies
+getReplies = function(){
+    $('.reply-button').on('click', function(){
+        $('.modal-reply').html('');
+        $('#questionIdInput').attr('value',$(this).attr('data-id'));
+        $('.question-reply-title').html($(this).attr('data-name'));
+        $.ajax({
+            url: '/room/host/showreply/'+$(this).attr('data-id'),
+            success: function(data) {
+                for (var i=0; i<data.length; i++){
+                    var date = moment.parseZone(data[i].date).format("YYYY-MM-DD HH:mm:ss");
+                    if(data[i].host!=null){
+                        $('.modal-reply').append(
+                            '<div class="reply-item">'+
+                                '<div class="user" style="color: #20b875"><i class="fa fa-user"></i> '+data[i].name+' - Host</div>'+
+                                '<div class="reply-date">'+date+'</div>'+
+                                '<div>'+data[i].content+'</div>'+
+                            '</div>'
+                        )
+                    }else{
+                        $('.modal-reply').append(
+                            '<div class="reply-item">'+
+                                '<div class="user"><i class="fa fa-user"></i> '+data[i].name+'</div>'+
+                                '<div class="reply-date">'+date+'</div>'+
+                                '<div>'+data[i].content+'</div>'+
+                            '</div>'
+                        )
+                    }
+                }
+            },
+            error: function(data) {
+                alert('fail'+ data[1].id);
+            }
+        })
+    })
+}
 //Like question
-    $('.like-btn').on('click', function() {
-        if($(this).hasClass("is-not-liked")){
-            $.ajax({
-                url: "/room/like/" + $(this).val(),
-            });
-            $(this).removeClass("is-not-liked")
-            $(this).addClass("is-liked");
-            localStorage.setItem('isliked'+$(this).val(), true);
-        }else{
-            $.ajax({
-                url: "/room/unlike/" + $(this).val(),
-            });
-            $(this).addClass("is-not-liked");
-            $(this).removeClass("is-liked");
-            localStorage.setItem('isliked'+$(this).val(), false);
-        }
-    });
+    likeQuestion = function(){
+        $('.like-btn').on('click', function() {
+            if($(this).hasClass("is-not-liked")){
+                $.ajax({
+                    url: "/room/like/" + $(this).val(),
+                });
+                $(this).removeClass("is-not-liked")
+                $(this).addClass("is-liked");
+                localStorage.setItem('isliked'+$(this).val(), true);
+            }else{
+                $.ajax({
+                    url: "/room/unlike/" + $(this).val(),
+                });
+                $(this).addClass("is-not-liked");
+                $(this).removeClass("is-liked");
+                localStorage.setItem('isliked'+$(this).val(), false);
+            }
+        });
+    }
     loadLike = function(){
         var likedButton = $('.like-btn');
         for(var i=0; i<likedButton.length; i++){
@@ -311,88 +349,10 @@ $('.send-reply-btn').on('click',function(){
     }
     $(document).ready(function() {
         loadLike();
+        getReplies();
+        likeQuestion();
     });
-// Create Poll
-$('#create-poll').click(function() {
-    if ($('input[name=poll_question_content]').val() != '') {
-        if ($('input[name=poll_answer]').val() != '') {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/event/poll/create',
-                data: {
-                    '_token': $('input[name=_token]').val(),
-                    'event_id': $('input[name=event_id]').val(),
-                    // 'poll_question_content': $('input[name=poll_question_content]').val(),
-                    // 'poll_answer': $('input[name=poll_answer]').serializeArray(),
-                    // 'mul_choice': $('input[name=multiple-answer]').is(':checked') == true ? 1 : 0,
-                },
-                success: function(data) {
-                    // alert('You have successfully create new poll');
-                    // window.location.reload();
-                    // console.log('success' + data);
-                },
-                error: function(data) {
-                    // alert(data);
-                    // alert('error' + data);
-                    // window.location.reload();
-                },
-            });
-        } else {
-            alert('Please, fill at least one option');
-        }
-    } else {
-        alert('Question text is required');
-    }
-});
 
-$('.delete-poll-btn').on('click', function() {
-    var poll_id = $(this).attr('data-id');
-    $('#delete-poll').click(function() {
-        $.ajax({
-            type: 'POST',
-            url: '/admin/event/poll/delete',
-            data: {
-                '_token': $('input[name=_token]').val(),
-                'id': poll_id,
-            },
-            success: function(data) {
-                alert('Thông báo delete thành công');
-                window.location.reload();
-                // console.log('success' + data);
-            },
-            error: function(data) {
-                // alert(data);
-                console.log('error' + data);
-                // window.location.reload();
-            },
-        });
-    });
-});
-
-$('button[id=edit-poll]').click(function() {
-    $.ajax({
-        type: 'POST',
-        url: '/admin/event/poll/edit',
-        data: {
-            '_token': $('input[name=_token]').val(),
-            'poll_id': $('#form-poll-edit > div:nth-child(1) > div > #poll_id').val(),
-            'event_id': $('#form-poll-edit > div:nth-child(1) > div > #event_id').val(),
-            'poll_question': $('#form-poll-edit > div:nth-child(1) > div > #poll-name').val(),
-            'poll_answer': $('#form-poll-edit > div:nth-child(2) > div.col-sm-8.poll-answers > div > input[name=poll-answer]').serializeArray(),
-            'option': $('#form-poll-edit > div:nth-child(4) > label > input[name=multiple-answer]').is(':checked') == true ? 1 : 0,
-        },
-        success: function(data) {
-            // window.location.reload();
-            console.log('success' + data);
-        },
-        error: function(data) {
-            // alert(data);
-            console.log('error' + data);
-            // window.location.reload();
-        },
-    });
-    console.log('this');
-});
 
 //listen channel live
 // Enable pusher logging - don't include this in production
@@ -401,24 +361,6 @@ Pusher.logToConsole = true;
 var pusher = new Pusher('9ca3866fa2e26a25d235', {
     cluster: 'ap1',
     forceTLS: true
-});
-
-var channel = pusher.subscribe('my-channel');
-channel.bind('form-submitted', function (data) {
-    var date = moment.parseZone(data.created_at).format("YYYY-MM-DD HH:mm:ss");
-    $('.content').append(
-        "<div class='question-item'>" +
-            "<div class='question-username'>"+
-                "<i class=' fa fa-user'></i> "+ data.user_name+
-            "</div>"+
-            "<div class='question-date'>"+date+"</div>"+
-            "<div class='question-content'>"+data.question+"</div>"+
-        "<div class='check-question'>" +
-        "<a href='/room/question/accept/" + data.id + "'><i class='fa fa-check-circle-o text-success' aria-hidden='true'></i></a> " +
-        "<a href='/room/question/denied/" + data.id + "'><i class='fa fa-times-circle-o text-success' aria-hidden='true'></i></a>" +
-        "</div>"+
-        "</div>"
-    );
 });
 
 var votes = pusher.subscribe('vote-channel');
@@ -430,20 +372,10 @@ votes.bind('vote-submitted', function (data){
             $(".votes").eq(i).html('('+data.answerArray[i]+')');
             $(".percent").eq(i).html(''+Math.round((data.answerArray[i]/data.sumVotes)*100)+'%');
         }
+        // getPolls();
     }
 
     $('.voted-person').html(''+data.votes+' <i class="fa fa-user" aria-hidden="true"></i>');
 
     
 });
-
-var likes = pusher.subscribe('like-channel');
-likes.bind('like-question', function (data){
-    // $('.like-btn').html(''+data.likes+'<i class="fa fa-thumbs-up"></i>');
-    $('.like-btn'+data.questionId).html(''+data.likes+' <i class="fa fa-thumbs-up"></i>');
-})
-var unlikes = pusher.subscribe('unlike-channel');
-unlikes.bind('unlike-question', function (data){
-    // $('.like-btn').html(''+data.likes+'<i class="fa fa-thumbs-up"></i>');
-    $('#dislike-btn'+data.questionId).html(''+data.unlikes+' <i class="fa fa-thumbs-down"></i>');
-})

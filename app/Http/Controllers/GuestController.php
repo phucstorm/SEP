@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Events\FormSubmitted;
 use App\Events\VoteSubmitted;
 use App\Events\LikeQuestion;
+use App\Events\SubmitQuestion;
 use App\Event;
 use App\Question;
 use App\Poll_Question;
@@ -29,55 +30,94 @@ class GuestController extends Controller
             return "You don't have a permission to join this room";
         }     
     }
-
-    //Attendee input question and submit
-    public function postQuestion(Request $request)
-    {
-        $question = request()->question;
-        if($question == ""){
-            return redirect()->back()->with('alert','You must type question'); 
-            
-        }else{
-            if(request()->user_name != ""){
-                $user_name = request()->user_name;
-            }else{
-                $user_name = "Anonymous";
+    public function getQuestion($event_id){
+        $event = Event::find($event_id);
+        $data = array();
+        $i = 0;
+        foreach($event->questions as $question){
+            if($question->status == 1){
+                $data[$i] = [
+                    'name' => $question->user_name,
+                    'date' => $question->created_at,
+                    'content' => $question->content,
+                    'like' => $question->like,
+                    'id' => $question->id
+                ];
+                $i += 1;
             }
-            $qt = new Question;
-            $qt->event_id = request()->event_id;
-            $qt->content = $question;
-            $qt->user_name = $user_name;
-            $qt->status = 0;
-            $qt->like = 0;
-            $qt->unlike = 0;
-            $qt->save();
-            event(new FormSubmitted($qt->id,$qt->content, $user_name, request()->event_id, $qt->created_at));
-            return redirect()->back();
-        } 
+        }
+        return response()->json($data);
+    }
+    //Attendee input question and submit
+    public function postQuestion()
+    {
+        $eventId = $_POST['event_id'];
+        $event = Event::find($eventId);
+        $content = $_POST['question'];
+        $name = $_POST['user_name'];
+        if($event->setting_anonymous == 0 && $name == ""){
+            return 'error anonymous';
+        }else if($content==""){
+            return 'empty';
+        }else{
+            if($name == ""){
+                $name = 'Anonymous';
+            }
+            if($event->setting_moderation==0){
+                $status = 1;
+            }else{
+                $status = 0;
+            }
+            $event->questions()->create([
+                'event_id' => $eventId,
+                'content' => $content,
+                'user_name' => $name,
+                'like' => 0,
+                'status' => $status
+            ]);
+            event(new FormSubmitted());
+        }
     }
 
     public function poll_question($event){
-        // $event = Event::where('event_code', '=', $event_code)->firstOrFail();
-        // $poll_question = Poll_Question::where('event_id', '=', $event->id)->where('status', '=', 1)->firstOrFail();
-        // $poll_answer = Poll_Answer::where('poll_question_id', '=', $poll_question->id)->get();
-        // return view('pollguest', compact('event' ,'poll_question', 'poll_answer'));
-        // return response()->json($poll_answer);
         $event = Event::where('event_code', '=', $event)->firstOrFail();
         $poll = $event->polls->where('status', 1)->first();
         return view('pollguest', compact('event','poll'));
     }
 
+    public function getRunningPoll($event_id){
+        $event = Event::find($event_id);
+        $poll = $event->polls->where('status', 1)->first();
+        $data = array();
+        $multi = $poll->mul_choice;
+        $votes = $poll->total_votes;
+        $content = $poll->poll_question_content;
+        $i = 0;
+        foreach($poll->answers as $answer){
+            $data[$i] = [
+                'content' => $answer->poll_answer_content,
+                'votes' => $answer->votes,
+                'id' => $answer->id,
+                'status' => $poll->status
+            ];
+            $i += 1;
+        }
+        return response()->json(array($data,$multi,$votes,$content,$poll->id));
+
+    }
+
     public function vote()
     {
-        $poll_id = $_POST['poll-id'];
+        $poll_id = request()->get('poll-id');
+        if(!isset($_POST['poll_answer'])){
+            return "emptyvote";
+        }
         $poll_answer = $_POST['poll_answer'];
         $poll = Poll_Question::find($poll_id);
-
         $votes = 0;
-        if($poll_answer!=[]){
+        if($poll_answer!=null){
             $votes=($poll->total_votes)+1;
             $poll->update(['total_votes'=>$votes]);
-
             if(is_array($poll_answer))
             {
                 foreach ($poll_answer as $id) {
@@ -90,9 +130,6 @@ class GuestController extends Controller
                 $voteAnswer = ($answer->votes)+1;
                 $answer->update(['votes'=>$voteAnswer]);
             }
-
-
-
             $answerArray = array();
             $answerContent = array();
             $sumVotes = 0;
@@ -102,6 +139,8 @@ class GuestController extends Controller
                 $sumVotes+=$answer->votes;
             }
             event(new VoteSubmitted($answerArray,$sumVotes,$votes,$answerContent));
+        }else{
+            return "emptyvote";
         }
     }
 
@@ -147,9 +186,8 @@ class GuestController extends Controller
         $ques->save();
 
         $likes = $ques->like;
-        // return response()->json($likes);
-        event(new LikeQuestion($question_id, $likes));
-        // return redirect()->back();
+        event(new FormSubmitted());
+        return response()->json($question_id);
     }
 
     public function unlike_question($question_id){
@@ -157,24 +195,46 @@ class GuestController extends Controller
         $ques->like -= 1;
         $ques->save();
         $likes = $ques->like;
-        // return response()->json($likes);
-        event(new LikeQuestion($question_id, $likes));
-        // return redirect()->back();
+        event(new FormSubmitted());
     }
-    public function reply_question(){
-        $question_id = $_POST['question-id'];
-        $reply = $_POST['reply'];
+    public function showReplies($question_id){
+        // $questionId = $request->question_id;
         $question = Question::find($question_id);
-        $username = $_POST['username'];
-        if($username==""){
-            $username = "Anonymous";
+        $data = array();
+        $i=0;
+        foreach($question->replies as $reply){
+            $data[$i] = [
+                'name' => $reply->user_name,
+                'date' => $reply->created_at,
+                'host' => $reply->user_id,
+                'content' => $reply->rep_content
+            ];
+            $i += 1;
+        };
+        $content = $question->content;
+        return response()->json($data);
+
+    }
+
+    public function reply_question(){
+        $question = Question::find(request()->get('question-id'));
+        $username = request()->get('username');
+        $event = $question->event;
+        if($event->setting_anonymous==0 && $username==""){
+            return "error anonymous";
+        }else if(request()->get('reply')==""){
+            return "empty";
+        }else{
+            if($username==""){
+                $username = "Anonymous";
+            }
+            $question->replies()->create([
+                'question_id' => $question->id,
+                'rep_content' => request()->get('reply'),
+                'user_name' => $username
+            ]);
         }
-        $question->replies()->create([
-            'question_id' => $question_id,
-            'rep_content' => $reply,
-            'user_name' => $username
-        ]);
-        return redirect()->back();
+        return response()->json($event->id);
     }
     
 }

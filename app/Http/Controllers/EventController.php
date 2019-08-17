@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Response, Validator;
@@ -22,9 +22,8 @@ class EventController extends Controller
 
     public function index(){
         $event = User::findOrFail(auth()->user()->id);
-        $viewData = $this->loadViewData();
         // $event = Event::where('user_id', '=',Auth::user()->id)->get();
-        return view('event.index',compact('event', 'viewData'));
+        return view('event.index',compact('event'));
     }
 
     public function create(Request $request){
@@ -63,6 +62,7 @@ class EventController extends Controller
 
     public function edit(Request $request){
         $event = Event::find($request->id); 
+
         $ifExist = Event::where('event_code', '=', $request->event_code)->get();
         if(count($ifExist) > 0 && $ifExist[0]->id != $event->id){
             return "Mã event đã tồn tại";
@@ -79,17 +79,15 @@ class EventController extends Controller
             $event->setting_moderation = $request->moderation;
             $event->setting_anonymous = $request->anonymous;
             $event->save();
-            return response()->json($event);
+            
         }
     }
 
-    public function show(Request $request){
-        
+    public function show(Request $request){      
         $event = Event::where('event_code', '=', $request->event_code)->firstOrFail();
         $question = Question::where('event_id','=',$event->id)->get();
         $count = $question->where('status', 1)->count();
 
-        if($event->setting_join == 1 ){
             $question = Question::where('event_id', '=' , $event->id)->get();
 
             $reply = Reply::all();
@@ -98,19 +96,61 @@ class EventController extends Controller
                         ->rightjoin('replies', 'questions.id', '=', 'replies.question_id')
                         ->get();
             // return response()->json($result);
-            return view('event.detail', compact('question',$question,'event' ,$event,'result', $result, 'count', $count));    
-        }else{
-            return "Bạn đã khóa event này";
-        }
+            return view('event.detail', compact('question',$question,'event' ,$event,'result', $result, 'count', $count));       
     }
 
-    public function search(Request $request){ 
-        // if(session('userName')){
-        //     return view('event.index');
-        // }else{
-            $event = Event::where('event_name','like', '%'.$request->get('search').'%')->where('user_id', '=', Auth::user()->id)->orderBy('created_at','DESC')->get();
-            return view('event.index', compact('event', $event));
-        // }
+    public function getQuestion($event_id){
+        $event = Event::find($event_id);
+        $data = array();
+        $i = 0;
+        foreach($event->questions as $question){
+            $data[$i] = [
+                'name' => $question->user_name,
+                'date' => $question->created_at,
+                'content' => $question->content,
+                'status' => $question->status,
+                'like' => $question->like,
+                'id' => $question->id
+            ];
+            $i += 1;
+        }
+        return response()->json($data);
+    }
 
+    public function getPoll($event_id){
+        $event = Event::find($event_id);
+        $data = array();
+        $running=array();
+        $i = 0;
+        $j=0;
+        foreach($event->polls as $poll){
+            $data[$i] = [
+                'content' => $poll->poll_question_content,
+                'votes' => $poll->total_votes,
+                'multiple' => $poll->mul_choice,
+                'status' => $poll->status,
+                'id' => $poll->id
+            ];
+            if($poll->status==1){
+                foreach($poll->answers as $answer){
+                    $running[$j] = [
+                        'content' => $answer->poll_answer_content,
+                        'votes' => $answer->votes,
+                        'id' => $answer->id,
+                        'status' => $poll->status
+                    ];
+                    $j += 1;
+                }
+            }
+            $i += 1;
+        }       
+        return response()->json(array($data,$running));
+    }
+
+
+
+    public function search(Request $request){ 
+        $event = Event::where('event_name','like', '%'.$request->get('search').'%')->where('user_id', '=', Auth::user()->id)->orderBy('created_at','DESC')->get();
+        return view('event.index', compact('event', $event));
     }
 }

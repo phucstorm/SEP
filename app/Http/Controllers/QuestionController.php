@@ -26,25 +26,47 @@ class QuestionController extends Controller
         $qt = Question::find($id);
         $qt->status = 1;
         $qt->save();
-        event(new FormSubmitted($qt->id,$qt->content, $qt->user_name, $qt->event_id,$qt->created_at));
+        event(new FormSubmitted());
         return redirect()->back();
     }
 
     public function denied($id){
         $qt = Question::find($id)->delete();
+        event(new FormSubmitted());
         return redirect()->back();
     }
 
-    public function reply_question(){
+    public function getQuestion(){
+        
+    }
 
-        $question_id = $_POST['question-id'];
-        $reply = $_POST['reply'];
+    public function showReplies($question_id){
+        // $questionId = $request->question_id;
         $question = Question::find($question_id);
-        $username = $_POST['username'];
+        $data = array();
+        $i=0;
+        foreach($question->replies as $reply){
+            $data[$i] = [
+                'name' => $reply->user_name,
+                'date' => $reply->created_at,
+                'host' => $reply->user_id,
+                'content' => $reply->rep_content
+            ];
+            $i += 1;
+        };
+        $content = $question->content;
+        return response()->json($data);
+
+    }
+
+    public function reply_question(){
+        $reply = request()->get('reply');
+        $question = Question::find(request()->get('question-id'));
         $question->replies()->create([
-            'question_id' => $question_id,
+            'question_id' => $question->id,
             'rep_content' => $reply,
-            'user_name' => $username
+            'user_name' => Auth::user()->name,
+            'user_id' =>  Auth::user()->id
         ]);
         return redirect()->back();
     }
@@ -56,7 +78,7 @@ class QuestionController extends Controller
 
         $likes = $ques->like;
         // return response()->json($likes);
-        event(new LikeQuestion($question_id, $likes));
+        event(new FormSubmitted());
         // return redirect()->back();
     }
 
@@ -66,7 +88,7 @@ class QuestionController extends Controller
         $ques->save();
         $likes = $ques->like;
         // return response()->json($likes);
-        event(new LikeQuestion($question_id, $likes));
+        event(new FormSubmitted());
         // return redirect()->back();
     }
 

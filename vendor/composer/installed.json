@@ -1794,7 +1794,7 @@
                 "dev-2.x": "2.0.x-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-4": {
                 "League\\OAuth2\\Client\\": "src/"

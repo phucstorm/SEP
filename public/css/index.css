@@ -358,6 +358,18 @@ footer {
     outline: none;
     border: none;
 }
+.vanlang-btn{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #000;
+    border: 1px solid #bebebe;
+    border-radius: 6px;
+    background: transparent;
+}
+.microsoft-logo{
+    color: #05a6f0;
+}
 @media only screen and (min-width: 375px) and (max-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
     .row_1 .row_title h1 {
         font-size: 39px;

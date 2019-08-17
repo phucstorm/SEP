@@ -32,6 +32,7 @@
 
 <body>
         <header>
+        <input id="this-event-id" value="{{$event->id}}" hidden>
             <div class='navbar_info'>
                 <div class="sidebar-toggle">
                     <i class="fa fa-bars" ></i>
@@ -46,16 +47,16 @@
                         <div class="event-code">#{{$event->event_code}}</div>
                     </div>      
                 </div>
-                <div class="switch-event">
+                <div class="switch-event" onclick="window.location.href='/'">
                     <button>
-                        <i class="fa fa-exchange"></i> Switch event
+                        <i class="fa fa-exchange"></i> {{ trans('message.switch-event') }}
                     </button>
                 </div>
             </div>
             <div class="navbar_select">
                 <div class="container">
-                    <button class="question-btn" onclick="window.location.href='/room?room={{$event->event_code}}'">QUESTIONS</button>
-                    <button class="poll-btn" onclick="window.location.href='/room/poll/{{$event->event_code}}'">POLLS</button>
+                    <button class="question-btn" onclick="window.location.href='/room?room={{$event->event_code}}'">{{ trans('message.question-tab') }}</button>
+                    <button class="poll-btn" onclick="window.location.href='/room/poll/{{$event->event_code}}'">{{ trans('message.poll-tab') }}</button>
                 </div>
             </div>
         </header>
@@ -68,7 +69,7 @@
             </div>
             <ul class="sidebar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" class="nav-item-link" href="" style="color: white;"><i class="fa fa-exchange"></i> Switch event</a>
+                    <a class="nav-link" class="nav-item-link" href="/" style="color: white;"><i class="fa fa-exchange"></i> {{ trans('message.switch-event') }}</a>
                 </li>
             </ul>
         </nav>
@@ -76,8 +77,24 @@
             @yield('content')
         </main>   
         <footer>
-        <div class="top-footer">
-            <div class="wrapper-title">VLask | Designed by 5Bs</div>
+        <div class="footer_pd row_pd">
+            <div class="row align-items-center" style="text-align:center">
+                <div class="change-language col-12 col-md-4">
+                    <a href="/lang/en" class="">
+                        <img src="{{ asset('img/united-states.png')}}" alt="">
+                        English
+                    </a>
+                    <span>|</span>
+                    <a href="/lang/vi" class="">
+                        <img src="{{ asset('img/vietnam.jpg')}}" alt="">
+                            Tiếng Việt
+                    </a>
+                </div>
+                <div class="ul-flex-decoration col-12 col-md-8">
+                    VLask | Designed by 5Bs
+                </div>
+
+            </div>
         </div>
     </footer>      
 </body>

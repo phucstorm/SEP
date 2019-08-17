@@ -10,22 +10,28 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class UnlikeQuestion implements ShouldBroadCast
+class SubmitQuestion
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    public $questionId;
-    public $unlikes;
+    
+    public $id;
+    public $question;
+    public $user_name;
+    public $event_id;
+    public $created_at;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($questionId, $unlikes)
+    public function __construct($id, $question, $user_name, $event_id, $created_at)
     {
         //
-        $this->questionId = $questionId;
-        $this->unlikes = $unlikes;
+        $this->id = $id;
+        $this->question = $question;
+        $this->user_name = $user_name;
+        $this->event_id = $event_id;
+        $this->created_at = $created_at;
     }
 
     /**
@@ -35,11 +41,10 @@ class UnlikeQuestion implements ShouldBroadCast
      */
     public function broadcastOn()
     {
-        return new Channel('unlike-channel');
+        return new Channel('question-channel');
     }
 
-    public function broadcastAs()
-    {
-        return 'unlike-question';
+    public function broadcastAs(){
+        return 'question-submitted';
     }
 }
