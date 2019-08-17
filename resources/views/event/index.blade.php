@@ -49,9 +49,8 @@
                             data-anonymous="{{$value->setting_anonymous}}" 
                             data-toggle="modal"
                             data-target="#edit">{{ trans('message.edit') }}</button></li>
-                    <li><button type="button" class="btn btn-outline-danger" 
-                        data-id="{{$value->id}}"
-                        data-name="{{$value->event_name}}"
+                    <li><button type="button" class="btn btn-outline-danger delete-event" 
+                        data-id="{{$value->id}}"  data-name="{{$value->event_name}}"
                             data-toggle="modal" data-target="#delete">{{ trans('message.delete-btn') }}</button></li>
                 </ul>
                 <button type="button" class="btn btn-outline-success desktop-btn edit-event-btn" data-id="{{$value->id}}"
@@ -89,7 +88,7 @@
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-outline-danger desktop-btn" data-id="{{$value->id}}"  data-name="{{$value->event_name}}"
+                <button type="button" class="btn btn-outline-danger delete-event desktop-btn" data-id="{{$value->id}}"  data-name="{{$value->event_name}}"
                     data-toggle="modal" data-target="#delete"><i class="fa fa-trash"></i></button>
             </div>
         </div>

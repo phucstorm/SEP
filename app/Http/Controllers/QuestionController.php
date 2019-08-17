@@ -33,7 +33,6 @@ class QuestionController extends Controller
     public function denied($id){
         $qt = Question::find($id)->delete();
         event(new FormSubmitted());
-        return redirect()->back();
     }
 
     public function getQuestion(){

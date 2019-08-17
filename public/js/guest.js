@@ -55,34 +55,7 @@ function updateCount() {
 $('poll-btn').removeClass('is-active');
 $('.question-btn').addClass('is-active');
 
-// send question
-$('.error-anonymous').hide();
-$('.error-empty').hide();
-var sendQuestion = function(){
-    $('.send-question-btn').on('click', function(){
-        $.ajax({
-            type: 'POST',
-            url: "/room",
-            data: $('.question-form').serialize(),
-            success: function(data){
-                if(data == "error anonymous"){
-                    $('.error-anonymous').show();
-                    $('.error-empty').hide();
-                }else if(data == "empty"){
-                    $('.error-anonymous').hide();
-                    $('.error-empty').show();
-                }else{
-                    $('.input-question').val('');
-                    $('.error-anonymous').hide();
-                    $('.error-empty').hide();
-                }
-            },
-            error: function(data){
-                alert('fail')
-            }
-        })
-    })
-}
+
 
 //Like question
 likeQuestion = function(){
@@ -159,64 +132,12 @@ $(document).ready(function() {
     getReplies();
     getQuestion();
     sendQuestion();
+    sendReply();
 });
 
 $('.reply-form').submit(function(e){
     e.preventDefault();
 })
-////Reply question
-$('.error-ans-anonymous').hide();
-$('.error-ans-empty').hide();
-$('.send-reply-btn').on('click',function(){
-    var button = $(this).parents('.footer').children('div').children('.input-answer');
-    var answer = $(this).parents().children('.modal-body');
-    var content = $(this).parents('.footer').children('div').children('.input-answer').val();
-    var d = new Date($.now());
-    var time = (d.getFullYear()+"-"+(d.getMonth() + 1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
-    var username = $(this).parents('.footer').children('div').children('input[name=username]').val();
-    if(username==""){
-        username="Anonymous";
-    }
-    $.ajax({
-        type:'POST',
-        url: "/guest/reply/",
-        data:
-        $(this).parents().parents().serialize(),
-        success: function(data) {
-            if(data=="error anonymous"){
-                $('.error-ans-anonymous').show();
-                $('.error-ans-empty').hide();
-            }else if(data=="empty"){
-                $('.error-ans-anonymous').hide();
-                $('.error-ans-empty').show();
-            }else{
-                answer.append(
-                    '<div class="reply-item">'+
-                        '<div class="user"><i class="fa fa-user"></i> '+username+'</div>'+
-                        '<div class="reply-date">'+time+'</div>'+
-        
-                        '<div class="">'+content+'</div>'+
-        
-                    '</div>'
-                    );
-                    button.val('');
-                    $('.error-ans-anonymous').hide();
-                    $('.error-ans-empty').hide();
-            }
-
-        },
-        error: function(data) {
-            alert('fail');
-        }
-    })
-})
-
-Pusher.logToConsole = true;
-
-var pusher = new Pusher('9ca3866fa2e26a25d235', {
-    cluster: 'ap1',
-    forceTLS: true
-});
 
 
 

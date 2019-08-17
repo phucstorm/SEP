@@ -26,8 +26,7 @@
                     <button type="button" id="submit-btn" class='question-btn send-question-btn'>{{ trans('message.send-btn') }}</button>
                     
                 </div>
-                <div class="text-danger error-anonymous text-center">{{ trans('message.message-anonymous-ask') }}</div>
-                    <div class="text-danger error-empty text-center">{{ trans('message.message-enter-question') }}</div>
+                <div class="text-danger error-question text-center"></div>
                 {{csrf_field()}}
             </form>
             @endif
@@ -73,9 +72,8 @@
 
                 </div>
                 @if($event->setting_reply==1)
-                <div class="text-danger error-ans-anonymous text-center">{{ trans('message.type-your-answer') }}</div>
-                        <div class="text-danger error-ans-empty text-center">>{{ trans('message.message-enter-reply') }}</div>
-                <div class="footer">
+                        <div class="text-danger error-reply text-center"></div>
+                    <div class="footer">
                     <div>
                         <textarea maxlength="300" placeholder="{{ trans('message.type-your-answer') }}" name="reply" class="input-answer"
                         type="text" required></textarea>
@@ -191,7 +189,72 @@ channel.bind('form-submitted', function (data) {
     }
 });
 // }
+// send question
+var sendQuestion = function(){
+    $('.send-question-btn').on('click', function(){
+        $.ajax({
+            type: 'POST',
+            url: "/room",
+            data: $('.question-form').serialize(),
+            success: function(data){
+                if(data == "error anonymous"){
+                    $('.error-question').html('{{ trans('message.message-anonymous-ask') }}');
+                }else if(data == "empty"){
+                    $('.error-question').html('{{ trans('message.message-enter-question') }}');
+                }else{
+                    $('.error-question').html('')
+                    $('.input-question').val('');
+                }
+            },
+            error: function(data){
+                alert('fail')
+            }
+        })
+    })
+}
 
+////Reply question
+sendReply = function(){
+    $('.send-reply-btn').on('click',function(){
+    var button = $(this).parents('.footer').children('div').children('.input-answer');
+    var answer = $(this).parents().children('.modal-body');
+    var content = $(this).parents('.footer').children('div').children('.input-answer').val();
+    var d = new Date($.now());
+    var time = (d.getFullYear()+"-"+(d.getMonth() + 1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
+    var username = $(this).parents('.footer').children('div').children('input[name=username]').val();
+    if(username==""){
+        username="Anonymous";
+    }
+    $.ajax({
+        type:'POST',
+        url: "/guest/reply/",
+        data:
+        $(this).parents().parents().serialize(),
+        success: function(data) {
+            if(data=="error anonymous"){
+                $('.error-reply').html('{{ trans('message.message-anonymous-reply') }}');
+            }else if(data=="empty"){
+                $('.error-reply').html('{{ trans('message.message-enter-reply') }}');
+            }else{
+                answer.append(
+                    '<div class="reply-item">'+
+                        '<div class="user"><i class="fa fa-user"></i> '+username+'</div>'+
+                        '<div class="reply-date">'+time+'</div>'+
+        
+                        '<div class="">'+content+'</div>'+
+        
+                    '</div>'
+                    );
+                    $('.error-reply').html('')
+                    button.val('');
+            }
 
+        },
+        error: function(data) {
+            alert('fail');
+        }
+    })
+})
+}
 </script>
 @endsection

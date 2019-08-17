@@ -79,7 +79,7 @@ class EventController extends Controller
             $event->setting_moderation = $request->moderation;
             $event->setting_anonymous = $request->anonymous;
             $event->save();
-            
+            event(new EditEvent());
         }
     }
 

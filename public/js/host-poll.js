@@ -113,36 +113,26 @@ $('.update-poll').on('click', function(){
 })
 // Create Poll
 $('#create-poll').click(function() {
-    // alert('click')
-    // if ($('input[name=poll_question_content]').val() != '') {
-        // if ($('input[name=poll_answer]').val() != '') {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/event/poll/create',
-                data: $('.create-poll-form').serialize(),
-                success: function(data) {
-                    if(data=="emptyanswer"){
-                        $('.error-create-poll').html('You must fill in all the poll answer')
-                    }else if(data=="emptycontent"){
-                        $('.error-create-poll').html('You must fill in the poll content')
-                    }else{
-                        alert('You have updated poll successfully')
-                        $('#createPollModal').modal('hide')
-                        getPolls()
-                    }
-                },
-                error: function(data) {
-                    // alert(data);
-                    alert('error' + data);
-                    // window.location.reload();
-                },
-            });
-        // } else {
-            // alert('Please, fill at least one option');
-        // }
-    // } else {
-        // alert('Question text is required');
-    // }
+    $.ajax({
+        type: 'POST',
+        url: '/admin/event/poll/create',
+        data: $('.create-poll-form').serialize(),
+        success: function(data) {
+            if(data=="emptyanswer"){
+                $('.error-create-poll').html('You must fill in all the poll answer')
+            }else if(data=="emptycontent"){
+                $('.error-create-poll').html('You must fill in the poll content')
+            }else{
+                alert('You have created poll successfully')
+                $('#createPollModal').modal('hide')
+                getPolls()
+            }
+        },
+        error: function(data) {
+            alert('error' + data);
+        },
+    });
+
 });
 //delete poll 
 deletePoll = function(){

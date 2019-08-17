@@ -40,7 +40,7 @@ deleteQuestion = function(){
             $.ajax({
                 url: "/room/question/denied/"+ id,
                 success: function(data){
-                    
+                    $('#delete_question').modal('hide');
                 },
                 error: function(data){
     

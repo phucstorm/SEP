@@ -146,7 +146,7 @@ $(document).on('click', '.edit-event-btn', function() {
 });
 
 // Delete Event
-$(document).on('click', '.btn.btn-outline-danger.desktop-btn', function() {
+$(document).on('click', '.delete-event', function() {
     $('#delete_title').append($(this).attr('data-name'));
     var event_id = $(this).attr('data-id');
     $('#del').click(function() {
@@ -158,7 +158,6 @@ $(document).on('click', '.btn.btn-outline-danger.desktop-btn', function() {
                 'id': event_id
             },
             success: function(data) {
-                alert("Xóa event thành công");
                 window.location.reload();
             },
             error: function(data) {
