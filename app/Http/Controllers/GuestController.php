@@ -77,45 +77,33 @@ class GuestController extends Controller
             ]);
             event(new FormSubmitted());
         }
-        // return '1234';
-        // $question = request()->question;
-        // if($question == ""){
-        //     return redirect()->back()->with('alert','You must type question'); 
-            
-        // }else{
-        //     if(request()->user_name != ""){
-        //         $user_name = request()->user_name;
-        //     }else{
-        //         $user_name = "Anonymous";
-        //     }
-        //     $event = Event::find(request()->event_id);
-        //     $qt = new Question;
-        //     $qt->event_id = request()->event_id;
-        //     $qt->content = $question;
-        //     $qt->user_name = $user_name;
-        //     if($event->setting_moderation==0){
-        //         $qt->status = 1;
-        //     }else{
-        //         $qt->status = 0;
-        //     }
-        //     $qt->like = 0;
-        //     $qt->save();
-
-           
-
-        //     return redirect()->back();
-        // } 
     }
 
     public function poll_question($event){
-        // $event = Event::where('event_code', '=', $event_code)->firstOrFail();
-        // $poll_question = Poll_Question::where('event_id', '=', $event->id)->where('status', '=', 1)->firstOrFail();
-        // $poll_answer = Poll_Answer::where('poll_question_id', '=', $poll_question->id)->get();
-        // return view('pollguest', compact('event' ,'poll_question', 'poll_answer'));
-        // return response()->json($poll_answer);
         $event = Event::where('event_code', '=', $event)->firstOrFail();
         $poll = $event->polls->where('status', 1)->first();
         return view('pollguest', compact('event','poll'));
+    }
+
+    public function getRunningPoll($event_id){
+        $event = Event::find($event_id);
+        $poll = $event->polls->where('status', 1)->first();
+        $data = array();
+        $multi = $poll->mul_choice;
+        $votes = $poll->total_votes;
+        $content = $poll->poll_question_content;
+        $i = 0;
+        foreach($poll->answers as $answer){
+            $data[$i] = [
+                'content' => $answer->poll_answer_content,
+                'votes' => $answer->votes,
+                'id' => $answer->id,
+                'status' => $poll->status
+            ];
+            $i += 1;
+        }
+        return response()->json(array($data,$multi,$votes,$content,$poll->id));
+
     }
 
     public function vote()
@@ -198,7 +186,7 @@ class GuestController extends Controller
         $ques->save();
 
         $likes = $ques->like;
-        event(new LikeQuestion($question_id, $likes));
+        event(new FormSubmitted());
         return response()->json($question_id);
     }
 
@@ -207,7 +195,7 @@ class GuestController extends Controller
         $ques->like -= 1;
         $ques->save();
         $likes = $ques->like;
-        event(new LikeQuestion($question_id, $likes));
+        event(new FormSubmitted());
     }
     public function showReplies($question_id){
         // $questionId = $request->question_id;

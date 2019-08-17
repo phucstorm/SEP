@@ -95,7 +95,14 @@ return [
     'moderation-mode' => 'Moderation',
     'not-allow-ask' => 'You are not allow to ask right now!',
     'moderation-on' => 'Moderation: On',
-    'moderation-off' => 'Moderation: Off'
+    'moderation-off' => 'Moderation: Off',
+    'login-microsoft' => 'LOG IN WITH MICROSOFT',
+    'forgot-password' => 'Forgot your password?',
+    'message-anonymous-ask' => 'You must enter your name before asking in this event!',
+    'message-enter-question' => 'You must enter your question!',
+    'message-anonymous-reply' => 'You must enter your name before replying in this event!',
+    'message-enter-reply' => 'You must enter your reply!',
+
 
     
 

@@ -181,8 +181,8 @@
                         <div class="input_placed">
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
-                                <div><button class="vanlang-btn">
-                                <span class="microsoft-logo"><i class="fa fa-windows" aria-hidden="true"></i></span> LOG IN WITH MICROSOFT 
+                                <div><button type="button" class="vanlang-btn" onclick="window.location.href='/signin'">
+                                <span class="microsoft-logo"><i class="fa fa-windows" aria-hidden="true"></i></span> {{ trans('message.login-microsoft') }} 
                                     </button></div>
                                 <input id="email" placeholder="Email" type="email"
                                     class="form-control @error('email') is-invalid @enderror" name="email"
@@ -203,7 +203,7 @@
                                 <div class="form-footer">
                                     @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
+                                    {{ trans('message.forgot-password') }}
                                     </a>
                                     <button type="submit" class="btn-form getstart-btn">
                                     {{ trans('message.login') }}

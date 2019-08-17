@@ -35,6 +35,8 @@ Route::post('/admin/event/delete', 'EventController@delete');
 Route::post('admin/event/edit', 'EventController@edit');
 Route::get('admin/event/{event_code}', 'EventController@show');
 Route::get('admin/getquestion/{event_id}', 'EventController@getQuestion');
+Route::get('admin/getpoll/{event_id}', 'EventController@getPoll');
+Route::get('admin/getpollanswer/{poll_id}', 'PollQuestionController@getPollAnswer');
 
 //Search Event Room : /room for guest , /admin/event for host
 Route::get('/admin/event' , 'EventController@search');
@@ -60,14 +62,17 @@ Route::get('/room/showreply/{question_id}', 'GuestController@showReplies');
 Route::get('/room/guest/like/{question_id}','GuestController@like_question');
 Route::get('/room/guest/unlike/{question_id}','GuestController@unlike_question');
 
+//get the running poll
+Route::get('/room/guest/getpoll/{event_id}','GuestController@getRunningPoll');
+
 Route::get('/admin/event/poll/{event_code}', 'PollQuestionController@index');
 
 //Poll 
 Route::post('/admin/event/poll/create' , 'PollQuestionController@create');
-Route::patch('/admin/event/poll/delete/{poll}', 'PollQuestionController@delete');
-Route::patch('/admin/event/poll/edit/{poll}', 'PollQuestionController@update');
+Route::get('/admin/event/poll/delete/{poll_id}', 'PollQuestionController@delete');
+Route::post('/admin/event/poll/edit/{poll_id}', 'PollQuestionController@update');
 Route::get('/room/poll/{event_code}', 'GuestController@poll_question');
-Route::patch('/admin/event/poll/status/{poll}', 'PollQuestionController@updateStatus');
+Route::get('/admin/event/poll/status/{poll_id}', 'PollQuestionController@updateStatus');
 
 //vote for poll
 Route::post('/room/poll/vote/', 'GuestController@vote');

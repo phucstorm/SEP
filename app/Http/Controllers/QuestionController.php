@@ -84,7 +84,7 @@ class QuestionController extends Controller
 
         $likes = $ques->like;
         // return response()->json($likes);
-        event(new LikeQuestion($question_id, $likes));
+        event(new FormSubmitted());
         // return redirect()->back();
     }
 
@@ -94,7 +94,7 @@ class QuestionController extends Controller
         $ques->save();
         $likes = $ques->like;
         // return response()->json($likes);
-        event(new LikeQuestion($question_id, $likes));
+        event(new FormSubmitted());
         // return redirect()->back();
     }
 

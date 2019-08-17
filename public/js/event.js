@@ -241,12 +241,13 @@ $(document).on('click', '#edit_pass', function() {
 });
 
 //Delete question
-$(document).on('click', '.item-action.delete-item', function() {
-    var question_id = $(this).attr('data-id');
-    $('#del_ques').click(function() {
-        window.location.href = "/room/question/denied/" + question_id;
-    });
-});
+// $(document).on('click', '.item-action.delete-item', function() {
+//     var question_id = $(this).attr('data-id');
+//     $('#delete_title').html($(this).attr('data-name'));
+//     $('#del_ques').click(function() {
+//         window.location.href = "/room/question/denied/" + question_id;
+//     });
+// });
 
 $('.reply-form').submit(function(e){
     e.preventDefault();
@@ -352,88 +353,6 @@ getReplies = function(){
         getReplies();
         likeQuestion();
     });
-// Create Poll
-$('#create-poll').click(function() {
-    if ($('input[name=poll_question_content]').val() != '') {
-        if ($('input[name=poll_answer]').val() != '') {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/event/poll/create',
-                data: {
-                    '_token': $('input[name=_token]').val(),
-                    'event_id': $('input[name=event_id]').val(),
-                    // 'poll_question_content': $('input[name=poll_question_content]').val(),
-                    // 'poll_answer': $('input[name=poll_answer]').serializeArray(),
-                    // 'mul_choice': $('input[name=multiple-answer]').is(':checked') == true ? 1 : 0,
-                },
-                success: function(data) {
-                    // alert('You have successfully create new poll');
-                    // window.location.reload();
-                    // console.log('success' + data);
-                },
-                error: function(data) {
-                    // alert(data);
-                    // alert('error' + data);
-                    // window.location.reload();
-                },
-            });
-        } else {
-            alert('Please, fill at least one option');
-        }
-    } else {
-        alert('Question text is required');
-    }
-});
-
-$('.delete-poll-btn').on('click', function() {
-    var poll_id = $(this).attr('data-id');
-    $('#delete-poll').click(function() {
-        $.ajax({
-            type: 'POST',
-            url: '/admin/event/poll/delete',
-            data: {
-                '_token': $('input[name=_token]').val(),
-                'id': poll_id,
-            },
-            success: function(data) {
-                alert('Thông báo delete thành công');
-                window.location.reload();
-                // console.log('success' + data);
-            },
-            error: function(data) {
-                // alert(data);
-                console.log('error' + data);
-                // window.location.reload();
-            },
-        });
-    });
-});
-
-$('button[id=edit-poll]').click(function() {
-    $.ajax({
-        type: 'POST',
-        url: '/admin/event/poll/edit',
-        data: {
-            '_token': $('input[name=_token]').val(),
-            'poll_id': $('#form-poll-edit > div:nth-child(1) > div > #poll_id').val(),
-            'event_id': $('#form-poll-edit > div:nth-child(1) > div > #event_id').val(),
-            'poll_question': $('#form-poll-edit > div:nth-child(1) > div > #poll-name').val(),
-            'poll_answer': $('#form-poll-edit > div:nth-child(2) > div.col-sm-8.poll-answers > div > input[name=poll-answer]').serializeArray(),
-            'option': $('#form-poll-edit > div:nth-child(4) > label > input[name=multiple-answer]').is(':checked') == true ? 1 : 0,
-        },
-        success: function(data) {
-            // window.location.reload();
-            console.log('success' + data);
-        },
-        error: function(data) {
-            // alert(data);
-            console.log('error' + data);
-            // window.location.reload();
-        },
-    });
-    console.log('this');
-});
-
 
 
 //listen channel live
@@ -460,14 +379,3 @@ votes.bind('vote-submitted', function (data){
 
     
 });
-
-var likes = pusher.subscribe('like-channel');
-likes.bind('like-question', function (data){
-    // $('.like-btn').html(''+data.likes+'<i class="fa fa-thumbs-up"></i>');
-    $('.like-btn'+data.questionId).html(''+data.likes+' <i class="fa fa-thumbs-up"></i>');
-})
-var unlikes = pusher.subscribe('unlike-channel');
-unlikes.bind('unlike-question', function (data){
-    // $('.like-btn').html(''+data.likes+'<i class="fa fa-thumbs-up"></i>');
-    $('#dislike-btn'+data.questionId).html(''+data.unlikes+' <i class="fa fa-thumbs-down"></i>');
-})

@@ -18,53 +18,21 @@
         </form>
     @else
         <h1 class="h1-content total-answer">
-            {{$poll->total_votes}} <i class="fa fa-user" aria-hidden="true"></i>
+
         </h1>
-        <form action="/room/poll/vote/{{$poll->id}}" enctype="multipart/form-data" method="post" class="poll-form">
+        <form action="/room/poll/vote/" enctype="multipart/form-data" method="post" class="poll-form">
         @csrf
         <input type="text" name="poll-id" value="{{$poll->id}}" hidden>
             <div class="poll-form-header">
-                {{$poll->poll_question_content}}
+
             </div>
             <div class="poll-form-body">
-            <span class="text-danger vote-error">{{ trans('message.vote-error') }}</span>
+            <span class="text-danger vote-error"></span>
 
-                @if($poll->mul_choice == 0)
-                    <!-- non-multiple choice thì hiển thị dạng radio button -->
-                    <fieldset class='poll-answers'>
-                        <legend hidden>id</legend>
-                        @foreach($poll->answers as $answer)
-                            <input id='talk-type-{{$answer->id}}'
-                                    name='poll_answer'
-                                    type='radio'
-                                    value='{{$answer->id}}' 
-                                    class="check-answer"
-                                    hidden/>
-                            <label for='talk-type-{{$answer->id}}' class='radio-label poll-label'>
-                                <span class="styled-radio-btn"></span>
-                                {{$answer->poll_answer_content}}
-                            </label>
-                        @endforeach
-                    </fieldset>
-                @else
-                    <!-- multiple choice thì hiển thị dạng checkbox -->
-                    <div class='poll-answers'>
-                        @foreach($poll->answers as $answer)
-                            <label class='checkbox-label poll-label' for='available-{{$answer->id}}'>
-                            <input id='available-{{$answer->id}}'
-                                    name='poll_answer[]'
-                                    type='checkbox'
-                                    value='{{$answer->id}}'
-                                    class="check-answer"
-                                        hidden/>
-                                        <span class="styled-checkbox"></span>
-                                    {{$answer->poll_answer_content}}
-                            </label>
-                        @endforeach 
-                    </div>
-                @endif  
-                <button id="submit-btn-poll" class="submit-poll-btn poll-btn" value="{{$poll->id}}">{{ trans('message.send-btn') }}</button>          
             </div> 
+            <div class="form-footer">
+                <button id="submit-btn-poll" class="submit-poll-btn poll-btn" value="{{$poll->id}}">{{ trans('message.send-btn') }}</button>          
+            </div>
         </form>
         <div class="poll-result">
         @php
@@ -107,8 +75,62 @@
     
     @endif
     </div>
-
-
-
 </div>
+<script>
+getRunningPoll = function(){
+    $.ajax({
+        url: '/room/guest/getpoll/'+$('#this-event-id').val(),
+        success: function(data){
+            $('.total-answer').html(data[2]+' <i class="fa fa-user" aria-hidden="true"></i>')
+            $('.poll-form-header').html(data[3])
+            $('.poll-form').append(
+                '<input type="text" name="poll-id" value="'+data[4]+'" hidden>'
+            )
+            if(data[1]==0){
+                $('.poll-form-body').append(
+                    '<fieldset class="poll-answers">'+
+                    '</fieldset>'
+                )
+                for(var i=0 ; i<data[0].length; i++){
+                    $('.poll-answers').append(
+                        '<input id="talk-type-'+data[0][i].id+'" '+
+                                'name="poll_answer" '+
+                                'type="radio" '+
+                                'value="'+data[0][i].id+'" '+
+                                'class="check-answer" '+
+                                'hidden/>'+
+                        '<label for="talk-type-'+data[0][i].id+'" class="radio-label poll-label">'+
+                            '<span class="styled-radio-btn"></span>'+
+                            data[0][i].content+
+                        '</label>'
+                    )
+                }
+            }else{
+                $('.poll-form-body').append(
+                    '<div class="poll-answers">'+
+                    '</div>'
+                )
+                for(var i=0 ; i<data[0].length; i++){
+                    $('.poll-answers').append(
+                        '<label class="checkbox-label poll-label" for="available-'+data[0][i].id+'">'+
+                        '<input id="available-'+data[0][i].id+'" '+
+                                    'name="poll_answer[]" '+
+                                    'type="checkbox" '+
+                                    'value="'+data[0][i].id+'" '+
+                                    'class="check-answer" '+
+                                        'hidden/>'+
+                                    '<span class="styled-checkbox"></span>'+
+                                    data[0][i].content+
+                        '</label>'
+                    )
+                }
+            }
+        },
+        error: function(data){
+            alert('fail'+data)
+
+        }
+    })
+}
+</script>
 @endsection

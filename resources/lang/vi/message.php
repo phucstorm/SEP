@@ -6,7 +6,7 @@ return [
     'signup' => 'ĐĂNG KÝ',
     'slogan' => 'Một Nền Tảng Nổi Bật hỗ trợ việc Đặt Câu Hỏi và Khảo Sát dành cho Mọi Cuộc Họp và Sự Kiện',
     'join-textbox' => 'Mã sự kiện',
-    'join-btn' => 'THAM GIA',
+    'join-btn' => 'VÀO',
     'title-question' => 'Đăt câu hỏi ẩn danh và dễ dàng kiểm soát câu hỏi',
     'content-question' => 'Bạn có thể đặt câu hỏi dưới dạng ẩn danh và gửi nhanh chóng. Tất cả các câu hỏi sẽ luôn được duyệt trước khi công khai, dễ dàng kiểm soát các câu hỏi là spam.',
     'getStart-btn' => 'THỬ NGAY',
@@ -93,7 +93,13 @@ return [
     'moderation-mode' => 'Chế độ kiểm duyệt',
     'not-allow-ask' => 'Bạn không được phép đặt câu hỏi ngay lúc này!',
     'moderation-on' => 'Kiểm duyệt câu hỏi: Đang bật',
-    'moderation-off' => 'Kiểm duyệt câu hỏi: Đã tắt'
+    'moderation-off' => 'Kiểm duyệt câu hỏi: Đã tắt',
+    'login-microsoft' => 'ĐĂNG NHẬP TÀI KHOẢN MICROSOFT',
+    'forgot-password' => 'Quên Mật Khẩu?',
+    'message-anonymous-ask' => 'Sự kiện này không cho phép gửi câu hỏi ẩn danh!',
+    'message-enter-question' => 'Câu hỏi của bạn không được để trống!',
+    'message-anonymous-reply' => 'Sự kiện này không cho phép gửi câu trả lời ẩn danh!',
+    'message-enter-reply' => 'Câu trả lời của bạn không được để trống!',
 
     
 

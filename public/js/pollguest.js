@@ -109,6 +109,7 @@ answerIsVoted = function(){
 $(document).ready(function() {
   isVoted();
   answerIsVoted();
+  getRunningPoll();
 });
 
 //go live event

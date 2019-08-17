@@ -117,6 +117,38 @@ class EventController extends Controller
         return response()->json($data);
     }
 
+    public function getPoll($event_id){
+        $event = Event::find($event_id);
+        $data = array();
+        $running=array();
+        $i = 0;
+        $j=0;
+        foreach($event->polls as $poll){
+            $data[$i] = [
+                'content' => $poll->poll_question_content,
+                'votes' => $poll->total_votes,
+                'multiple' => $poll->mul_choice,
+                'status' => $poll->status,
+                'id' => $poll->id
+            ];
+            if($poll->status==1){
+                foreach($poll->answers as $answer){
+                    $running[$j] = [
+                        'content' => $answer->poll_answer_content,
+                        'votes' => $answer->votes,
+                        'id' => $answer->id,
+                        'status' => $poll->status
+                    ];
+                    $j += 1;
+                }
+            }
+            $i += 1;
+        }       
+        return response()->json(array($data,$running));
+    }
+
+
+
     public function search(Request $request){ 
         $event = Event::where('event_name','like', '%'.$request->get('search').'%')->where('user_id', '=', Auth::user()->id)->orderBy('created_at','DESC')->get();
         return view('event.index', compact('event', $event));

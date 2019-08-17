@@ -30,6 +30,28 @@ acceptQuestion = function(){
         })
     })
 }
+
+//delete question
+deleteQuestion = function(){
+    $('.item-action.delete-item').on('click', function(){
+        $('#delete_title').html($(this).attr('data-name'));
+        var id = $(this).attr('data-id');
+        $('#del_ques').on('click', function(){
+            $.ajax({
+                url: "/room/question/denied/"+ id,
+                success: function(data){
+                    
+                },
+                error: function(data){
+    
+                }
+                
+            })
+        })
+
+    })
+}
+
 denyQuestion = function(){
     $('.deny-btn').on('click', function(){
         $.ajax({
