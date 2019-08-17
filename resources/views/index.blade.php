@@ -184,6 +184,7 @@
                                 <div><button type="button" class="vanlang-btn" onclick="window.location.href='/signin'">
                                 <span class="microsoft-logo"><i class="fa fa-windows" aria-hidden="true"></i></span> {{ trans('message.login-microsoft') }} 
                                     </button></div>
+                                <div style="color: #999">Or by VLask account</div>
                                 <input id="email" placeholder="Email" type="email"
                                     class="form-control @error('email') is-invalid @enderror" name="email"
                                     value="{{ old('email') }}" required autocomplete="email">

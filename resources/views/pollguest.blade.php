@@ -8,7 +8,7 @@
 
     <div class="poll-container">
         <h1 class="h1-content total-answer">
-
+            
         </h1>
         <form action="/room/poll/vote/" enctype="multipart/form-data" method="post" class="poll-form">
         @csrf
@@ -146,6 +146,7 @@ getResultRunningPoll = function(){
                 )
             }else{
                 $('.poll-form-header').html('{{ trans('message.no-poll-available') }}')
+                $('.total-answer').html('0 <i class="fa fa-user" aria-hidden="true"></i>')
             }
             reVote();
         },error: function(data){

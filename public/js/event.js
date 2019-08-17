@@ -115,10 +115,10 @@ $(document).on('click', '.edit-event-btn', function() {
                         'event_start': $('input[name=sd]').val(),
                         'event_end': $('input[name=ed]').val(),
                         'join': $('input[name=ji]').is(':checked') == true ? 1 : 0,
-                        'question': $('input[name=qt]').is(':checked') == true && $('input[name=ji]').is(':checked') == true ? 1 : 0,
-                        'reply': $('input[name=rl]').is(':checked') == true && $('input[name=ji]').is(':checked') == true ? 1 : 0,
-                        'moderation': $('input[name=md]').is(':checked') == true && $('input[name=md]').is(':checked') == true ? 1 : 0,
-                        'anonymous': $('input[name=an]').is(':checked') == true && $('input[name=an]').is(':checked') == true ? 1 : 0,
+                        'question': $('input[name=qt]').is(':checked') == true ? 1 : 0,
+                        'reply': $('input[name=rl]').is(':checked') == true ? 1 : 0,
+                        'moderation': $('input[name=md]').is(':checked') == true ? 1 : 0,
+                        'anonymous': $('input[name=an]').is(':checked') == true ? 1 : 0,
                     },
                     success: function(data) {
                         if (data == "Mã event đã tồn tại") {

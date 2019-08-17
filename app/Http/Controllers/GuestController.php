@@ -24,11 +24,7 @@ class GuestController extends Controller
         $event = Event::where('event_code', '=', $request->get('room') )->firstOrFail();
         $question = Question::where('event_id','=',$event->id)->get();
         $count = $question->where('status', 1)->count();
-        if($event->setting_join == 1){
-            return view('room', compact('event' ,$event,'question',$question, 'count',$count));
-        }else{
-            return "You don't have a permission to join this room";
-        }     
+        return view('room', compact('event' ,$event,'question',$question, 'count',$count));     
     }
     public function getQuestion($event_id){
         $event = Event::find($event_id);

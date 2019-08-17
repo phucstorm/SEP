@@ -88,8 +88,61 @@ getPollAnswers = function(){
             }
         })
     })
-
 }
+
+getPollView = function(){
+    $('.view-poll-btn').on('click', function(){
+        // $('.poll-answer-list').html('<label for="poll_answer">Poll Answers</label>')
+        $('.view-poll-title').html($(this).attr('data-name'))
+        $.ajax({
+            url: '/admin/getpollanswer/'+$(this).val(),
+            success: function(data){
+                var sum = 0;
+                $('.view-poll-body').html('')
+                for(var i=0; i < data.length; i++){
+                    sum+= data[i].votes;
+                }
+                if(sum>0){
+                    for (var i=0; i<data.length; i++){
+                        $('.view-poll-body').append(
+                            '<div class="poll-result-item p-1">'+
+                                '<div class="poll-result-answer">'+
+                                    ''+data[i].content+' <span class="votes">('+data[i].votes+')</span>'+
+                                '</div>'+
+                                '<div class="result-bar">'+
+                                    '<span class="poll-result-bar" data-width="'+(data[i].votes/sum)*90+'%"></span>'+
+                                    '<span class="percent">'+(Math.round((data[i].votes/sum)*100))+'%</span>'+
+                                '</div>'+
+                            '</div>'
+                        )
+                    }
+                }else{
+                    for (var i=0; i<data.length; i++){
+                        $('.view-poll-body').append(
+                            '<div class="poll-result-item p-1">'+
+                                '<div class="poll-result-answer">'+
+                                    ''+data[i].content+' <span class="votes">(0)</span>'+
+                                '</div>'+
+                                '<div class="result-bar">'+
+                                    '<span class="poll-result-bar" data-width="0%"></span>'+
+                                    '<span class="percent">0%</span>'+
+                                '</div>'+
+                            '</div>'
+                        )
+                    }
+                }
+
+                $('.delete-poll-answer-btn').click(function(){
+                    $(this).parent().remove();
+                }); 
+            },
+            error: function(data){
+                alert(data[0].content)
+            }
+        })
+    })
+}
+
 $('.update-poll').on('click', function(){
     pollid=$('#upoll-id').val();
     $.ajax({
@@ -104,6 +157,7 @@ $('.update-poll').on('click', function(){
             }else{
                 alert('You have updated poll successfully')
                 $('#editPoll').modal('hide')
+                getPolls();
             }
         },
         error: function(data){
@@ -125,8 +179,10 @@ $('#create-poll').click(function() {
             }else{
                 alert('You have created poll successfully')
                 $('#createPollModal').modal('hide')
+                $('.create-poll-form input').val('')
                 getPolls()
             }
+
         },
         error: function(data) {
             alert('error' + data);

@@ -97,12 +97,8 @@ class PollQuestionController extends Controller
                 }
             }
         }
+        event(new PlayPoll($poll->event->id));
         return response()->json(array_keys($answers));
-
-
-
-
-
     }
 
     public function getPollAnswer($poll_id){

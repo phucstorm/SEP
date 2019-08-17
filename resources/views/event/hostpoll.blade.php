@@ -6,36 +6,30 @@
 
 
 @section('content')
-<div class="container">
-    <div class="create-poll mt-3 mb-3">
+    <div class="create-poll mt-3 ml-3 mb-3">
         <button class="btn btn-success create-poll-btn" data-toggle="modal" data-target="#createPollModal">{{ trans('message.create-poll') }}</button>
     </div>
-    <div class="row">
-        <div class="poll-section col-md-6 col-sm-12">
+    <div class="row poll-view">
+        <div class="poll-section col-lg-6 col-sm-12 col-12">
             <span>{{ trans('message.poll-list') }}</span>
             <div class="poll-container poll-list">
 
             </div>
         </div>
-        <div class="poll-section col-md-6 col-sm-12">
+        <div class="poll-section col-lg-6 col-sm-12 col-12">
             <span>{{ trans('message.live') }}</span>
             <div class="poll-container poll-live position-relative p-3">
-                
-                @if($event->polls()->where('status',1)->first()!=[])
-                    @php $runningPoll = $event->polls()->where('status',1)->first(); @endphp
                     <span class="position-absolute voted-person">
                     <!-- total votes -->
                     </span>
 
-                    <div class="poll-title p-2">
+                    <div class="poll-title p-2 pr-4">
                     <!-- running poll content -->
                     </div>
                     <div class="poll-result">
 
                     </div>
-                @else
-                    {{ trans('message.no-poll-running') }}
-                @endif
+
             </div>
         </div>
     </div>
@@ -66,7 +60,7 @@
                                         name="poll_question_content" 
                                         value="{{ old('poll_question_content') }}" 
                                         autocomplete="poll_question_content" 
-                                        autofocus required maxlength="200">
+                                        required maxlength="200">
                                     @error('poll_question_content')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -81,7 +75,7 @@
                                         name="poll_answer[]" 
                                         value="{{ old('poll_answer') }}" 
                                         autocomplete="poll_answer" 
-                                        autofocus required maxlength="160">
+                                        required maxlength="160">
                                     @error('poll_answer')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -93,7 +87,7 @@
                                         name="poll_answer[]" 
                                         value="{{ old('poll_answer') }}" 
                                         autocomplete="poll_answer" 
-                                        autofocus required maxlength="160">
+                                        required maxlength="160">
                                     @error('poll_answer')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -125,6 +119,29 @@
         </div>
     </div>    
 </div>
+    <!-- View Poll Modal -->
+         
+    <div class="modal fade" id="viewPollModal" role="dialog">
+        <div class="modal-dialog">
+        
+        <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="view-poll-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                
+                </div>
+                <div class="view-poll-body pl-4 pr-4">
+                        
+                               
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="background: #eeeeee" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                  
+            </div>
+        </div>    
+    </div>
 
 <!-- Edit Poll Modal -->
     
@@ -221,7 +238,7 @@
             </form>
         </div>
     </div>
-</div>
+
 
 <script>
 //get poll
@@ -232,7 +249,7 @@ getPolls = function(){
             $('.poll-list').html('')
             for (var i=0; i<data[0].length; i++){
                 $('.poll-list').append(
-                    '<div class="poll-item p-3 d-flex justify-content-between">'+
+                    '<div class="poll-item">'+
                         '<div class="poll-detail">'+
                             '<div style="opacity: 0.5">'+
                                 (data[0][i].multiple == 0 ? '{{trans('message.singlechoice')}}' : '{{trans('message.multiplechoice')}}')+
@@ -251,11 +268,10 @@ getPolls = function(){
                             '<button type="button" class="btn edit-poll-btn edit-poll-button" value="'+data[0][i].id+'" data-name="'+data[0][i].content+'" data-mulcheck="'+data[0][i].multiple+'" data-toggle="modal" data-target="#editPoll">'+
                                 '<i class="fa fa-edit"></i>'+
                             '</button>'+
-                            
+                            '<button class="view-poll-btn" style="font-size:0.8em" value="'+data[0][i].id+'" data-name="'+data[0][i].content+'" data-toggle="modal" data-target="#viewPollModal"><i class="fa fa-bar-chart" aria-hidden="true"></i></button>'+
                             '<button class="delete-poll-btn" data-id="'+data[0][i].id+'" data-content="'+data[0][i].content+'" data-toggle="modal" data-target="#deletePollModal">'+
                                 '<i class="fa fa-trash"></i>'+
                             '</button>'+
-                            
                         '</div>'+
                     '</div>'  
                 )
@@ -310,9 +326,10 @@ getPolls = function(){
             }
 
             getPollAnswers();
+            getPollView();
             deletePoll();
             updateStatus();
-            pollResult();
+            // pollResult();
         },error: function(data){
             alert('fail '+data[1].content)
         }

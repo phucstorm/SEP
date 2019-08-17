@@ -7,6 +7,8 @@
 @php
     $reply = trans('message.reply')
 @endphp
+@if($event->setting_join==1)
+
     <div class="container">
         <div class="input-group">
 
@@ -32,6 +34,10 @@
             @endif
 
         </div>
+        @if($event->setting_moderation==1)
+        <div class="text-center" style="color:#999">
+            All questions in this event will be moderated before being displayed</div>
+    @endif
         <div class="content-header">
             <div>
                 <ul class="content-nav-tabs">
@@ -53,7 +59,9 @@
 
         </div>
     </div>
-
+@else
+    <div class="text-center">You are not allow to join in this event right now!</div>
+@endif
     <!-- Modal For Reply Quest -->
     <div class="modal fade" id="replyQuestion" tabindex="-1" role="dialog" aria-labelledby="reply"
     aria-hidden="true">
@@ -83,6 +91,8 @@
                         aria-hidden="true"></i></button>
 
                 </div>
+                @else
+                <div class="text-center">You are not allow to answer in this event</div>
                 @endif
             </form>
         </div>
@@ -186,6 +196,13 @@ channel.bind('form-submitted', function (data) {
     }
     if ($(".recent-btn").hasClass("is-selected")) {
         getPopularQuestion();
+    }
+});
+
+var editEvent = pusher.subscribe('edit-event-channel');
+editEvent.bind('form-event', function (data) {
+    if($('#this-event-id').val()==data.id){
+        window.location.reload();
     }
 });
 // }

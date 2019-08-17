@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use Response, Validator;
 use App\http\Requests;
 use App\Event;
+use App\Events\EditEvent;
 use App\Question;
 use App\Reply;
 use Auth;
@@ -79,7 +80,7 @@ class EventController extends Controller
             $event->setting_moderation = $request->moderation;
             $event->setting_anonymous = $request->anonymous;
             $event->save();
-            event(new EditEvent());
+            event(new EditEvent($event->id));
         }
     }
 

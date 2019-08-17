@@ -451,9 +451,7 @@ div.content::-webkit-scrollbar-thumb {
     outline: 1px solid slategrey;
 }
 .poll-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 16px 12px 24px;
+    padding: 10px;
     border-bottom: 1px solid rgba(0, 0, 0, .1);
     background-color: #fff;
     -webkit-transition: background-color .1s;
@@ -513,7 +511,7 @@ div.content::-webkit-scrollbar-thumb {
 
 .poll-action {
     display: flex;
-    align-items: center;
+    justify-content: flex-end;
 }
 
 .poll-action button {
@@ -729,6 +727,10 @@ div.content::-webkit-scrollbar-thumb {
     .reply-modal .modal-body {
         max-height: 450px;
     }
+    .poll-item{
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
 @media only screen and (min-width:1024px) {
@@ -763,6 +765,16 @@ div.content::-webkit-scrollbar-thumb {
     .question-item-reviewing,
     .question-item-accepted {
         width: 540px;
+    }
+    .poll-view {
+        padding-left:100px!important;
+        padding-right:100px!important;
+    }
+    .create-poll{
+        padding-left:100px;
+    }
+    .poll-item{
+        padding-left: 16px;
     }
 }
 
