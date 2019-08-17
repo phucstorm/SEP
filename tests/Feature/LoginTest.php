@@ -29,18 +29,18 @@ class LoginTest extends TestCase
             'email' => $user->email,
             'password' => 'feature',
             ])
-        ->assertStatus(302)->assertRedirect('/admin/home');
+        ->assertStatus(302)->assertRedirect('/admin/event');
         $this->assertAuthenticatedAs($user);
     }
 
     public function testWrongData()
     {
         $user = factory(User::class)->make(['password' => bcrypt('testpass')]);
-        $response = $this->from('/login')->post('/login', [
+        $response = $this->from('/')->post('/login', [
             'email' => $user->email,
             'password' => 'invalid-password',
         ]);
-        $response->assertRedirect('/login');
+        $response->assertRedirect('/');
         $response->assertSessionHasErrors('email');
         $this->assertTrue(session()->hasOldInput('email'));
         $this->assertFalse(session()->hasOldInput('password'));

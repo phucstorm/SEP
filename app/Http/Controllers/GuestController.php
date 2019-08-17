@@ -218,27 +218,24 @@ class GuestController extends Controller
     }
 
     public function reply_question(){
-        $question_id = $_POST['question-id'];
-        $reply = $_POST['reply'];
-        $question = Question::find($question_id);
-        $username = $_POST['username'];
+        $question = Question::find(request()->get('question-id'));
+        $username = request()->get('username');
         $event = $question->event;
         if($event->setting_anonymous==0 && $username==""){
             return "error anonymous";
-        }else if($reply==""){
+        }else if(request()->get('reply')==""){
             return "empty";
         }else{
             if($username==""){
                 $username = "Anonymous";
             }
             $question->replies()->create([
-                'question_id' => $question_id,
-                'rep_content' => $reply,
+                'question_id' => $question->id,
+                'rep_content' => request()->get('reply'),
                 'user_name' => $username
             ]);
         }
         return response()->json($event->id);
-        return redirect()->back();
     }
     
 }

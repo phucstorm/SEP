@@ -15,9 +15,9 @@ class RegisterTest extends TestCase
      */
     public function testRegisterURL()
     {
-        $response = $this->get('/register');
+        $response = $this->get('/');
         $response->assertStatus(200);
-        $response->assertViewIs('auth.register')->assertSee('register');
+        $response->assertViewIs('index')->assertSee('index');
     }
 
     public function testUserCanRegister()
@@ -30,7 +30,7 @@ class RegisterTest extends TestCase
             'password' => 'testpass',
             'password_confirmation' => 'testpass'
         ]);
-        $response->assertStatus(302)->assertRedirect('/admin/home');
+        $response->assertStatus(302)->assertRedirect('/admin/event');
         $this->assertAuthenticated();
     }
     

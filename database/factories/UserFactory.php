@@ -4,6 +4,8 @@
 use App\User;
 use App\Event;
 use App\Question;
+use App\Poll_Question;
+use App\Poll_Answer;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
@@ -27,6 +29,7 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
+
 $factory->define(Event::class, function (Faker $faker) {
     return [
         "event_name" => $faker->name,
@@ -50,7 +53,24 @@ $factory->define(Question::class, function (Faker $faker) {
         "content" => Str::random(10),
         "user_name" => '',
         "status" => 0,
-        "like" => 0,
-        "unlike" => 0,
+        "like" => 0
+    ];
+});
+
+$factory->define(Poll_Question::class, function (Faker $faker){
+    return [
+        'poll_question_content' => Str::random(10),
+        'event_id' => 1,
+        'total_votes' => 0,
+        'mul_choice' => 0,
+        'status' => 0,
+    ];
+});
+
+$factory->define(Poll_Answer::class, function (Faker $faker){
+    return [
+        'poll__question_id' => factory(Poll_Question::class)->create()->id,
+        'poll_answer_content' => [Str::random(40),Str::random(40)],
+        'votes' => 0
     ];
 });

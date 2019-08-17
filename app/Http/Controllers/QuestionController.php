@@ -60,19 +60,14 @@ class QuestionController extends Controller
 
     public function reply_question(){
 
-        $question_id = request()->get('question-id');
         $reply = request()->get('reply');
-        $question = Question::find($question_id);
-        $username = Auth::user()->name;
-        $userid = Auth::user()->id;
+        $question = Question::find(request()->get('question-id'));
         $question->replies()->create([
-            'question_id' => $question_id,
+            'question_id' => $question->id,
             'rep_content' => $reply,
-            'user_name' => $username,
-            'user_id' => $userid
+            'user_name' => Auth::user()->name,
+            'user_id' =>  Auth::user()->id
         ]);
-
-        
         return redirect()->back();
     }
 
