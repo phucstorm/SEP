@@ -312,6 +312,7 @@ getPolls = function(){
             getPollAnswers();
             deletePoll();
             updateStatus();
+            pollResult();
         },error: function(data){
             alert('fail '+data[1].content)
         }

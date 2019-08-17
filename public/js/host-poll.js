@@ -49,9 +49,9 @@ setInterval(function(){
 $(".poll-result-bar").each(function(){
     $(this).animate({
       width: $(this).attr("data-width")
-    },2500)
+    },2000)
   });
-}, 2500);
+}, 2000);
 
 //get poll answer
 getPollAnswers = function(){

@@ -373,6 +373,7 @@ votes.bind('vote-submitted', function (data){
             $(".votes").eq(i).html('('+data.answerArray[i]+')');
             $(".percent").eq(i).html(''+Math.round((data.answerArray[i]/data.sumVotes)*100)+'%');
         }
+        // getPolls();
     }
 
     $('.voted-person').html(''+data.votes+' <i class="fa fa-user" aria-hidden="true"></i>');

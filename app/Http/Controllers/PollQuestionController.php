@@ -133,10 +133,11 @@ class PollQuestionController extends Controller
         }else{
             $poll->update(['status'=>0]);
         }
+        event(new PlayPoll($poll->event->id));
+
         return response()->json($poll_id);
 
         //live
-        // event(new PlayPoll($event->id));
 
         // $pollGo = Poll_Question::where('status', 1)->first();
         // if($pollGo!=[])

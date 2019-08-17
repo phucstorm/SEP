@@ -88,6 +88,9 @@ class GuestController extends Controller
     public function getRunningPoll($event_id){
         $event = Event::find($event_id);
         $poll = $event->polls->where('status', 1)->first();
+        if($poll==[]){
+            return "nopollrunning";
+        }
         $data = array();
         $multi = $poll->mul_choice;
         $votes = $poll->total_votes;
@@ -109,11 +112,14 @@ class GuestController extends Controller
     public function vote()
     {
         $poll_id = $_POST['poll-id'];
+        if(!isset($_POST['poll_answer'])){
+            return "emptyvote";
+        }
         $poll_answer = $_POST['poll_answer'];
         $poll = Poll_Question::find($poll_id);
-
         $votes = 0;
-        if($poll_answer!=[]){
+
+        if($poll_answer!=null){
             $votes=($poll->total_votes)+1;
             $poll->update(['total_votes'=>$votes]);
 
@@ -129,9 +135,6 @@ class GuestController extends Controller
                 $voteAnswer = ($answer->votes)+1;
                 $answer->update(['votes'=>$voteAnswer]);
             }
-
-
-
             $answerArray = array();
             $answerContent = array();
             $sumVotes = 0;
@@ -141,6 +144,8 @@ class GuestController extends Controller
                 $sumVotes+=$answer->votes;
             }
             event(new VoteSubmitted($answerArray,$sumVotes,$votes,$answerContent));
+        }else{
+            return "emptyvote";
         }
     }
 
