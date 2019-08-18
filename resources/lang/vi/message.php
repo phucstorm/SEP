@@ -7,7 +7,7 @@ return [
     'slogan' => 'Một Nền Tảng Nổi Bật hỗ trợ việc Đặt Câu Hỏi và Khảo Sát dành cho Mọi Cuộc Họp và Sự Kiện',
     'join-textbox' => 'Mã sự kiện',
     'join-btn' => 'VÀO',
-    'title-question' => 'Đăt câu hỏi ẩn danh và dễ dàng kiểm soát câu hỏi',
+    'title-question' => 'Đặt câu hỏi ẩn danh và dễ dàng kiểm soát câu hỏi',
     'content-question' => 'Bạn có thể đặt câu hỏi dưới dạng ẩn danh và gửi nhanh chóng. Tất cả các câu hỏi sẽ luôn được duyệt trước khi công khai, dễ dàng kiểm soát các câu hỏi là spam.',
     'getStart-btn' => 'THỬ NGAY',
     'title-vote' => 'Mở cuộc bình chọn trực tiếp',

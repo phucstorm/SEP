@@ -118,7 +118,7 @@
             </div>   
         </div>
     </div>    
-</div>
+
     <!-- View Poll Modal -->
          
     <div class="modal fade" id="viewPollModal" role="dialog">
@@ -143,102 +143,102 @@
         </div>    
     </div>
 
-<!-- Edit Poll Modal -->
-    
-<div class="modal fade" id="editPoll" role="dialog">
-    <div class="modal-dialog">
-    
-    <!-- Modal content-->
-    <div class="modal-content">
-        <form action="" class="edit-poll-form" enctype="multipart/form-data" method="post">
-        @csrf
-        <input type="text" id="upoll-id" hidden>
-        <div class="modal-header">
-        <h4 class="modal-title">{{ trans('message.edit-poll') }}</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <!-- Edit Poll Modal -->
         
-        </div>
-        <div class="modal-body">
-
-                <div class="row">
-                    <div class="col-10 offset-1">     
-                        <input type="text" name="event_id" value="{{ $event->id }}" hidden>                  
-                        <div class="form-group row">
-                            <label for="poll_question_content">{{ trans('message.poll-content') }}</label>
-                            <input id="poll-content-input" 
-                                type="text" 
-                                class="form-control" 
-                                name="poll_question_content" 
-                                value="" 
-                                autocomplete="poll_question_content" 
-                                required>
-                            @error('poll_question_content')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group row poll-answer poll-answer-list">
-                            <label for="poll_answer">{{ trans('message.poll-answer') }}</label>
-                            <div class="w-100 position-relative single-answer">
-                    
-                            </div>
-                        </div>
-                        <div class="form-group-row">
-                            <label class="col-sm-3 col-form-label"></label>
-                            <button type="button" class="btn plus-new-answer w-100 add-answer">
-                                <i class="fa fa-plus" aria-hidden="true"></i> {{ trans('message.answer-btn') }}
-                            </button>
-                        </div>
-                        <div class="form-group row">
-                            <label class='multiple-answer-label' for='multiple-answer'>
-                                <input id='multiple-answer-edit' name='multi_choice' type='checkbox' value='1'
-                                
-                                />
-                                {{ trans('message.multiple-answer-check') }}
-                            </label>
-                        </div>
-                        <div class="text-danger error-update-poll"></div>
-
-                    </div>
-                </div>
-                
+    <div class="modal fade" id="editPoll" role="dialog">
+        <div class="modal-dialog">
+        
+        <!-- Modal content-->
+        <div class="modal-content">
+            <form action="" class="edit-poll-form" enctype="multipart/form-data" method="post">
+            @csrf
+            <input type="text" id="upoll-id" hidden>
+            <div class="modal-header">
+            <h4 class="modal-title">{{ trans('message.edit-poll') }}</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
             
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('message.cancel-btn') }}</button>
-                <button type="button" class="btn btn-success update-poll" >{{ trans('message.save-btn') }}</button>
+            <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-10 offset-1">     
+                            <input type="text" name="event_id" value="{{ $event->id }}" hidden>                  
+                            <div class="form-group row">
+                                <label for="poll_question_content">{{ trans('message.poll-content') }}</label>
+                                <input id="poll-content-input" 
+                                    type="text" 
+                                    class="form-control" 
+                                    name="poll_question_content" 
+                                    value="" 
+                                    autocomplete="poll_question_content" 
+                                    required>
+                                @error('poll_question_content')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group row poll-answer poll-answer-list">
+                                <label for="poll_answer">{{ trans('message.poll-answer') }}</label>
+                                <div class="w-100 position-relative single-answer">
+                        
+                                </div>
+                            </div>
+                            <div class="form-group-row">
+                                <label class="col-sm-3 col-form-label"></label>
+                                <button type="button" class="btn plus-new-answer w-100 add-answer">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> {{ trans('message.answer-btn') }}
+                                </button>
+                            </div>
+                            <div class="form-group row">
+                                <label class='multiple-answer-label' for='multiple-answer'>
+                                    <input id='multiple-answer-edit' name='multi_choice' type='checkbox' value='1'
+                                    
+                                    />
+                                    {{ trans('message.multiple-answer-check') }}
+                                </label>
+                            </div>
+                            <div class="text-danger error-update-poll"></div>
+
+                        </div>
+                    </div>
+                    
+                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('message.cancel-btn') }}</button>
+                    <button type="button" class="btn btn-success update-poll" >{{ trans('message.save-btn') }}</button>
+                </div>
+                </form>
             </div>
-            </form>
+        
         </div>
-    
-    </div>
-</div>  
+    </div>  
 
     <!-- Modal For Delete Poll -->
     <div class="modal fade" id="deletePollModal" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form action=""  enctype="multipart/form-data" method="post">
-            @csrf
-            <input type="text" id="dpoll-id" hidden>
-            <div class="modal-header">
-                <h4 class="modal-title" id="delete-title"></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action=""  enctype="multipart/form-data" method="post">
+                @csrf
+                <input type="text" id="dpoll-id" hidden>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="delete-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ trans('message.message-del-poll') }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">{{ trans('message.cancel-btn') }}</button>
+                    <button type="button" class="btn btn-danger" id="deletePoll">{{ trans('message.delete-btn') }}</button>
+                </div>
+                </form>
             </div>
-            <div class="modal-body">
-                {{ trans('message.message-del-poll') }}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">{{ trans('message.cancel-btn') }}</button>
-                <button type="button" class="btn btn-danger" id="deletePoll">{{ trans('message.delete-btn') }}</button>
-            </div>
-            </form>
         </div>
     </div>
-
 
 <script>
 //get poll

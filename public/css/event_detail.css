@@ -1,5 +1,9 @@
 /* event layout */
-
+body{
+    padding-right:0!important;
+    padding-left:0!important;
+    margin:0!important;
+}
 header {
     background-color: #20b875;
     color: #fff;
@@ -767,11 +771,11 @@ div.content::-webkit-scrollbar-thumb {
         width: 540px;
     }
     .poll-view {
-        padding-left:100px!important;
-        padding-right:100px!important;
+        padding-left:220px!important;
+        padding-right:220px!important;
     }
     .create-poll{
-        padding-left:100px;
+        padding-left:220px;
     }
     .poll-item{
         padding-left: 16px;
