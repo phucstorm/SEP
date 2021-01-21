@@ -28,6 +28,6 @@
         "ioredis": "^4.10.0",
         "laravel-echo": "^1.5.4",
         "pusher-js": "^4.4.0",
-        "socket.io": "^2.2.0"
+        "socket.io": "^2.4.0"
     }
 }
