@@ -24,7 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "express": "^4.17.1",
+        "express": "^4.18.2",
         "ioredis": "^4.10.0",
         "laravel-echo": "^1.5.4",
         "pusher-js": "^4.4.0",
